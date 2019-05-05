@@ -2,7 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: [
+    './src/index.js',
+    './src/index.css'
+  ],
   output: {
     filename: 'app.bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -24,5 +27,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new HtmlWebpackPlugin({
+    title: 'YouTube client'
+  })],
 };

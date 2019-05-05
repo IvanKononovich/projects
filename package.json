@@ -20,7 +20,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
-    "lint": "eslint ./",
+    "lint": "eslint ./src",
     "dev": "webpack-dev-server --mode development --wath",
     "build": "webpack --mode production"
   },
