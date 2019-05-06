@@ -1,4 +1,4 @@
-import AppCreateRequest from '../../models/create-request';
+import ProcessingRequest from '../../models/processing-request';
 
 export default class SearchBox {
   constructor(options) {
@@ -16,17 +16,19 @@ export default class SearchBox {
 
     this.searchForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      this.createRequest(this.searchInput.value);
+      this.sendDataForRequest(this.searchInput.value);
     });
   }
 
-  async createRequest(text) {
-    const result = new AppCreateRequest({
+  async sendDataForRequest(text) {
+    const processingRequest = new ProcessingRequest({
       key: this.key,
       maxResults: this.maxResults,
       text,
     });
-    const data = await result.createRequest();
-    console.log(data);
+    processingRequest.createRequest();
+    // const data = await result.sendDataForRequest();
+    // localStorage.setItem('data', JSON.stringify(data));
+    // console.log(data);
   }
 }

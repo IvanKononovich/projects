@@ -13,7 +13,7 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-      { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader' },
+      // { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader' },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
@@ -28,6 +28,9 @@ module.exports = {
     ],
   },
   plugins: [new HtmlWebpackPlugin({
-    title: 'YouTube client'
+    title: 'YouTube client',
+    'meta': {
+      'viewport':'width=device-width, initial-scale=1.0',
+    }
   })],
 };

@@ -1,1 +1,3 @@
-@import "./controllers/search-box/search-box.css" screen;
+@import "./controllers/search-box/style.css" screen;
+@import "./views/slider/style.css" screen;
+@import "./views/card-video/style.css" screen;

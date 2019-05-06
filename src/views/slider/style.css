@@ -1,0 +1,33 @@
+.slider {
+    max-width: calc(410px*4);
+    width: 100%;
+    height: 550px;
+    margin-top: 50px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+}
+.container-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+@media (max-width: 1655px) {
+    .slider {
+        max-width: calc(410px*3);
+    }
+}
+@media (max-width: 1265px) {
+    .slider {
+        max-width: calc(410px*2);
+    }
+}
+@media (max-width: 980px) {
+    .slider {
+        max-width: calc(410px*1);
+    }
+}
