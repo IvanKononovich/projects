@@ -1,4 +1,5 @@
 .slider {
+    cursor: move;
     max-width: calc(410px*4);
     width: 100%;
     height: 550px;
@@ -7,14 +8,20 @@
     left: 50%;
     transform: translateX(-50%);
     overflow: hidden;
+    border: 1px solid red;
+    user-select: none;
 }
 .container-slide {
+    transition: 0.3s;
     position: absolute;
     top: 0;
     left: 0;
     max-width: 100%;
     display: flex;
     justify-content: flex-start;
+}
+.no-transition {
+    transition: none !important;
 }
 @media (max-width: 1655px) {
     .slider {

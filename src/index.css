@@ -1,3 +1,8 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 @import "./controllers/search-box/style.css" screen;
 @import "./views/slider/style.css" screen;
 @import "./views/card-video/style.css" screen;
