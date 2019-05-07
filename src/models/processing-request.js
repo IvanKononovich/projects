@@ -16,7 +16,6 @@ export default class ProcessingRequest {
     data.items.forEach((item) => {
       result.push(item.statistics.commentCount);
     });
-    console.log(result);
     return result;
   }
 
@@ -29,20 +28,20 @@ export default class ProcessingRequest {
       listId.push(item.id.videoId);
       result.push({
         img: item.snippet.thumbnails.high.url,
-        Title: item.snippet.title,
-        Description: item.snippet.description,
-        'Channel name': item.snippet.channelTitle,
-        'Upload date': item.snippet.publishedAt,
+        id: item.id.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        channelName: item.snippet.channelTitle,
+        uploadDate: item.snippet.publishedAt,
       });
     });
 
     const listViewCount = await this.getViewCount(listId.join(','));
     result.forEach((item, index) => {
-      item['View count'] = listViewCount[index];
+      const instance = item;
+      instance['View count'] = listViewCount[index];
     });
 
-    // console.log(result);
-    // localStorage.setItem('data', JSON.stringify(result));
     return result;
   }
 
@@ -55,7 +54,8 @@ export default class ProcessingRequest {
     containerSlide.innerHTML = '';
 
     cardDetails.forEach((item) => {
-      new CardVideo(item);
+      const instance = new CardVideo(item);
+      return instance;
     });
   }
 }

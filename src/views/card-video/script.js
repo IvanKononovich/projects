@@ -9,17 +9,15 @@ export default class CardVideo {
   }
 
   createElement(options) {
-    Object.keys(options).forEach((item) => {
-      const elm = document.createElement('div');
-      if(item === 'img') {
-        elm.classList.add('card-img');
-        elm.style.backgroundImage = `url('${options[item]}')`;
-      } else {
-        elm.classList.add('card-row');
-        elm.innerHTML = `<span class="card-title">${item}</span> <p class="card-text">${options[item]}</p>`;
-      }
-
-      this.containerCard.appendChild(elm);
-    });
+    this.containerCard.innerHTML = `
+      <div class="card-img" style="background-image: url('${options.img}')"></div>
+      <a class="card-link" href="https://www.youtube.com/watch?v=${options.id}">${options.title}</a>
+      <span class="card-title">Description</span>
+      <p class="card-text">${options.title}</p>
+      <span class="card-title">Channel name</span>
+      <p class="card-text">${options.channelName}</p>
+      <span class="card-title">Upload date</span>
+      <p class="card-text">${options.uploadDate}</p>
+    `;
   }
 }
