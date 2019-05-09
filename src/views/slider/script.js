@@ -20,13 +20,19 @@ export default class Slider {
     this.indexActiveSlide = 0;
     this.createPoints();
 
+    const styleContainerSlide = getComputedStyle(this.containerSlide);
+    this.timeAnimation = parseInt(styleContainerSlide.transitionDuration.replace(/\D/g, ''), 10) * 100;
+
     this.slider.addEventListener('mousedown', this.dragStart);
     this.slider.addEventListener('touchstart', this.dragStart);
   }
 
   dragStart(event) {
-    document.removeEventListener('mouseup', this.dragEnd);
-    document.removeEventListener('touchend', this.dragEnd);
+    document.addEventListener('mouseup', this.dragEnd);
+    document.addEventListener('touchend', this.dragEnd);
+
+    document.addEventListener('mousemove', this.followingMouse);
+    document.addEventListener('touchmove', this.followingMouse);
 
     this.startPosXContainer = this.containerSlide.getBoundingClientRect().left;
     this.startPosXContainer -= this.slider.getBoundingClientRect().left;
@@ -38,30 +44,29 @@ export default class Slider {
 
       this.moveSlide(x * -1);
       this.createPoints();
+
+      this.removeAllEventListener();
+
       return;
     }
 
-    if (event.target.classList.contains('container-points')) return;
-
-    document.addEventListener('mouseup', this.dragEnd);
-    document.addEventListener('touchend', this.dragEnd);
+    if (event.target.classList.contains('container-points')) {
+      this.removeAllEventListener();
+      return;
+    }
 
     this.startFollowingX = event.pageX || event.changedTouches[0].pageX;
     this.shiftX = this.startFollowingX - this.containerSlide.getBoundingClientRect().left;
 
     this.containerSlide.classList.add('no-transition');
-    this.slider.addEventListener('mousemove', this.followingMouse);
-    this.slider.addEventListener('touchmove', this.followingMouse);
   }
 
   dragEnd(event) {
     this.containerSlide.classList.remove('no-transition');
-    this.slider.removeEventListener('mousemove', this.followingMouse);
-    this.slider.removeEventListener('touchmove', this.followingMouse);
+    this.removeAllEventListener();
 
     setTimeout(() => {
       const x = (event.pageX || event.changedTouches[0].pageX);
-
       if (Math.abs(x - this.startFollowingX) >= this.containerSlide.offsetWidth / 5
       && this.startFollowingX >= this.startPosXContainer + this.containerSlide.offsetWidth / 5) {
         if (x > this.startFollowingX) {
@@ -87,6 +92,7 @@ export default class Slider {
   }
 
   followingMouse(event) {
+    console.log('MOVE');
     let x = (event.pageX || event.changedTouches[0].pageX);
     x -= (this.slider.getBoundingClientRect().left + this.shiftX);
     this.moveSlide(x);
@@ -94,6 +100,22 @@ export default class Slider {
 
   moveSlide(x) {
     this.containerSlide.style.left = `${x}px`;
+  }
+
+  removeAllEventListener() {
+    this.slider.removeEventListener('mousedown', this.dragStart);
+    this.slider.removeEventListener('touchstart', this.dragStart);
+
+    document.removeEventListener('mousemove', this.followingMouse);
+    document.removeEventListener('touchmove', this.followingMouse);
+
+    document.removeEventListener('mouseup', this.dragEnd);
+    document.removeEventListener('touchend', this.dragEnd);
+
+    setTimeout(() => {
+      this.slider.addEventListener('mousedown', this.dragStart);
+      this.slider.addEventListener('touchstart', this.dragStart);
+    }, this.timeAnimation);
   }
 
   createPoints() {
