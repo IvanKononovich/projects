@@ -2,6 +2,7 @@
     max-width: 60%;
     width: 100%;
     margin: 0 auto;
+    padding-top: 20px;
 }
 .search-form__input {
     width: 100%;

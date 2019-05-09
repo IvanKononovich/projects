@@ -27,10 +27,12 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({
-    title: 'YouTube client',
-    'meta': {
-      'viewport':'width=device-width, initial-scale=1.0',
-    }
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'YouTube client',
+      'meta': {
+        'viewport':'width=device-width, initial-scale=1.0',
+      },
+    }),
+  ],
 };

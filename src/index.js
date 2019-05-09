@@ -27,6 +27,6 @@ class App {
 }
 
 const app = new App();
-app.createSlider();
+// app.createSlider();
 
 console.log(app);

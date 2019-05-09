@@ -1,4 +1,5 @@
 import ProcessingRequest from '../../models/processing-request';
+import Slider from '../../views/slider/script';
 
 export default class SearchBox {
   constructor(options) {
@@ -27,6 +28,8 @@ export default class SearchBox {
       text,
     });
     processingRequest.createRequest();
+    if (!this.slider) this.slider = new Slider();
+
     // const data = await result.sendDataForRequest();
     // localStorage.setItem('data', JSON.stringify(data));
     // console.log(data);
