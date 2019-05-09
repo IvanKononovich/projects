@@ -39,7 +39,7 @@ export default class ProcessingRequest {
     const listViewCount = await this.getViewCount(listId.join(','));
     result.forEach((item, index) => {
       const instance = item;
-      instance['View count'] = listViewCount[index];
+      instance.viewCount = listViewCount[index];
     });
 
     return result;

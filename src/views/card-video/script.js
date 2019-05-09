@@ -12,12 +12,10 @@ export default class CardVideo {
     this.containerCard.innerHTML = `
       <div class="card-img" style="background-image: url('${options.img}')"></div>
       <a class="card-link" href="https://www.youtube.com/watch?v=${options.id}">${options.title}</a>
-      <span class="card-title">Description</span>
-      <p class="card-text">${options.title}</p>
-      <span class="card-title">Channel name</span>
-      <p class="card-text">${options.channelName}</p>
-      <span class="card-title">Upload date</span>
-      <p class="card-text">${options.uploadDate}</p>
+      <p class="card-text"><span class="card-text__img card-text__img_1"></span>${options.channelName}</p>
+      <p class="card-text"><span class="card-text__img card-text__img_2"></span>${options.uploadDate}</p>
+      <p class="card-text"><span class="card-text__img card-text__img_3"></span>${options.viewCount}</p>
+      <p class="card-text card-text_smal-text">${options.description}</p>
     `;
   }
 }

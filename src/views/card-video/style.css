@@ -1,40 +1,84 @@
 .container-card {
+    font-family: sans-serif;
     min-width: 370px;
     min-height: 400px;
     padding: 10px;
+    padding-top: 240px;
     box-sizing: border-box;
     margin: 20px;
-    border: 1px solid #424242;
+    background-color: #ffffff;
+    border-radius: 8px;
     transition: 0.3s;
+    text-align: center;
+    position: relative;
 }
-.container-card:hover {
-    margin: 10px 30px 30px 10px;
-    box-shadow: 15px 15px 5px 3px #949494
+.container-card:hover .card-img {
+    height: 240px;
+    margin-bottom: 0;
+}
+.container-card:hover .card-link {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
 }
 .card-text {
+    text-align: center;
     font-size: 16px;
     font-family: sans-serif;
-    line-height: 25px;
+    font-weight: 700;
+    line-height: 45px;
     color: #424242;
     margin: 0;
+    position: relative;
+    padding-left: 35px;
+}
+.card-text_smal-text {
+    font-weight: 400;
+    line-height: 25px;
+    padding: 0;
+    padding-top: 20px;
+}
+.card-text__img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 45px;
+    background: transparent url('') no-repeat 50% 50%;
+    padding-left: 30px;
+}
+.card-text__img_1 {
+    background-image: url('./img/bg-1.png');
+}
+.card-text__img_2 {
+    background-image: url('./img/bg-2.png');
+}
+.card-text__img_3 {
+    background-image: url('./img/bg-3.png');
 }
 .card-img {
-    height: 200px;
+    position: absolute;
+    border-radius: 8px 8px 0 0;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+    height: 130px;
     width: 100%;
-    margin: 0;
-    margin-bottom: 10px;
     background-size: cover;
 }
-.card-title {
-    color: #000000;
-    font-weight: 700;
-    border-bottom: 1px solid #424242;
-    font-size: 20px;
-    display: block;
-    margin-bottom: 10px;
-}
 .card-link {
-    color: #6d0000;
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.3s;
+    text-align: center;
+    color: #860000;
     font-weight: 700;
     font-family: sans-serif;
     line-height: 25px;
