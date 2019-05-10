@@ -1,11 +1,9 @@
-import ProcessingRequest from '../../models/processing-request';
 import Slider from '../../views/slider/script';
 
-export default class SearchBox {
-  constructor(options) {
-    this.key = options.key;
-    this.maxResults = options.maxResults;
-
+class SearchBox {
+  constructor() {
+    this.slider = null;
+    this.textlastRequest = '';
     this.searchForm = document.createElement('form');
     this.searchForm.classList.add('search-form');
 
@@ -22,16 +20,25 @@ export default class SearchBox {
   }
 
   async sendDataForRequest(text) {
-    const processingRequest = new ProcessingRequest({
-      key: this.key,
-      maxResults: this.maxResults,
-      text,
-    });
-    processingRequest.createRequest();
-    if (!this.slider) this.slider = new Slider();
+    if (this.textlastRequest === text) return;
+    this.textlastRequest = text;
 
-    // const data = await result.sendDataForRequest();
-    // localStorage.setItem('data', JSON.stringify(data));
-    // console.log(data);
+    const textRequest = this.searchInput.value;
+
+    this.processingRequest.nextPageToken = null;
+    if (textRequest.length > 0) this.processingRequest.createRequest(text);
+
+    if (!this.slider && textRequest.length > 0) {
+      this.slider = new Slider();
+      this.slider.processingRequest = this.processingRequest;
+    } else if (this.slider) {
+      this.slider.containerSlide.innerHTML = '';
+      this.slider.indexActiveSlide = 0;
+      this.slider.moveSlide(0);
+      this.slider.createPoints();
+    }
   }
 }
+
+const searchBox = new SearchBox();
+export default searchBox;

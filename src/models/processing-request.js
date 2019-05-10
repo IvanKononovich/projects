@@ -4,8 +4,9 @@ export default class ProcessingRequest {
   constructor(options) {
     this.key = options.key;
     this.listCardVideo = [];
-    this.urlSearch = `https://www.googleapis.com/youtube/v3/search?key=${this.key}&type=video&part=snippet&maxResults=${options.maxResults}&q=${options.text}`;
-    this.createRequest();
+    this.urlSearch = `https://www.googleapis.com/youtube/v3/search?key=${this.key}&type=video&part=snippet&maxResults=${options.maxResults}`;
+    this.nextPageToken = null;
+    this.textLastRequset = '';
   }
 
   async getViewCount(listId) {
@@ -14,8 +15,9 @@ export default class ProcessingRequest {
     const data = await required.json();
     const result = [];
     data.items.forEach((item) => {
-      result.push(item.statistics.commentCount);
+      result.push(item.statistics.viewCount);
     });
+
     return result;
   }
 
@@ -45,13 +47,20 @@ export default class ProcessingRequest {
     return result;
   }
 
-  async createRequest() {
-    const required = await fetch(this.urlSearch);
-    const data = await required.json();
-    const cardDetails = await this.extractRequiredData(data);
+  async createRequest(text = this.textLastRequset) {
+    this.textLastRequset = text;
+    this.fullUrlSearch = `${this.urlSearch}&q=${text}`;
 
-    const containerSlide = document.querySelector('.container-slide');
-    containerSlide.innerHTML = '';
+    if (this.nextPageToken) {
+      this.fullUrlSearch += `&pageToken=${this.nextPageToken}`;
+      this.nextPageToken = null;
+    }
+
+    const required = await fetch(this.fullUrlSearch);
+    const data = await required.json();
+    this.nextPageToken = data.nextPageToken;
+
+    const cardDetails = await this.extractRequiredData(data);
 
     cardDetails.forEach((item) => {
       const instance = new CardVideo(item);

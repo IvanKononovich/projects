@@ -1,13 +1,13 @@
 export default class Slider {
   constructor() {
-    this.slider = document.createElement('div');
-    this.slider.classList.add('slider');
-    this.slider.innerHTML = `
+    this.bodySlider = document.createElement('div');
+    this.bodySlider.classList.add('slider');
+    this.bodySlider.innerHTML = `
       <div class="container-slide"></div>
       <div class="container-points"></div>
     `;
 
-    document.body.appendChild(this.slider);
+    document.body.appendChild(this.bodySlider);
 
     this.containerSlide = document.querySelector('.container-slide');
     this.containerPoints = document.querySelector('.container-points');
@@ -23,8 +23,8 @@ export default class Slider {
     const styleContainerSlide = getComputedStyle(this.containerSlide);
     this.timeAnimation = parseInt(styleContainerSlide.transitionDuration.replace(/\D/g, ''), 10) * 100;
 
-    this.slider.addEventListener('mousedown', this.dragStart);
-    this.slider.addEventListener('touchstart', this.dragStart);
+    this.bodySlider.addEventListener('mousedown', this.dragStart);
+    this.bodySlider.addEventListener('touchstart', this.dragStart);
   }
 
   dragStart(event) {
@@ -35,12 +35,14 @@ export default class Slider {
     document.addEventListener('touchmove', this.followingMouse);
 
     this.startPosXContainer = this.containerSlide.getBoundingClientRect().left;
-    this.startPosXContainer -= this.slider.getBoundingClientRect().left;
+    this.startPosXContainer -= this.bodySlider.getBoundingClientRect().left;
 
     if (event.target.classList.contains('slider-point')) {
       let x = +event.target.dataset.slideIndex - this.indexActiveSlide;
       this.indexActiveSlide = x + this.indexActiveSlide;
       x = x * this.containerSlide.offsetWidth - this.startPosXContainer;
+
+      this.loadingData();
 
       this.moveSlide(x * -1);
       this.createPoints();
@@ -79,6 +81,8 @@ export default class Slider {
         } else {
           this.indexActiveSlide += 1;
 
+          this.loadingData();
+
           this.moveSlide(this.startPosXContainer - this.containerSlide.offsetWidth);
         }
 
@@ -92,9 +96,8 @@ export default class Slider {
   }
 
   followingMouse(event) {
-    console.log('MOVE');
     let x = (event.pageX || event.changedTouches[0].pageX);
-    x -= (this.slider.getBoundingClientRect().left + this.shiftX);
+    x -= (this.bodySlider.getBoundingClientRect().left + this.shiftX);
     this.moveSlide(x);
   }
 
@@ -103,8 +106,8 @@ export default class Slider {
   }
 
   removeAllEventListener() {
-    this.slider.removeEventListener('mousedown', this.dragStart);
-    this.slider.removeEventListener('touchstart', this.dragStart);
+    this.bodySlider.removeEventListener('mousedown', this.dragStart);
+    this.bodySlider.removeEventListener('touchstart', this.dragStart);
 
     document.removeEventListener('mousemove', this.followingMouse);
     document.removeEventListener('touchmove', this.followingMouse);
@@ -113,8 +116,8 @@ export default class Slider {
     document.removeEventListener('touchend', this.dragEnd);
 
     setTimeout(() => {
-      this.slider.addEventListener('mousedown', this.dragStart);
-      this.slider.addEventListener('touchstart', this.dragStart);
+      this.bodySlider.addEventListener('mousedown', this.dragStart);
+      this.bodySlider.addEventListener('touchstart', this.dragStart);
     }, this.timeAnimation);
   }
 
@@ -128,5 +131,16 @@ export default class Slider {
       <div class="slider-point slider-point_active" data-slide-index=${this.indexActiveSlide}>${this.indexActiveSlide}</div>
       <div class="slider-point" data-slide-index=${this.indexActiveSlide + 1}>${this.indexActiveSlide + 1}</div>
     `;
+  }
+
+  loadingData() {
+    const listSlide = document.querySelectorAll('.container-card');
+    const numberSlidesOnScreen = Math.round(this.bodySlider.offsetWidth / listSlide[0].offsetWidth);
+
+    if (listSlide.length < this.indexActiveSlide
+      * numberSlidesOnScreen
+      + numberSlidesOnScreen * 2) {
+      this.processingRequest.createRequest();
+    }
   }
 }
