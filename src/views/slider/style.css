@@ -71,3 +71,8 @@
         max-width: calc(410px*1);
     }
 }
+@media (max-width: 430px) {
+    .slider {
+        max-width: 320px;
+    }
+}

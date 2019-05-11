@@ -88,10 +88,11 @@
 .card-link:hover {
     text-decoration: underline;
 }
-@media (max-width: 410px) {
+@media (max-width: 430px) {
     .container-card {
-        min-width: 94%;
         margin: 20px 10px;
-        width: 100%;
+        width: 300px;
+        min-width: 300px;
     }
 }
+
