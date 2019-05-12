@@ -28,6 +28,9 @@ export default class Slider {
   }
 
   dragStart(event) {
+    const lastPoint = document.querySelector('.slider-point_last');
+    lastPoint.classList.add('slider-point_text-color');
+
     document.addEventListener('mouseup', this.dragEnd);
     document.addEventListener('touchend', this.dragEnd);
 
@@ -64,6 +67,9 @@ export default class Slider {
   }
 
   dragEnd(event) {
+    const lastPoint = document.querySelector('.slider-point_last');
+    lastPoint.classList.remove('slider-point_text-color');
+
     this.containerSlide.classList.remove('no-transition');
     this.removeAllEventListener();
 
@@ -131,7 +137,7 @@ export default class Slider {
 
     this.containerPoints.innerHTML += `
       <div class="slider-point slider-point_active" data-slide-index=${this.indexActiveSlide}>${this.indexActiveSlide}</div>
-      <div class="slider-point" data-slide-index=${this.indexActiveSlide + 1}>${this.indexActiveSlide + 1}</div>
+      <div class="slider-point slider-point_last" data-slide-index=${this.indexActiveSlide + 1}>${this.indexActiveSlide + 1}</div>
     `;
   }
 

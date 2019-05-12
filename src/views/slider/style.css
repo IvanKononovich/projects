@@ -49,6 +49,9 @@
 .slider-point:hover {
     color: #343d46;
 }
+.slider-point_text-color {
+    color: #343d46;
+}
 .slider-point_active {
     background-color: #cb3131;
     color: #ffffff;
