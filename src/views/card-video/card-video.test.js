@@ -1,4 +1,4 @@
-import Slider from '../../views/slider/script';
+import Slider from '../slider/script';
 import CardVideo from './script';
 
 describe('CardVideo', () => {
@@ -10,24 +10,23 @@ describe('CardVideo', () => {
     uploadDate: '01.01.0001',
     viewCount: '500',
     description: 'description',
-  }
+  };
 
   const slider = new Slider();
   const cardVideo = new CardVideo(options);
-  
 
-  it('CardVideo.containerSlide should contains container slide',  () => {
-      expect(cardVideo.containerSlide).toEqual(slider.containerSlide);
+  it('CardVideo.containerSlide should contains container slide', () => {
+    expect(cardVideo.containerSlide).toEqual(slider.containerSlide);
   });
 
-  it('Container slide should contains card',  () => {
+  it('Container slide should contains card', () => {
     const container = cardVideo.containerSlide;
-    const card =  cardVideo.containerCard;
+    const card = cardVideo.containerCard;
 
     expect(container.contains(card)).toBeTruthy();
   });
 
-  it('CardVideo.containerCard should contains HTML with given parameters',  () => {
+  it('CardVideo.containerCard should contains HTML with given parameters', () => {
     const html = cardVideo.containerCard.innerHTML;
     expect(html).toBe(`
       <div class="card-img" style="background-image: url('${options.img}')"></div>

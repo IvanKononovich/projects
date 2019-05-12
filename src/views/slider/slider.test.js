@@ -3,7 +3,7 @@ import Slider from './script';
 describe('Slider', () => {
   const slider = new Slider();
 
-  it('Slider.timeAnimation should contains number',  () => {
+  it('Slider.timeAnimation should contains number', () => {
     expect(typeof slider.timeAnimation).toBe('number');
   });
 
@@ -19,7 +19,7 @@ describe('Slider', () => {
     slider.indexActiveSlide = 0;
     slider.createPoints();
     const listChild = slider.containerPoints.querySelectorAll('*');
-  
+
     expect(listChild.length <= 4).toBeTruthy();
   });
 
@@ -27,7 +27,7 @@ describe('Slider', () => {
     slider.indexActiveSlide = 1;
     slider.createPoints();
     const listChild = slider.containerPoints.querySelectorAll('*');
-  
+
     expect(listChild.length <= 4).toBeTruthy();
   });
 
@@ -45,11 +45,10 @@ describe('Slider', () => {
     slider.moveSlide(x);
 
     // create promiss because Slider.loadingData goes asynchronously
-    Promise.resolve().then((res) => {
-        const quantitySlideAfterCallLoadingData = document.querySelectorAll('.container-card').length;
+    Promise.resolve().then(() => {
+      const quantitySlideAfterCallLoadingData = document.querySelectorAll('.container-card').length;
 
-        expect(quantitySlideBeforeCallLoadingData < quantitySlideAfterCallLoadingData).toBeTruthy();
-      }
-    );
+      expect(quantitySlideBeforeCallLoadingData < quantitySlideAfterCallLoadingData).toBeTruthy();
+    });
   });
 });
