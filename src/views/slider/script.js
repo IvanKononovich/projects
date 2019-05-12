@@ -124,8 +124,10 @@ export default class Slider {
   createPoints() {
     this.containerPoints.innerHTML = '';
 
-    if (this.indexActiveSlide > 1) this.containerPoints.innerHTML += `<div class="slider-point" data-slide-index=${this.indexActiveSlide - 2}>${this.indexActiveSlide - 2}</div>`;
-    if (this.indexActiveSlide > 0) this.containerPoints.innerHTML += `<div class="slider-point" data-slide-index=${this.indexActiveSlide - 1}>${this.indexActiveSlide - 1}</div>`;
+    for (let i = Math.min(this.indexActiveSlide, 2); i > 0; i -= 1) {
+      const number = this.indexActiveSlide - i;
+      this.containerPoints.innerHTML += `<div class="slider-point" data-slide-index=${number}>${number}</div>`;
+    }
 
     this.containerPoints.innerHTML += `
       <div class="slider-point slider-point_active" data-slide-index=${this.indexActiveSlide}>${this.indexActiveSlide}</div>
