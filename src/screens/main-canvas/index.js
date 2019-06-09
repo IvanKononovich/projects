@@ -12,6 +12,8 @@ class MainCanvas {
     this.listSectors = [];
     this.activeTool = null;
 
+    this.lastClickCoordinates = null;
+
     this.plots();
 
     this.useActiveTool = this.useActiveTool.bind(this);
@@ -57,15 +59,32 @@ class MainCanvas {
     this.activeTool = listTools.find(tool => tool.state);
   }
 
+  findAllPointsLine(startX, startY, endX, endY) {
+    const result = [];
+    let time = Math.max(Math.abs(startX - endX), Math.abs(startY - endY));
+        
+    for (let i = 0; i < time; i++) {
+        let delta = i / time;
+        result.push({
+            x: delta*(endX - startX) + startX, 
+            y: delta*(endY - startY) + startY
+        });
+    } 
+
+    return result;
+  }
+
   unsubscribeEvents() {
     this.canvas.removeEventListener('mousemove', this.useActiveTool);
     this.canvas.removeEventListener('mouseup', this.unsubscribeEvents);
+    this.lastClickCoordinates = null;
   }
 
-  subscribeEvents() {
+  subscribeEvents(event) {
+    this.useActiveTool(event);
     this.findActiveTool();
     this.canvas.addEventListener('mousemove', this.useActiveTool);
-    this.canvas.addEventListener('mouseup', this.unsubscribeEvents);
+    document.addEventListener('mouseup', this.unsubscribeEvents);
   }
 
   useActiveTool(event) {
@@ -75,8 +94,22 @@ class MainCanvas {
     const crossingSector = this.crossingSectorCheck(x, y);
 
     if (this.activeTool) {
-      this.activeTool.use(crossingSector);
-      this.drawingElements(crossingSector);
+      if(this.lastClickCoordinates) {
+        const allPointsLine = this.findAllPointsLine(this.lastClickCoordinates.x, this.lastClickCoordinates.y, x, y);
+        allPointsLine.forEach((item) => {
+          const sector = this.crossingSectorCheck(item.x, item.y)
+          this.activeTool.use(sector);
+          this.drawingElements(sector);
+        });
+      } else {
+        this.activeTool.use(crossingSector);
+        this.drawingElements(crossingSector);
+      }
+    }
+
+    this.lastClickCoordinates = {
+      x,
+      y,
     }
   }
 
@@ -102,6 +135,6 @@ class MainCanvas {
   }
 }
 
-const mainCanvas = new MainCanvas(135, 135);
+const mainCanvas = new MainCanvas(35, 35);
 
 export default mainCanvas;
