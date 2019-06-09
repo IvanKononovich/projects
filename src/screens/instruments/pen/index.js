@@ -1,7 +1,7 @@
 class Pen {
   constructor() {
     this.state = false;
-    this.color = 'red';
+    this.color = '#292929';
     this.penButton = document.querySelector('.instrument-item__img_pen');
     this.stateChange = this.stateChange.bind(this);
     this.penButton.addEventListener('click', this.stateChange);

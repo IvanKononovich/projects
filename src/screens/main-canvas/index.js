@@ -5,8 +5,8 @@ const listTools = [pen];
 class MainCanvas {
   constructor(x, y) {
     this.canvas = document.querySelector('.main-canvas');
-    this.canvas.width = window.innerHeight / 1.2;
-    this.canvas.height = window.innerHeight / 1.2;
+    this.canvas.width = Math.round(window.innerHeight / 1.2);
+    this.canvas.height = Math.round(window.innerHeight / 1.2);
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
     this.listSectors = [];
@@ -24,10 +24,14 @@ class MainCanvas {
   plots() {
     let sizeX = 0;
     let sizeY = 0;
-    const increaseRatioX = this.canvas.width / this.quantitySectorsX;
-    const increaseRatioY = this.canvas.height / this.quantitySectorsY;
 
-    for (let i = 0; sizeY < this.canvas.height; i += 1) {
+    const increaseRatioX = Math.round(this.canvas.width / this.quantitySectorsX);
+    const increaseRatioY = Math.round(this.canvas.height / this.quantitySectorsY);
+
+    this.canvas.width = this.quantitySectorsX * increaseRatioX;
+    this.canvas.height = this.quantitySectorsY * increaseRatioY;
+
+    for (let i = 0; i < this.quantitySectorsX * this.quantitySectorsY; i += 1) {
       this.listSectors.push({
         x: sizeX,
         y: sizeY,
@@ -38,13 +42,15 @@ class MainCanvas {
 
       sizeX += increaseRatioX;
 
-      if (sizeX + increaseRatioX > this.canvas.width) {
+      if (sizeX >= this.canvas.width) {
         sizeX = 0;
         sizeY += increaseRatioY;
       }
     }
 
-    this.drawingElements();
+    this.listSectors.forEach((sector) => {
+      this.drawingElements(sector);
+    });
   }
 
   findActiveTool() {
@@ -66,41 +72,36 @@ class MainCanvas {
     const x = event.pageX - this.canvas.getBoundingClientRect().left;
     const y = event.pageY - this.canvas.getBoundingClientRect().top;
 
-    this.listSectors.forEach((sector) => {
-      if (MainCanvas.crossingCheck(x, y, 0, 0, sector.x, sector.y, sector.w, sector.h)) {
-        if (this.activeTool) {
-          this.activeTool.use(sector);
-          this.drawingElements();
-        }
-      }
-    });
-  }
+    const crossingSector = this.crossingSectorCheck(x, y);
 
-  static crossingCheck(x1, y1, w1, h1, x2, y2, w2, h2) {
-    if ((x1 >= x2 || x1 + w1 >= x2) && x1 <= x2 + w2) {
-      if ((y1 >= y2 || y1 + h1 >= y2) && y1 <= y2 + h2) {
-        return true;
-      }
+    if (this.activeTool) {
+      this.activeTool.use(crossingSector);
+      this.drawingElements(crossingSector);
     }
-
-    return false;
   }
 
-  drawingElements() {
+  crossingSectorCheck(x, y) {
+    const increaseRatioX = Math.floor(this.canvas.width / this.quantitySectorsX);
+    const increaseRatioY = Math.floor(this.canvas.height / this.quantitySectorsY);
+
+    const coordSectorX = Math.floor(x / increaseRatioX);
+    const coordSectorY = Math.floor(y / increaseRatioY);
+    const indexSector = this.quantitySectorsX * coordSectorY + coordSectorX;
+
+    return this.listSectors[indexSector];
+  }
+
+  drawingElements(sector) {
     const ctx = this.canvas.getContext('2d');
 
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.beginPath();
 
-    this.listSectors.forEach((sector) => {
-      ctx.beginPath();
-
-      ctx.fillStyle = sector.color;
-      ctx.rect(sector.x, sector.y, sector.w, sector.h);
-      ctx.fill();
-    });
+    ctx.fillStyle = sector.color;
+    ctx.rect(sector.x, sector.y, sector.w, sector.h);
+    ctx.fill();
   }
 }
 
-const mainCanvas = new MainCanvas(64, 64);
+const mainCanvas = new MainCanvas(135, 135);
 
 export default mainCanvas;
