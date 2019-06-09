@@ -62,6 +62,9 @@ module.exports = {
           instruments: {
             pen: extractHtml('src/screens/instruments/pen/index.html'),
           },
+          canvas: {
+            mainCanvas: extractHtml('src/screens/main-canvas/index.html'),
+          },
         },
       }
     })  

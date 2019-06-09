@@ -1,5 +1,10 @@
-@import 'screens/instruments/index';
+@import 'screens/instruments/index.scss';
+@import 'screens/main-canvas/index.scss';
 
+.content-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
 .instruments {
     max-width: 140px;
     box-sizing: border-box;
