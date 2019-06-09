@@ -23,6 +23,10 @@
             background-color: #535353;
         }
 
+        &_active {
+            outline: 3px solid #ffbf35;
+        }
+
         &_pen {
             background-position: -182px -92px;
         }
