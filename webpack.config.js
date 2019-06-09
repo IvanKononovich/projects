@@ -55,8 +55,15 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({  
-        // Load a custom template (lodash by default)
-        template: 'src/index.html',
+      // Load a custom template (lodash by default)
+      template: 'src/index.html',
+      content: {
+        screens: {
+          instruments: {
+            pen: extractHtml('src/screens/instruments/pen/index.html'),
+          },
+        },
+      }
     })  
   ],
 };

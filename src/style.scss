@@ -1,1 +1,11 @@
+@import 'screens/instruments/index';
 
+.instruments {
+    max-width: 140px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #000000;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
