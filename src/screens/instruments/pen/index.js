@@ -4,14 +4,22 @@ class Pen {
     this.color = '#292929';
     this.penButton = document.querySelector('.instrument-item__img_pen');
     this.stateChange = this.stateChange.bind(this);
-    this.penButton.addEventListener('click', this.stateChange);
+
+    document.addEventListener('click', this.stateChange);
   }
 
-  stateChange() {
-    if (this.state) this.state = false;
-    else this.state = true;
+  stateChange(event) {
+    const el = event.target;
 
-    this.penButton.classList.toggle('instrument-item__img_active');
+    if (el.classList.contains('instrument-item__img')) {
+      if (el.classList.contains('instrument-item__img_pen')) {
+        this.state = true;
+        this.penButton.classList.add('instrument-item__img_active');
+      } else {
+        this.state = false;
+        this.penButton.classList.remove('instrument-item__img_active');
+      }
+    }
   }
 
   use(sect) {
