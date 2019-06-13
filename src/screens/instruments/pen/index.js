@@ -1,27 +1,6 @@
-class Pen {
-  constructor() {
-    this.state = false;
-    this.color = '#292929';
-    this.penButton = document.querySelector('.instrument-item__img_pen');
-    this.stateChange = this.stateChange.bind(this);
+import BasicTool from '../basic-tool/index';
 
-    document.addEventListener('click', this.stateChange);
-  }
-
-  stateChange(event) {
-    const el = event.target;
-
-    if (el.classList.contains('instrument-item__img')) {
-      if (el.classList.contains('instrument-item__img_pen')) {
-        this.state = true;
-        this.penButton.classList.add('instrument-item__img_active');
-      } else {
-        this.state = false;
-        this.penButton.classList.remove('instrument-item__img_active');
-      }
-    }
-  }
-
+class Pen extends BasicTool {
   use(sect) {
     const sector = sect;
 
@@ -29,6 +8,6 @@ class Pen {
   }
 }
 
-const pen = new Pen();
+const pen = new Pen('instrument-item__img_pen');
 
 export default pen;

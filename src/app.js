@@ -1,3 +1,3 @@
-import mainCanvas from './screens/main-canvas/index';
+import pen from './screens/instruments/pen/index';
 
-console.log(mainCanvas);
+console.log(pen);

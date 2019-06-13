@@ -1,26 +1,15 @@
-import pen from '../instruments/pen/index';
-
-const listTools = [pen];
-
 class MainCanvas {
   constructor(x, y) {
     this.canvas = document.querySelector('.main-canvas');
-    this.canvas.width = Math.round(window.innerHeight / 1.2);
-    this.canvas.height = Math.round(window.innerHeight / 1.2);
+    this.canvas.width = Math.round(window.innerHeight / 1.1);
+    this.canvas.height = Math.round(window.innerHeight / 1.1);
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
     this.listSectors = [];
-    this.activeTool = null;
 
     this.lastClickCoordinates = null;
 
     this.plots();
-
-    this.useActiveTool = this.useActiveTool.bind(this);
-    this.subscribeEvents = this.subscribeEvents.bind(this);
-    this.unsubscribeEvents = this.unsubscribeEvents.bind(this);
-
-    this.canvas.addEventListener('mousedown', this.subscribeEvents);
   }
 
   plots() {
@@ -53,75 +42,6 @@ class MainCanvas {
     this.listSectors.forEach((sector) => {
       this.drawingElements(sector);
     });
-  }
-
-  findActiveTool() {
-    this.activeTool = listTools.find(tool => tool.state);
-  }
-
-  findAllPointsLine(startX, startY, endX, endY) {
-    const result = [];
-    let time = Math.max(Math.abs(startX - endX), Math.abs(startY - endY));
-        
-    for (let i = 0; i < time; i++) {
-        let delta = i / time;
-        result.push({
-            x: delta*(endX - startX) + startX, 
-            y: delta*(endY - startY) + startY
-        });
-    } 
-
-    return result;
-  }
-
-  unsubscribeEvents() {
-    this.canvas.removeEventListener('mousemove', this.useActiveTool);
-    this.canvas.removeEventListener('mouseup', this.unsubscribeEvents);
-    this.lastClickCoordinates = null;
-  }
-
-  subscribeEvents(event) {
-    this.useActiveTool(event);
-    this.findActiveTool();
-    this.canvas.addEventListener('mousemove', this.useActiveTool);
-    document.addEventListener('mouseup', this.unsubscribeEvents);
-  }
-
-  useActiveTool(event) {
-    const x = event.pageX - this.canvas.getBoundingClientRect().left;
-    const y = event.pageY - this.canvas.getBoundingClientRect().top;
-
-    const crossingSector = this.crossingSectorCheck(x, y);
-
-    if (this.activeTool) {
-      if(this.lastClickCoordinates) {
-        const allPointsLine = this.findAllPointsLine(this.lastClickCoordinates.x, this.lastClickCoordinates.y, x, y);
-        allPointsLine.forEach((item) => {
-          const sector = this.crossingSectorCheck(item.x, item.y)
-          this.activeTool.use(sector);
-          this.drawingElements(sector);
-        });
-      } else {
-        this.activeTool.use(crossingSector);
-        this.drawingElements(crossingSector);
-      }
-    }
-
-    this.lastClickCoordinates = {
-      x,
-      y,
-    }
-  }
-
-  crossingSectorCheck(x, y) {
-    const increaseRatioX = Math.floor(this.canvas.width / this.quantitySectorsX);
-    const increaseRatioY = Math.floor(this.canvas.height / this.quantitySectorsY);
-
-    const coordSectorX = Math.floor(x / increaseRatioX);
-    const coordSectorY = Math.floor(y / increaseRatioY);
-    const indexSector = this.quantitySectorsX * coordSectorY + coordSectorX;
-
-    return this.listSectors[indexSector];
   }
 
   drawingElements(sector) {
