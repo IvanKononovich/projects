@@ -61,6 +61,7 @@ module.exports = {
         screens: {
           instruments: {
             pen: extractHtml('src/screens/instruments/pen/index.html'),
+            eraser: extractHtml('src/screens/instruments/eraser/index.html'),
           },
           canvas: {
             mainCanvas: extractHtml('src/screens/main-canvas/index.html'),

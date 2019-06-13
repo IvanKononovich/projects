@@ -5,6 +5,7 @@ class MainCanvas {
     this.canvas.height = Math.round(window.innerHeight / 1.1);
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
+    this.defaultColor = '#777777';
     this.listSectors = [];
 
     this.lastClickCoordinates = null;
@@ -28,7 +29,7 @@ class MainCanvas {
         y: sizeY,
         w: increaseRatioX,
         h: increaseRatioY,
-        color: '#777777',
+        color: this.defaultColor,
       });
 
       sizeX += increaseRatioX;
