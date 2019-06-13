@@ -1,11 +1,16 @@
 import mainCanvas from '../../main-canvas/index';
+import colorPallete from '../../color-palette/index';
 
 export default class BasicTool {
   constructor(toolCSSClass) {
     this.mainCanvas = mainCanvas;
     this.mainCanvasContent = this.mainCanvas.canvas;
     this.state = false;
-    this.color = '#292929';
+    this.mouseButtonNumber = 0;
+
+    this.colorPrimary = colorPallete.colorPrimary;
+    this.colorSecondary = colorPallete.colorSecondary;
+
     this.toolCSSClass = toolCSSClass;
     this.toolButton = document.querySelector(`.${this.toolCSSClass}`);
 
@@ -17,6 +22,11 @@ export default class BasicTool {
     this.useActiveTool = this.useActiveTool.bind(this);
 
     this.mainCanvasContent.addEventListener('mousedown', this.subscribeEvents);
+
+    this.mainCanvasContent.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+    });
+
     document.addEventListener('click', this.stateChange);
   }
 
@@ -50,7 +60,14 @@ export default class BasicTool {
 
   applicationToolSector(x, y) {
     const sector = this.crossingSectorCheck(x, y);
-    if (this.use) this.use(sector);
+
+    if (this.use) {
+      this.colorPrimary = colorPallete.colorPrimary;
+      this.colorSecondary = colorPallete.colorSecondary;
+
+      this.use(sector);
+    }
+
     this.mainCanvas.drawingElements(sector);
   }
 
@@ -84,6 +101,8 @@ export default class BasicTool {
   }
 
   subscribeEvents(event) {
+    this.mouseButtonNumber = event.button;
+
     if (!this.state) return;
 
     this.useActiveTool(event);

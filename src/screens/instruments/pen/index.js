@@ -3,8 +3,13 @@ import BasicTool from '../basic-tool/index';
 class Pen extends BasicTool {
   use(sect) {
     const sector = sect;
+    let color = this.colorPrimary;
 
-    sector.color = this.color;
+    if (this.mouseButtonNumber > 0) {
+      color = this.colorSecondary;
+    }
+
+    sector.color = color;
   }
 }
 

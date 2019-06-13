@@ -63,6 +63,7 @@ module.exports = {
             pen: extractHtml('src/screens/instruments/pen/index.html'),
             eraser: extractHtml('src/screens/instruments/eraser/index.html'),
           },
+          colorPalette: extractHtml('src/screens/color-palette/index.html'),
           canvas: {
             mainCanvas: extractHtml('src/screens/main-canvas/index.html'),
           },

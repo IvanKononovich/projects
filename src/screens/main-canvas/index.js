@@ -5,7 +5,8 @@ class MainCanvas {
     this.canvas.height = Math.round(window.innerHeight / 1.1);
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
-    this.defaultColor = '#777777';
+    this.defaultColor = '#c7c7c7';
+
     this.listSectors = [];
 
     this.lastClickCoordinates = null;
@@ -56,6 +57,6 @@ class MainCanvas {
   }
 }
 
-const mainCanvas = new MainCanvas(35, 35);
+const mainCanvas = new MainCanvas(45, 45);
 
 export default mainCanvas;

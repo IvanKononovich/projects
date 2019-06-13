@@ -1,3 +1,4 @@
+@import 'screens/color-palette/index.scss';
 @import 'screens/instruments/basic-tool/index.scss';
 @import 'screens/instruments/pen/index.scss';
 @import 'screens/instruments/eraser/index.scss';
@@ -8,7 +9,7 @@
     justify-content: space-around;
 }
 .instruments {
-    max-width: 140px;
+    max-width: 155px;
     box-sizing: border-box;
     padding: 20px;
     border: 1px solid #000000;
