@@ -7,6 +7,7 @@ export default class BasicTool {
     this.mainCanvasContent = this.mainCanvas.canvas;
     this.state = false;
     this.mouseButtonNumber = 0;
+    this.typeEvent = null;
 
     this.colorPrimary = colorPallete.colorPrimary;
     this.colorSecondary = colorPallete.colorSecondary;
@@ -72,6 +73,8 @@ export default class BasicTool {
   }
 
   useActiveTool(event) {
+    this.typeEvent = event.type;
+
     const x = event.pageX - this.mainCanvasContent.getBoundingClientRect().left;
     const y = event.pageY - this.mainCanvasContent.getBoundingClientRect().top;
 
@@ -93,9 +96,13 @@ export default class BasicTool {
     };
   }
 
-  unsubscribeEvents() {
+  unsubscribeEvents(event) {
+    this.lastClickCoordinates = null;
+
+    this.useActiveTool(event);
+
     this.mainCanvasContent.removeEventListener('mousemove', this.useActiveTool);
-    this.mainCanvasContent.removeEventListener('mouseup', this.unsubscribeEvents);
+    document.removeEventListener('mouseup', this.unsubscribeEvents);
 
     this.lastClickCoordinates = null;
   }
