@@ -1,30 +1,23 @@
 class ColorPallete {
   constructor() {
-    this.colorPaletteInputs = document.querySelectorAll('.color-palette-container__input');
-    this.colorPrimary = 'transparent';
-    this.colorSecondary = 'transparent';
+    this.colorPrimary = document.querySelector('.color-palette-container__input_primary');
+    this.colorPrimaryColor = this.colorPrimary.value;
+    this.colorSecondary = document.querySelector('.color-palette-container__input_secondary');
 
     this.changeColor = this.changeColor.bind(this);
 
-    [...this.colorPaletteInputs].forEach((item) => {
-      this.changeColor(item);
+    this.colorPrimary.addEventListener('change', (event) => {
+      const inputEl = event.target;
 
-      item.addEventListener('change', (event) => {
-        const inputEl = event.target;
-
-        Promise.resolve().then(() => {
-          this.changeColor(inputEl);
-        });
+      Promise.resolve().then(() => {
+        this.changeColor(inputEl.value);
       });
     });
   }
 
-  changeColor(imputEl) {
-    if (imputEl.classList.contains('color-palette-container__input_primary')) {
-      this.colorPrimary = imputEl.value;
-    } else {
-      this.colorSecondary = imputEl.value;
-    }
+  changeColor(color) {
+    this.colorSecondary.value = this.colorPrimaryColor;
+    this.colorPrimaryColor = color;
   }
 }
 
