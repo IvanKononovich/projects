@@ -26,6 +26,7 @@ class MainCanvas {
 
     for (let i = 0; i < this.quantitySectorsX * this.quantitySectorsY; i += 1) {
       this.listSectors.push({
+        neighbors: [],
         x: sizeX,
         y: sizeY,
         w: increaseRatioX,
@@ -44,6 +45,31 @@ class MainCanvas {
     this.listSectors.forEach((sector) => {
       this.drawingElements(sector);
     });
+
+    this.identifyingNeighbors();
+  }
+
+  identifyingNeighbors() {
+    this.listSectors.forEach((item, index) => {
+      const previousSectorX = this.listSectors[index - 1];
+      const previousSectorY = this.listSectors[index - this.quantitySectorsX];
+      const nextSectorX = this.listSectors[index + 1];
+      const nextSectorY = this.listSectors[index + this.quantitySectorsX];
+
+      const sector = item;
+
+      sector.neighbors.push(
+        previousSectorX,
+        nextSectorX,
+        previousSectorY,
+        nextSectorY,
+      );
+
+      sector.neighbors = sector.neighbors.filter((neighbor) => {
+        if (neighbor) return neighbor;
+        return false;
+      });
+    });
   }
 
   drawingElements(sector) {
@@ -57,6 +83,6 @@ class MainCanvas {
   }
 }
 
-const mainCanvas = new MainCanvas(45, 45);
+const mainCanvas = new MainCanvas(5, 5);
 
 export default mainCanvas;
