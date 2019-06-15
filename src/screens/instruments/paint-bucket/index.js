@@ -32,10 +32,6 @@ class PaintBucket extends BasicTool {
 
   findingNeighborsWithSameColor(startingSector) {
     this.listNeighbors.push(...startingSector.neighbors);
-
-    this.startingSector.color = this.color;
-    this.mainCanvas.drawingElements(startingSector);
-
     this.listNeighbors = this.listNeighbors.filter(item => item.color === this.sectorColor);
 
     while (this.listNeighbors.length > 0) {
@@ -50,6 +46,9 @@ class PaintBucket extends BasicTool {
 
       tempNode.neighbors.forEach(this.chengSectorColor);
     }
+
+    this.startingSector.color = this.color;
+    this.mainCanvas.drawingElements(startingSector);
   }
 }
 
