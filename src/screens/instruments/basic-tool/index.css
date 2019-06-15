@@ -1,0 +1,29 @@
+.instrument-item {
+    height: 46px;
+    padding-bottom: 10px;
+    z-index: 1;
+}
+.instrument-item:hover {
+    z-index: 5;
+}
+.instrument-item__img {
+    transition: background-color 0.3s;
+    cursor: pointer;
+    position: relative;
+    width: 46px ;
+    height: 46px;
+    margin: 5px;
+    background-color: #000000;
+    background-image: url('../images/icons.png');
+    background-repeat: no-repeat;
+}
+.instrument-item__img:hover {
+    background-color: #535353;
+}
+.instrument-item__img_active {
+    outline: 3px solid #ffbf35;
+}
+.instrument-item__shortcut-button {
+    color: #ffbf35;
+}
+

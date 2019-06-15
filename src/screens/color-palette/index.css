@@ -1,0 +1,25 @@
+.color-palette-container {
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+.color-palette-container__input {
+    z-index: 0;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+.color-palette-container__input_primary {
+    top: 0;
+    left: 0;
+}
+.color-palette-container__input_secondary {
+    bottom: 0;
+    right: 0;
+}
+.color-palette-container__input_active {
+    z-index: 1;
+}

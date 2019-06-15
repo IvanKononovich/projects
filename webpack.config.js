@@ -10,7 +10,7 @@ function extractHtml(src) {
 module.exports = {
   entry: [
     './src/app.js',
-    './src/style.scss'
+    './src/style.css'
   ],
   output: {
     filename: 'app.bundle.js',
@@ -30,8 +30,8 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,

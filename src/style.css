@@ -1,0 +1,20 @@
+@import 'screens/color-palette/index.css';
+@import 'screens/instruments/basic-tool/index.css';
+@import 'screens/instruments/pen/index.css';
+@import 'screens/instruments/eraser/index.css';
+@import 'screens/instruments/paint-bucket/index.css';
+@import 'screens/main-canvas/index.css';
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+.instruments {
+    max-width: 155px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #000000;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
