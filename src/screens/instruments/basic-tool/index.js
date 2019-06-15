@@ -23,6 +23,9 @@ export default class BasicTool {
     this.useActiveTool = this.useActiveTool.bind(this);
 
     this.mainCanvasContent.addEventListener('mousedown', this.subscribeEvents);
+    this.mainCanvasContent.addEventListener('mouseout', () => {
+      this.lastClickCoordinates = null;
+    });
 
     this.mainCanvasContent.addEventListener('contextmenu', (event) => {
       event.preventDefault();
@@ -54,13 +57,13 @@ export default class BasicTool {
 
     const coordSectorX = Math.floor(x / increaseRatioX);
     const coordSectorY = Math.floor(y / increaseRatioY);
-    const indexSector = this.mainCanvas.quantitySectorsX * coordSectorY + coordSectorX;
 
-    return this.mainCanvas.listSectors[indexSector];
+    return this.mainCanvas.listSectors[coordSectorY][coordSectorX];
   }
 
   applicationToolSector(x, y) {
     const sector = this.crossingSectorCheck(x, y);
+    if (!sector) return;
 
     if (this.use) {
       this.colorPrimary = colorPallete.colorPrimary;

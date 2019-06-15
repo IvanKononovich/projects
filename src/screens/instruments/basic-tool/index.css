@@ -14,7 +14,7 @@
     height: 46px;
     margin: 5px;
     background-color: #000000;
-    background-image: url('../images/icons.png');
+    background-image: url('../../images/icons.png');
     background-repeat: no-repeat;
 }
 .instrument-item__img:hover {

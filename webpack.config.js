@@ -64,6 +64,7 @@ module.exports = {
             eraser: extractHtml('src/screens/instruments/eraser/index.html'),
             paintBucket: extractHtml('src/screens/instruments/paint-bucket/index.html'),
           },
+          resizeCanvas: extractHtml('src/screens/resize-canvas/index.html'),
           colorPalette: extractHtml('src/screens/color-palette/index.html'),
           canvas: {
             mainCanvas: extractHtml('src/screens/main-canvas/index.html'),

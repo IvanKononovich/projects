@@ -5,17 +5,29 @@ class MainCanvas {
     this.canvas.height = Math.round(window.innerHeight / 1.1);
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
-    this.totalQuantitySectors = x * y;
+
+    this.totalQuantitySectors = 0;
     this.defaultColor = '#c7c7c7';
 
     this.listSectors = [];
 
     this.lastClickCoordinates = null;
 
-    this.plots();
+    // this.plots();
+  }
+
+  drawingAllElements() {
+    this.listSectors.forEach((row) => {
+      row.forEach((column) => {
+        this.drawingElements(column);
+      });
+    });
   }
 
   plots() {
+    this.listSectors = [[]];
+    this.totalQuantitySectors = this.quantitySectorsX * this.quantitySectorsY;
+
     let sizeX = 0;
     let sizeY = 0;
 
@@ -26,7 +38,7 @@ class MainCanvas {
     this.canvas.height = this.quantitySectorsY * increaseRatioY;
 
     for (let i = 0; i < this.quantitySectorsX * this.quantitySectorsY; i += 1) {
-      this.listSectors.push({
+      this.listSectors[Math.floor(sizeY / increaseRatioY)].push({
         neighbors: [],
         x: sizeX,
         y: sizeY,
@@ -40,37 +52,85 @@ class MainCanvas {
       if (sizeX >= this.canvas.width) {
         sizeX = 0;
         sizeY += increaseRatioY;
+        this.listSectors.push([]);
       }
     }
 
-    this.listSectors.forEach((sector) => {
-      this.drawingElements(sector);
-    });
+    this.listSectors.pop();
+
+    this.drawingAllElements();
 
     this.identifyingNeighbors();
   }
 
   identifyingNeighbors() {
-    this.listSectors.forEach((item, index) => {
-      const previousSectorX = this.listSectors[index - 1];
-      const previousSectorY = this.listSectors[index - this.quantitySectorsX];
-      const nextSectorX = this.listSectors[index + 1];
-      const nextSectorY = this.listSectors[index + this.quantitySectorsX];
+    this.listSectors.forEach((row, indexRow) => {
+      row.forEach((column, indexColumn) => {
+        let previousSectorX = null;
+        let previousSectorY = null;
+        let nextSectorX = null;
+        let nextSectorY = null;
 
-      const sector = item;
+        if (indexRow > 0) {
+          previousSectorY = this.listSectors[indexRow - 1][indexColumn];
+        }
 
-      sector.neighbors.push(
-        previousSectorX,
-        nextSectorX,
-        previousSectorY,
-        nextSectorY,
-      );
+        if (indexColumn > 0) {
+          previousSectorX = this.listSectors[indexRow][indexColumn - 1];
+        }
 
-      sector.neighbors = sector.neighbors.filter((neighbor) => {
-        if (neighbor) return neighbor;
-        return false;
+        if (indexColumn + 1 < row.length) {
+          nextSectorX = this.listSectors[indexRow][indexColumn + 1];
+        }
+
+        if (indexRow + 1 < this.listSectors.length) {
+          nextSectorY = this.listSectors[indexRow + 1][indexColumn];
+        }
+
+        const sector = column;
+
+        sector.neighbors.push(
+          previousSectorX,
+          nextSectorX,
+          previousSectorY,
+          nextSectorY,
+        );
+
+        sector.neighbors = sector.neighbors.filter((neighbor) => {
+          if (neighbor) return neighbor;
+          return false;
+        });
       });
     });
+  }
+
+  changeNumberSections() {
+    const listModifiedSections = [];
+
+    this.listSectors.forEach((row, indexRow) => {
+      row.forEach((column, indexColumn) => {
+        if (column.color !== this.defaultColor) {
+          listModifiedSections.push({
+            color: column.color,
+            indexRow,
+            indexColumn,
+          });
+        }
+      });
+    });
+
+    this.plots();
+
+    listModifiedSections.forEach((item) => {
+      if (this.listSectors.length > item.indexRow) {
+        if (this.listSectors[item.indexRow].length > item.indexColumn) {
+          const sector = this.listSectors[item.indexRow][item.indexColumn];
+          sector.color = item.color;
+        }
+      }
+    });
+
+    this.drawingAllElements();
   }
 
   drawingElements(sector) {
@@ -84,6 +144,6 @@ class MainCanvas {
   }
 }
 
-const mainCanvas = new MainCanvas(125, 125);
+const mainCanvas = new MainCanvas(0, 0);
 
 export default mainCanvas;

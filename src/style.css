@@ -1,4 +1,5 @@
 @import 'screens/color-palette/index.css';
+@import 'screens/resize-canvas/index.css';
 @import 'screens/instruments/basic-tool/index.css';
 @import 'screens/instruments/pen/index.css';
 @import 'screens/instruments/eraser/index.css';
