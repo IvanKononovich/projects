@@ -1,6 +1,8 @@
 .instrument-item {
     height: 46px;
-    padding-bottom: 10px;
+    width: 46px;
+    margin: 0 auto;
+    padding-top: 10px;
     z-index: 1;
 }
 .instrument-item:hover {
@@ -12,7 +14,6 @@
     position: relative;
     width: 46px ;
     height: 46px;
-    margin: 5px;
     background-color: #000000;
     background-image: url('../../images/icons.png');
     background-repeat: no-repeat;

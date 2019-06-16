@@ -1,8 +1,8 @@
 class MainCanvas {
   constructor(x, y) {
     this.canvas = document.querySelector('.main-canvas');
-    this.canvas.width = Math.round(window.innerHeight / 1.1);
-    this.canvas.height = Math.round(window.innerHeight / 1.1);
+    this.canvas.width = window.innerHeight;
+    this.canvas.height = window.innerHeight;
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
 
