@@ -14,23 +14,47 @@ class MainCanvas {
     this.listSectors = [];
     this.listFrames = [];
     this.activeFrame = null;
+    this.buttonCreateFrame = null;
 
     this.lastClickCoordinates = null;
 
+    this.createFrame = this.createFrame.bind(this);
+
     Promise.resolve().then(() => {
       this.createFrame();
+      this.findActiveFrame();
+
+      this.buttonCreateFrame = this.listFrames[0].buttonCreateFrame;
+      this.buttonCreateFrame.addEventListener('click', this.createFrame);
     });
   }
 
   createFrame() {
-    this.plots();
+    if (this.activeFrame) {
+      this.activeFrame.changeState('not active');
+    }
 
-    const frame = new Frame(this.listFrames.length + 1, this.listSectors);
+    const frame = new Frame(this.listFrames.length + 1, this.listSectors, this);
 
     frame.changeState('active');
     frame.drawingAllElements();
 
     this.listFrames.push(frame);
+
+    this.findActiveFrame();
+
+    this.drawingAllElementsColor(this.defaultColor);
+  }
+
+  drawingAllElementsColor(color) {
+    this.listSectors.forEach((row) => {
+      row.forEach((item) => {
+        const column = item;
+
+        column.color = color;
+        this.drawingElements(column);
+      });
+    });
   }
 
   drawingAllElements() {
@@ -173,12 +197,7 @@ class MainCanvas {
 
     if (!this.activeFrame) return;
 
-    const row = sector.indexRow;
-    const column = sector.indexColumn;
-
-    this.activeFrame.listSectors[row][column] = sector;
-
-    this.activeFrame.drawingElements(this.activeFrame.listSectors[row][column]);
+    this.activeFrame.drawingElements(sector);
   }
 }
 
