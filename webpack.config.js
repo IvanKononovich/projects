@@ -62,6 +62,7 @@ module.exports = {
           instruments: {
             pen: extractHtml('src/screens/instruments/pen/index.html'),
             eraser: extractHtml('src/screens/instruments/eraser/index.html'),
+            pipetteColor: extractHtml('src/screens/instruments/pipette-color/index.html'),
             paintBucket: extractHtml('src/screens/instruments/paint-bucket/index.html'),
           },
           resizeCanvas: extractHtml('src/screens/resize-canvas/index.html'),

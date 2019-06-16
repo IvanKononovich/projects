@@ -12,6 +12,7 @@ export default class BasicTool {
     this.permissionUseArea = true;
     this.typeEvent = null;
 
+    this.colorPallete = colorPallete;
     this.colorPrimary = colorPallete.colorPrimary;
     this.colorSecondary = colorPallete.colorSecondary;
 

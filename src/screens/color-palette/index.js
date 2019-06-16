@@ -17,7 +17,8 @@ class ColorPallete {
 
   changeColor(color) {
     this.colorSecondary.value = this.colorPrimaryColor;
-    this.colorPrimaryColor = color;
+    this.colorPrimary.value = color;
+    this.colorPrimaryColor = this.colorPrimary.value;
   }
 }
 
