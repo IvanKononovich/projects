@@ -12,8 +12,6 @@ class MainCanvas {
     this.listSectors = [];
 
     this.lastClickCoordinates = null;
-
-    // this.plots();
   }
 
   drawingAllElements() {
@@ -45,6 +43,8 @@ class MainCanvas {
         w: increaseRatioX,
         h: increaseRatioY,
         color: this.defaultColor,
+        indexRow: Math.floor(sizeY / increaseRatioY),
+        indexColumn: Math.floor(sizeX / increaseRatioX),
       });
 
       sizeX += increaseRatioX;

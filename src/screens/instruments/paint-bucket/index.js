@@ -1,6 +1,11 @@
 import BasicTool from '../basic-tool/index';
 
 class PaintBucket extends BasicTool {
+  constructor() {
+    super('instrument-item__img_bucket');
+    this.permissionUseArea = false;
+  }
+
   use(item) {
     if (this.typeEvent === 'mouseup') {
       this.findingNeighborsWithSameColor = this.findingNeighborsWithSameColor.bind(this);

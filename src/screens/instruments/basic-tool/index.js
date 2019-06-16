@@ -1,5 +1,6 @@
 import mainCanvas from '../../main-canvas/index';
 import colorPallete from '../../color-palette/index';
+import resizeTool from '../../resize-tool/index';
 
 export default class BasicTool {
   constructor(toolCSSClass) {
@@ -7,6 +8,8 @@ export default class BasicTool {
     this.mainCanvasContent = this.mainCanvas.canvas;
     this.state = false;
     this.mouseButtonNumber = 0;
+    this.sizeTool = resizeTool.size;
+    this.permissionUseArea = true;
     this.typeEvent = null;
 
     this.colorPrimary = colorPallete.colorPrimary;
@@ -61,18 +64,50 @@ export default class BasicTool {
     return this.mainCanvas.listSectors[coordSectorY][coordSectorX];
   }
 
+  applicationToolAreaSector(sector) {
+    const startRow = sector.indexRow - Math.floor(this.sizeTool / 2);
+    const endRow = sector.indexRow + Math.ceil(this.sizeTool / 2);
+    const startColumn = sector.indexColumn - Math.floor(this.sizeTool / 2);
+    const endColumn = sector.indexColumn + Math.ceil(this.sizeTool / 2);
+
+    const { listSectors } = this.mainCanvas;
+
+    const result = [];
+
+    for (let row = startRow; row < endRow; row += 1) {
+      for (let column = startColumn; column < endColumn; column += 1) {
+        const conditionRow = row < listSectors.length && row >= 0;
+        const conditionColumn = column < listSectors[0].length && column >= 0;
+
+        if (conditionRow && conditionColumn) {
+          result.push(listSectors[row][column]);
+        }
+      }
+    }
+
+    return result;
+  }
+
   applicationToolSector(x, y) {
-    const sector = this.crossingSectorCheck(x, y);
-    if (!sector) return;
+    this.sizeTool = resizeTool.size;
+
+    let sectors = [this.crossingSectorCheck(x, y)];
+
+    if (!sectors[0]) return;
+
+    if (this.sizeTool > 1 && this.permissionUseArea) {
+      sectors = this.applicationToolAreaSector(...sectors);
+    }
 
     if (this.use) {
       this.colorPrimary = colorPallete.colorPrimary;
       this.colorSecondary = colorPallete.colorSecondary;
 
-      this.use(sector);
+      sectors.forEach((sector) => {
+        this.use(sector);
+        this.mainCanvas.drawingElements(sector);
+      });
     }
-
-    this.mainCanvas.drawingElements(sector);
   }
 
   useActiveTool(event) {

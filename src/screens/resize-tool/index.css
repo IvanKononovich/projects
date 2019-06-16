@@ -1,0 +1,36 @@
+.resize-tool {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: -60px;
+    left: -1px;
+    padding-bottom: 8px;
+    border: 1px solid #000000;
+    font-family: sans-serif;
+    text-align: center;
+}
+.resize-tool__text {
+    color: #d3c5c5;
+    line-height: 25px; 
+}
+.resize-tool__button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.resize-tool__button-size {
+    transition: 0.3s;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    line-height: 20px;
+}
+.resize-tool__button-size:hover {
+    background-color: #444444;
+}
+.resize-tool__button-size_active {
+    outline: 3px solid #ffbf35;
+}

@@ -8,13 +8,17 @@
 </head>
 <body>
     <div class="content-wrapper">
-        <%= htmlWebpackPlugin.options.content.screens.colorPalette %>
         <%= htmlWebpackPlugin.options.content.screens.resizeCanvas %>
 
         <div class="instruments">
+            <%= htmlWebpackPlugin.options.content.screens.resizeTool %>
+
             <%= htmlWebpackPlugin.options.content.screens.instruments.pen %>
             <%= htmlWebpackPlugin.options.content.screens.instruments.eraser %>
             <%= htmlWebpackPlugin.options.content.screens.instruments.paintBucket %>
+            <div class="instruments__row">
+                <%= htmlWebpackPlugin.options.content.screens.colorPalette %>
+            </div>
         </div>
 
         <%= htmlWebpackPlugin.options.content.screens.canvas.mainCanvas %>
