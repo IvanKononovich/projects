@@ -1,0 +1,67 @@
+.frame {
+    width: 130px;
+    height: 130px;
+    border: 1px solid #000000;
+    margin: 0 auto;
+    margin-top: 10px;
+    position: relative;
+}
+.frame_sample {
+    display: none;
+}
+.frame_active {
+    border-color: #ffd700;
+}
+.frame:hover {
+    border-color: #444444;
+}
+.frame:hover .frame__button {
+    display: block;
+}
+.frame_active:hover {
+    border-color: #ffd700;
+}
+.frame__text {
+    z-index: 1;
+    position: relative;
+    cursor: default;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #ffd700;
+    color: #000000
+}
+.frame__button {
+    z-index: 1;
+    position: relative;
+    cursor: pointer;
+    display: none;
+    width: 30px;
+    height: 30px;
+    background-color: #64646499;
+    background-image: url('../images/icons.png');
+    position: absolute;
+    right: 0;
+}
+.frame__button:hover {
+    background-color: #535353;
+}
+.frame__button_pos_top {
+    top: 0;
+    background-position: -274px -106px;
+}
+.frame__button_pos_bottom {
+    bottom: 0; 
+    background-position: -274px -76px;
+}
+.frame__canvas {
+    z-index: 0;
+    width: 134px;
+    height: 134px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

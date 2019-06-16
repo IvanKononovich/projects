@@ -1,3 +1,5 @@
+import Frame from '../frame/index';
+
 class MainCanvas {
   constructor(x, y) {
     this.canvas = document.querySelector('.main-canvas');
@@ -10,8 +12,25 @@ class MainCanvas {
     this.defaultColor = '#c7c7c7';
 
     this.listSectors = [];
+    this.listFrames = [];
+    this.activeFrame = null;
 
     this.lastClickCoordinates = null;
+
+    Promise.resolve().then(() => {
+      this.createFrame();
+    });
+  }
+
+  createFrame() {
+    this.plots();
+
+    const frame = new Frame(this.listFrames.length + 1, this.listSectors);
+
+    frame.changeState('active');
+    frame.drawingAllElements();
+
+    this.listFrames.push(frame);
   }
 
   drawingAllElements() {
@@ -133,6 +152,14 @@ class MainCanvas {
     this.drawingAllElements();
   }
 
+  findActiveFrame() {
+    this.listFrames.forEach((frame) => {
+      if (frame.state === 'active') {
+        this.activeFrame = frame;
+      }
+    });
+  }
+
   drawingElements(sector) {
     const ctx = this.canvas.getContext('2d');
 
@@ -141,6 +168,17 @@ class MainCanvas {
     ctx.fillStyle = sector.color;
     ctx.rect(sector.x, sector.y, sector.w, sector.h);
     ctx.fill();
+
+    this.findActiveFrame();
+
+    if (!this.activeFrame) return;
+
+    const row = sector.indexRow;
+    const column = sector.indexColumn;
+
+    this.activeFrame.listSectors[row][column] = sector;
+
+    this.activeFrame.drawingElements(this.activeFrame.listSectors[row][column]);
   }
 }
 

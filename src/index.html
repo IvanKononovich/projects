@@ -10,16 +10,20 @@
     <div class="content-wrapper">
         <%= htmlWebpackPlugin.options.content.screens.resizeCanvas %>
 
-        <div class="instruments">
+        <div class="column">
             <%= htmlWebpackPlugin.options.content.screens.resizeTool %>
 
             <%= htmlWebpackPlugin.options.content.screens.instruments.pen %>
             <%= htmlWebpackPlugin.options.content.screens.instruments.eraser %>
             <%= htmlWebpackPlugin.options.content.screens.instruments.pipetteColor %>
             <%= htmlWebpackPlugin.options.content.screens.instruments.paintBucket %>
-            <div class="instruments__row">
+            <div class="column__row">
                 <%= htmlWebpackPlugin.options.content.screens.colorPalette %>
             </div>
+        </div>
+
+        <div class="column column_left">
+            <%= htmlWebpackPlugin.options.content.screens.frame %>
         </div>
 
         <%= htmlWebpackPlugin.options.content.screens.canvas.mainCanvas %>
