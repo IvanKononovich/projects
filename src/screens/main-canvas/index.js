@@ -29,6 +29,15 @@ class MainCanvas {
     });
   }
 
+  frameSequenceRecalculation() {
+    this.listFrames.forEach((item, index) => {
+      const frame = item;
+
+      frame.frameNumber = index + 1;
+      frame.frameNumberText.innerHTML = index + 1;
+    });
+  }
+
   createFrame() {
     if (this.activeFrame) {
       this.activeFrame.changeState('not active');
