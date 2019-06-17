@@ -2,12 +2,12 @@
     min-width: 153px;
     height: 50px;
     padding-bottom: 8px;
-    border-bottom: 1px solid #000000;
+    border-bottom: 3px solid #000000;
     font-family: sans-serif;
     text-align: center;
 }
 .resize-tool__text {
-    color: #d3c5c5;
+    color: #444444;
     line-height: 25px; 
 }
 .resize-tool__button-container {

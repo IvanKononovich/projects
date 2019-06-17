@@ -1,4 +1,5 @@
 .frame {
+    z-index: 1;
     cursor: pointer;
     width: 130px;
     min-height: 130px;
@@ -6,6 +7,12 @@
     margin: 0 auto;
     margin-top: 10px;
     position: relative;
+}
+.frame_move {
+    z-index: 5;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .frame_sample {
     display: none;
@@ -23,6 +30,7 @@
     border-color: #ffd700;
 }
 .frame__text {
+    user-select: none;
     z-index: 1;
     position: relative;
     cursor: default;
@@ -81,4 +89,17 @@
 .button-create-frame:hover {
     background-color: #535353;
     border-color: #ffd700;
+}
+.pseudo-frame {
+    position: relative;
+    z-index: 1;
+    border: 3px dotted #ffd700;
+    background-color: #64646499;
+    width: 130px;
+    min-height: 130px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.pseudo-frame_sample {
+    display: none;
 }

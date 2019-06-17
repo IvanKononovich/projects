@@ -39,6 +39,8 @@ class MainCanvas {
   }
 
   createFrame() {
+    this.findActiveFrame();
+
     if (this.activeFrame) {
       this.activeFrame.changeState('not active');
     }
@@ -49,8 +51,6 @@ class MainCanvas {
     frame.drawingAllElements();
 
     this.listFrames.push(frame);
-
-    this.findActiveFrame();
 
     this.drawingAllElementsColor(this.defaultColor);
   }
