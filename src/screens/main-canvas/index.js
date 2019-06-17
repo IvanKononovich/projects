@@ -104,6 +104,10 @@ class MainCanvas {
     this.drawingAllElements();
 
     this.identifyingNeighbors();
+
+    if (this.activeFrame) {
+      this.activeFrame.listSectors = this.listSectors;
+    }
   }
 
   identifyingNeighbors() {

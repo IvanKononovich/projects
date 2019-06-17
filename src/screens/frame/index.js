@@ -6,6 +6,7 @@ export default class Frame {
     this.listSectorsState = [];
 
     this.frameSample = document.querySelector('.frame_sample');
+    this.framesContainer = this.frameSample.parentNode;
 
     this.buttonCreateFrame = document.querySelector('.button-create-frame');
     this.frameContent = this.frameSample.cloneNode(true);
@@ -15,17 +16,35 @@ export default class Frame {
     this.frameCanvas.width = window.innerHeight;
     this.frameCanvas.height = window.innerHeight;
 
-    this.frameContent.dataset.frameNumber = frameNumber;
+    this.frameNumber = frameNumber;
+    this.frameContent.dataset.frameNumber = this.frameNumber;
     this.frameNumberText = this.frameContent.querySelector('.frame__text');
-    this.frameNumberText.innerHTML = frameNumber;
+    this.frameNumberText.innerHTML = this.frameNumber;
 
-    this.frameSample.parentNode.insertBefore(this.frameContent, this.buttonCreateFrame);
+    this.framesContainer.insertBefore(this.frameContent, this.buttonCreateFrame);
 
-    this.changeActiveState = this.changeActiveState.bind(this);
+    this.frameInteraction = this.frameInteraction.bind(this);
 
-    this.frameContent.addEventListener('click', this.changeActiveState);
+    this.frameContent.addEventListener('click', this.frameInteraction);
 
     this.state = 'not active';
+  }
+
+  deleteFrame() {
+    this.mainCanvas.listFrames.splice(this.frameNumber - 1, 1);
+    this.framesContainer.removeChild(this.frameContent);
+  }
+
+  frameInteraction(event) {
+    const el = event.target;
+
+    if (el === this.frameCanvas) {
+      this.changeActiveState();
+    }
+
+    if (el.classList.contains('frame__button')) {
+      this[`${el.dataset.action}Frame`]();
+    }
   }
 
   changeActiveState() {
