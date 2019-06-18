@@ -169,7 +169,6 @@ export default class Frame {
   }
 
   cloneFrame() {
-    this.mainCanvas.activeFrame.changeState('not active');
     this.changeActiveState();
 
     const frame = new Frame(this.frameNumber + 1, this.listSectors, this.mainCanvas);
@@ -240,7 +239,6 @@ export default class Frame {
       this.frameContent.classList.add('frame_active');
     } else {
       this.savingStateSectors();
-      this.makeChangesSectors();
       this.drawingAllElements();
 
       this.frameContent.classList.remove('frame_active');

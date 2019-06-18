@@ -71,8 +71,6 @@
     height: 130px;
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
 }
 .button-create-frame {
     cursor: pointer;

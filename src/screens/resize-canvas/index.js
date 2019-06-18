@@ -52,10 +52,19 @@ class ResizeCanvas {
     mainCanvas.quantitySectorsX = this.inputSizeX.value;
     mainCanvas.quantitySectorsY = this.inputSizeY.value;
 
-    if (+mainCanvas.quantitySectorsX !== mainCanvas.listSectors[0].length
-      || +mainCanvas.quantitySectorsY !== mainCanvas.listSectors.length) {
-      mainCanvas.changeNumberSections();
-    }
+    mainCanvas.changeNumberSections();
+
+    mainCanvas.listFrames.forEach((item) => {
+      const frame = item;
+
+      frame.listSectors = mainCanvas.listSectors;
+
+      frame.frameCanvas
+        .getContext('2d')
+        .clearRect(0, 0, frame.frameCanvas.width, frame.frameCanvas.height);
+
+      frame.changeActiveState();
+    });
   }
 }
 
