@@ -43,7 +43,7 @@
     justify-content: space-around;
     padding: 0;
     margin: 0;
-    padding-top: 10px;
+    padding-top: 3px;
 }
 .preview__fps-button {
     cursor: pointer;
@@ -81,4 +81,14 @@
 }
 .preview__full-screen:hover {
     background-color: #444444;
+}
+.preview__title-fps {
+    margin: 0 auto;
+    margin-top: 10px;
+    color: #000000;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-align: center;
+    font-size: 15px;
+    display: block;
 }
