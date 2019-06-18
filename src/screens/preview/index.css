@@ -16,7 +16,7 @@
     left: 0;
     padding: 0;
 }
-.preview_full-screen .preview__canvas {
+.preview_full-screen .preview__animation-player {
     width: 100vh;
     height: 100vh;
 }
@@ -26,12 +26,16 @@
 .preview_full-screen .preview__full-screen {
     display: none;
 }
-.preview__canvas {
+.preview__animation-player {
     width: 280px;
     height: 280px;
     border: 3px solid #000000;
     margin: 0 auto;
     display: block;
+    background-color: transparent;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .preview__fps-list {
     list-style: none;

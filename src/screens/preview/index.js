@@ -3,14 +3,10 @@ export default class Preview {
     this.mainCanvas = mainCanvas;
     this.listFrames = this.mainCanvas.listFrames;
 
-    this.previewContainer = document.querySelector('.preview');
-    this.canvasPreview = this.previewContainer.querySelector('.preview__canvas');
-    this.canvasPreview.width = this.mainCanvas.canvas.width;
-    this.canvasPreview.height = this.mainCanvas.canvas.height;
+    this.animationPlayer = document.querySelector('.preview__animation-player');
+    this.fullScreenButton = document.querySelector('.preview__full-screen');
 
-    this.fullScreenButton = this.previewContainer.querySelector('.preview__full-screen');
-
-    this.activeFPSButton = this.previewContainer.querySelector('.preview__fps-button_active');
+    this.activeFPSButton = document.querySelector('.preview__fps-button_active');
     this.fps = 1000 / this.activeFPSButton.dataset.fps;
     this.activeFrameIndex = 0;
 
@@ -29,7 +25,7 @@ export default class Preview {
   }
 
   changeScreenMode() {
-    this.previewContainer.classList.toggle('preview_full-screen');
+    this.animationPlayer.parentNode.classList.toggle('preview_full-screen');
   }
 
   changeFps(event) {
@@ -48,17 +44,8 @@ export default class Preview {
     const frame = this.listFrames[this.activeFrameIndex];
 
     if (frame) {
-      const { activeFrame } = this.mainCanvas;
-
-      frame.changeActiveState();
-
-      frame.listSectors.forEach((row) => {
-        row.forEach((sector) => {
-          this.drawingElements(sector);
-        });
-      });
-
-      activeFrame.changeActiveState();
+      const img = frame.frameCanvas.toDataURL('png');
+      this.animationPlayer.style.backgroundImage = `url(${img})`;
     }
 
     if (this.activeFrameIndex + 1 < this.listFrames.length) {
@@ -70,15 +57,5 @@ export default class Preview {
     setTimeout(() => {
       requestAnimationFrame(this.drawingPreviews);
     }, this.fps);
-  }
-
-  drawingElements(sector) {
-    const ctx = this.canvasPreview.getContext('2d');
-
-    ctx.beginPath();
-
-    ctx.fillStyle = sector.color;
-    ctx.rect(sector.x, sector.y, sector.w, sector.h);
-    ctx.fill();
   }
 }
