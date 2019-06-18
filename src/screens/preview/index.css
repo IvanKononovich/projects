@@ -8,6 +8,24 @@
     background-color: #c7c7c7;
     padding-top: 10px;
 }
+.preview_full-screen {
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    padding: 0;
+}
+.preview_full-screen .preview__canvas {
+    width: 100vh;
+    height: 100vh;
+}
+.preview_full-screen .preview__fps-list {
+    display: none;
+}
+.preview_full-screen .preview__full-screen {
+    display: none;
+}
 .preview__canvas {
     width: 280px;
     height: 280px;

@@ -3,20 +3,33 @@ export default class Preview {
     this.mainCanvas = mainCanvas;
     this.listFrames = this.mainCanvas.listFrames;
 
-    this.canvasPreview = document.querySelector('.preview__canvas');
+    this.previewContainer = document.querySelector('.preview');
+    this.canvasPreview = this.previewContainer.querySelector('.preview__canvas');
     this.canvasPreview.width = this.mainCanvas.canvas.width;
     this.canvasPreview.height = this.mainCanvas.canvas.height;
 
-    this.activeFPSButton = document.querySelector('.preview__fps-button_active');
+    this.fullScreenButton = this.previewContainer.querySelector('.preview__full-screen');
+
+    this.activeFPSButton = this.previewContainer.querySelector('.preview__fps-button_active');
     this.fps = 1000 / this.activeFPSButton.dataset.fps;
     this.activeFrameIndex = 0;
 
     this.changeFps = this.changeFps.bind(this);
     this.drawingPreviews = this.drawingPreviews.bind(this);
+    this.changeScreenMode = this.changeScreenMode.bind(this);
 
     document.addEventListener('click', this.changeFps);
 
+    this.fullScreenButton.addEventListener('click', () => {
+      document.documentElement.requestFullscreen();
+    });
+    document.addEventListener('fullscreenchange', this.changeScreenMode);
+
     this.drawingPreviews();
+  }
+
+  changeScreenMode() {
+    this.previewContainer.classList.toggle('preview_full-screen');
   }
 
   changeFps(event) {
@@ -37,7 +50,7 @@ export default class Preview {
     if (frame) {
       const { activeFrame } = this.mainCanvas;
 
-      frame.makeChangesSectors();
+      frame.changeActiveState();
 
       frame.listSectors.forEach((row) => {
         row.forEach((sector) => {
@@ -45,7 +58,7 @@ export default class Preview {
         });
       });
 
-      activeFrame.makeChangesSectors();
+      activeFrame.changeActiveState();
     }
 
     if (this.activeFrameIndex + 1 < this.listFrames.length) {
