@@ -1,0 +1,62 @@
+.preview {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 400px;
+    border: 3px solid #000000;
+    background-color: #c7c7c7;
+    padding-top: 10px;
+}
+.preview__canvas {
+    width: 280px;
+    height: 280px;
+    border: 3px solid #000000;
+    margin: 0 auto;
+    display: block;
+}
+.preview__fps-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    padding-top: 10px;
+}
+.preview__fps-button {
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: sans-serif;
+    line-height: 23px;
+    padding: 0 8px;
+    display: block;
+    border: none;
+    outline: none;
+}
+.preview__fps-button:hover {
+    background-color: #444444;
+}
+.preview__fps-button_active {
+    outline: 3px solid #ffd700;
+}
+.preview__full-screen {
+    transition: 0.3s;
+    cursor: pointer;
+    width: 120px;
+    line-height: 30px;
+    color: #ffffff;
+    font-family: sans-serif;
+    background-color: #000000;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+}
+.preview__full-screen:hover {
+    background-color: #444444;
+}

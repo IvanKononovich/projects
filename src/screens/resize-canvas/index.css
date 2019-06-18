@@ -3,7 +3,7 @@
     transition: right 0.3s;
     position: fixed;
     right: 0;
-    top: 300px;
+    top: 50%;
     width: 46px;
     height: 46px;
     background: #000000 url('../images/icons.png') no-repeat -138px -182px;

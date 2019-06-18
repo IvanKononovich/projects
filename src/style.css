@@ -7,6 +7,7 @@
 @import 'screens/instruments/pipette-color/index.css';
 @import 'screens/instruments/paint-bucket/index.css';
 @import 'screens/frame/index.css';
+@import 'screens/preview/index.css';
 @import 'screens/main-canvas/index.css';
 
 html,

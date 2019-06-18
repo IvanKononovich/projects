@@ -183,6 +183,7 @@ export default class Frame {
     frame.drawingAllElements();
 
     this.mainCanvas.frameSequenceRecalculation();
+    this.mainCanvas.findActiveFrame();
   }
 
   changeActiveState() {

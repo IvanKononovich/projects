@@ -69,6 +69,7 @@ module.exports = {
           resizeTool: extractHtml('src/screens/resize-tool/index.html'),
           colorPalette: extractHtml('src/screens/color-palette/index.html'),
           frame: extractHtml('src/screens/frame/index.html'),
+          preview: extractHtml('src/screens/preview/index.html'),
           canvas: {
             mainCanvas: extractHtml('src/screens/main-canvas/index.html'),
           },
