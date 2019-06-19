@@ -210,10 +210,18 @@ export default class Frame {
 
   makeChangesSectors() {
     this.listSectorsState.forEach((item) => {
-      const sector = this.listSectors[item.indexRow][item.indexColumn];
+      const row = item.indexRow;
+      const column = item.indexColumn;
 
-      sector.color = item.color;
-      this.mainCanvas.drawingElements(sector);
+
+      if (row < this.listSectors.length) {
+        if (column < this.listSectors[row].length) {
+          const sector = this.listSectors[row][column];
+
+          sector.color = item.color;
+          this.mainCanvas.drawingElements(sector);
+        }
+      }
     });
   }
 

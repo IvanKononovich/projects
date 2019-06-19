@@ -1,16 +1,20 @@
 import mainCanvas from '../main-canvas/index';
+import LoadingSavedData from '../../components/loading-saved-data';
 
 class ResizeCanvas {
   constructor() {
+    this.mainCanvas = mainCanvas;
     this.resizeButton = document.querySelector('.resize-canvas');
     this.resizeContent = this.resizeButton.querySelector('.resize-canvas__content');
 
     this.changeViewContent = this.changeViewContent.bind(this);
-    this.changeSizeCanvas = this.changeSizeCanvas.bind(this);
+    this.changeValueInputs = this.changeValueInputs.bind(this);
 
     this.inputsSize = this.resizeContent.querySelectorAll('.resize-canvas__input');
     this.inputSizeX = null;
     this.inputSizeY = null;
+
+    this.loadingSavedData = null;
 
     [...this.inputsSize].forEach((item) => {
       if (item.classList.contains('resize-canvas__input_x')) {
@@ -19,14 +23,18 @@ class ResizeCanvas {
         this.inputSizeY = item;
       }
 
-      item.addEventListener('keyup', this.changeSizeCanvas);
+      item.addEventListener('keyup', this.changeValueInputs);
     });
 
-    mainCanvas.quantitySectorsX = this.inputSizeX.value;
-    mainCanvas.quantitySectorsY = this.inputSizeY.value;
-    mainCanvas.plots();
+    this.mainCanvas.quantitySectorsX = this.inputSizeX.value;
+    this.mainCanvas.quantitySectorsY = this.inputSizeY.value;
+    this.mainCanvas.plots();
 
     this.resizeButton.addEventListener('click', this.changeViewContent);
+
+    Promise.resolve().then(() => {
+      this.loadingSavedData = new LoadingSavedData(this.mainCanvas, this);
+    });
   }
 
   changeViewContent(event) {
@@ -37,7 +45,26 @@ class ResizeCanvas {
     this.resizeContent.classList.toggle('resize-canvas__content_open');
   }
 
-  changeSizeCanvas(event) {
+  changeSizeCanvas() {
+    this.mainCanvas.quantitySectorsX = this.inputSizeX.value;
+    this.mainCanvas.quantitySectorsY = this.inputSizeY.value;
+
+    this.mainCanvas.changeNumberSections();
+
+    this.mainCanvas.listFrames.forEach((item) => {
+      const frame = item;
+
+      frame.listSectors = this.mainCanvas.listSectors;
+
+      frame.frameCanvas
+        .getContext('2d')
+        .clearRect(0, 0, frame.frameCanvas.width, frame.frameCanvas.height);
+
+      frame.changeActiveState();
+    });
+  }
+
+  changeValueInputs(event) {
     const input = event.target;
     input.value = input.value.replace(/\D+/gi, '');
 
@@ -49,22 +76,7 @@ class ResizeCanvas {
       input.value = input.dataset.max;
     }
 
-    mainCanvas.quantitySectorsX = this.inputSizeX.value;
-    mainCanvas.quantitySectorsY = this.inputSizeY.value;
-
-    mainCanvas.changeNumberSections();
-
-    mainCanvas.listFrames.forEach((item) => {
-      const frame = item;
-
-      frame.listSectors = mainCanvas.listSectors;
-
-      frame.frameCanvas
-        .getContext('2d')
-        .clearRect(0, 0, frame.frameCanvas.width, frame.frameCanvas.height);
-
-      frame.changeActiveState();
-    });
+    this.changeSizeCanvas();
   }
 }
 

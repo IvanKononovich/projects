@@ -1,7 +1,5 @@
 import Frame from '../frame/index';
 import Preview from '../preview/index';
-import LoadingSavedData from '../../components/loading-saved-data';
-
 
 class MainCanvas {
   constructor(x, y) {
@@ -19,7 +17,6 @@ class MainCanvas {
     this.activeFrame = null;
     this.buttonCreateFrame = null;
     this.preview = null;
-    this.loadingSavedData = null;
 
     this.lastClickCoordinates = null;
 
@@ -33,7 +30,6 @@ class MainCanvas {
       this.buttonCreateFrame.addEventListener('click', this.createFrame);
 
       this.preview = new Preview(this);
-      this.loadingSavedData = new LoadingSavedData(this);
     });
   }
 
@@ -46,16 +42,20 @@ class MainCanvas {
     });
   }
 
-  createFrame() {
-    this.findActiveFrame();
+  createFrame(activity = true) {
+    if (activity) {
+      this.findActiveFrame();
 
-    if (this.activeFrame) {
-      this.activeFrame.changeState('not active');
+      if (this.activeFrame) {
+        this.activeFrame.changeState('not active');
+      }
     }
 
     const frame = new Frame(this.listFrames.length + 1, this.listSectors, this);
 
-    frame.changeState('active');
+    if (activity) {
+      frame.changeState('active');
+    }
 
     this.listFrames.push(frame);
 

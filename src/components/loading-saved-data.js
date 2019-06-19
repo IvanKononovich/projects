@@ -1,7 +1,8 @@
 export default class LoadingSavedData {
-  constructor(mainCanvas) {
+  constructor(mainCanvas, resizeCanvas) {
     this.mainCanvas = mainCanvas;
     this.saveData = this.saveData.bind(this);
+    this.resizeCanvas = resizeCanvas;
 
     window.addEventListener('beforeunload', this.saveData);
 
@@ -27,9 +28,19 @@ export default class LoadingSavedData {
     return JSON.stringify(result);
   }
 
+  saveSizeCanvas() {
+    const sizeCanvas = {
+      width: this.mainCanvas.quantitySectorsX,
+      heihgt: this.mainCanvas.quantitySectorsY,
+    };
+
+    localStorage.setItem('sizeCanvas', JSON.stringify(sizeCanvas));
+  }
+
   saveData() {
     const JSONListFrames = LoadingSavedData.JSONFramesConversion(this.mainCanvas.listFrames);
 
+    this.saveSizeCanvas();
     localStorage.setItem('listFrames', JSONListFrames);
   }
 
@@ -39,13 +50,19 @@ export default class LoadingSavedData {
     initFrame.framesContainer.removeChild(initFrame.frameContent);
     this.mainCanvas.listFrames.splice(0, 1);
 
-    listFrames.forEach((item) => {
+    listFrames.forEach((item, index) => {
       const list = JSON.parse(item);
 
-      this.mainCanvas.createFrame();
-      this.mainCanvas.findActiveFrame();
-      this.mainCanvas.activeFrame.listSectorsState = list;
-      this.mainCanvas.activeFrame.makeChangesSectors();
+      this.mainCanvas.createFrame(false);
+      this.mainCanvas.listFrames[index].listSectorsState = list;
     });
+
+    if (localStorage.sizeCanvas) {
+      const sizeCanvas = JSON.parse(localStorage.sizeCanvas);
+
+      this.resizeCanvas.inputSizeX.value = +sizeCanvas.width;
+      this.resizeCanvas.inputSizeY.value = +sizeCanvas.heihgt;
+      this.resizeCanvas.changeSizeCanvas();
+    }
   }
 }
