@@ -6,12 +6,44 @@ class ExportFile {
     this.mainCanvas = mainCanvas;
     this.listPicturesFrames = null;
 
-    this.exportInteraction = this.exportInteraction.bind(this);
-
-    this.exportLink = document.querySelector('.export__link');
     this.exportContainer = document.querySelector('.export');
+    this.exportLink = this.exportContainer.querySelector('.export__link');
+    this.exportInput = this.exportContainer.querySelectorAll('.export__input');
+    this.exportLoadingContainer = this.exportContainer.querySelector('.export__loading-container');
+    this.gifWidth = null;
+    this.gifHeight = null;
+    this.gifName = null;
+
+    this.exportInteraction = this.exportInteraction.bind(this);
+    this.changeValueInputs = this.changeValueInputs.bind(this);
+
+    [...this.exportInput].forEach((item) => {
+      item.addEventListener('keyup', this.changeValueInputs);
+
+      if (item.dataset.dataType === 'number') {
+        this[`gif${item.dataset.size}`] = +item.value;
+      } else {
+        this.gifName = item.value;
+      }
+    });
 
     document.addEventListener('click', this.exportInteraction);
+  }
+
+  changeValueInputs(event) {
+    const input = event.target;
+
+    if (input.dataset.dataType === 'number') {
+      input.value = input.value.replace(/\D+/gi, '');
+
+      if (+input.value > +input.dataset.sizeMax) {
+        input.value = input.dataset.sizeMax;
+      }
+
+      this[`gif${input.dataset.size}`] = +input.value;
+    } else {
+      this.gifName = input.value;
+    }
   }
 
   exportInteraction(event) {
@@ -41,7 +73,11 @@ class ExportFile {
   }
 
   createGIF(event) {
-    if (!event.isTrusted) return;
+    if (!event.isTrusted) {
+      return;
+    }
+    this.exportLoadingContainer.classList.add('export__loading-container_open');
+
 
     if (this.exportLink.getAttribute('href') === '#') {
       event.preventDefault();
@@ -52,6 +88,8 @@ class ExportFile {
     const fps = this.mainCanvas.preview.fps / 1000;
 
     gifshot.createGIF({
+      gifWidth: this.gifWidth,
+      gifHeight: this.gifHeight,
       images: this.listPicturesFrames,
       interval: fps,
     }, (obj) => {
@@ -59,8 +97,12 @@ class ExportFile {
         const { image } = obj;
 
         this.exportLink.setAttribute('href', image);
+        this.exportLink.setAttribute('download', `${this.gifName}.gif`);
+
         this.exportLink.click();
+
         this.exportLink.setAttribute('href', '#');
+        this.exportLoadingContainer.classList.remove('export__loading-container_open');
       }
     });
   }
