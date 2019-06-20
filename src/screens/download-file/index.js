@@ -40,6 +40,11 @@ class ExportFile {
         input.value = input.dataset.sizeMax;
       }
 
+      if (+input.value < +input.dataset.sizeMin 
+        || input.value === '') {
+        input.value = input.dataset.sizeMin;
+      }
+
       this[`gif${input.dataset.size}`] = +input.value;
     } else {
       this.gifName = input.value;
