@@ -38,5 +38,7 @@
     "webpack-cli": "^3.3.3",
     "webpack-dev-server": "^3.7.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gifshot": "^0.4.5"
+  }
 }

@@ -9,6 +9,7 @@
 @import 'screens/frame/index.css';
 @import 'screens/preview/index.css';
 @import 'screens/main-canvas/index.css';
+@import 'screens/download-file/index.css';
 
 html,
 body {

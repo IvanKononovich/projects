@@ -18,16 +18,12 @@
     background-color: #000000;
 }
 .resize-canvas__content {
-    transition: width 0.3s;
     position: absolute;
     left: 100%;
     top: 50%;
     transform: translateY(-50%);
     box-sizing: border-box;
     background-color: #000000;
-    width: 0;
-}
-.resize-canvas__content_open {
     width: 200px;
 }
 .resize-canvas__row {

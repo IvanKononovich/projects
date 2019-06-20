@@ -1,0 +1,51 @@
+.export {
+    cursor: pointer;
+    transition: right 0.3s;
+    position: fixed;
+    right: 0;
+    top: 60%;
+    width: 46px;
+    height: 46px;
+    background: #000000 url('../images/icons.png') no-repeat 0px -182px;
+}
+.export:hover {
+    background-color: #444444;
+}
+.export_open {
+    right: 200px;
+}
+.export_open:hover {
+    background-color: #000000;
+}
+.export__container {
+    transition: width 0.3s;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    box-sizing: border-box;
+    background-color: #000000;
+    width: 200px;
+    height: 95px;
+    display: flex;
+    flex-direction: column;
+}
+.export__text {
+    display: block;
+    margin: 0 auto;
+    padding: 20px 0;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+}
+.export__link { 
+    display: block;
+    margin: 0 auto;
+    color: #969696;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+.export__link:hover {
+    color: #ffd700;
+}

@@ -19,11 +19,11 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-      // { 
-      //   enforce: 'pre',
-      //   test: /\.js$/, 
-      //   loader: 'eslint-loader',
-      // },
+      { 
+        enforce: 'pre',
+        test: /\.js$/, 
+        loader: 'eslint-loader',
+      },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
@@ -70,6 +70,7 @@ module.exports = {
           colorPalette: extractHtml('src/screens/color-palette/index.html'),
           frame: extractHtml('src/screens/frame/index.html'),
           preview: extractHtml('src/screens/preview/index.html'),
+          export: extractHtml('src/screens/download-file/index.html'),
           canvas: {
             mainCanvas: extractHtml('src/screens/main-canvas/index.html'),
           },
