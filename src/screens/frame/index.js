@@ -187,13 +187,8 @@ export default class Frame {
   }
 
   changeActiveState() {
-    this.mainCanvas.findActiveFrame();
-    const { activeFrame } = this.mainCanvas;
-
-    if (activeFrame !== this) {
-      this.mainCanvas.activeFrame.changeState('not active');
-      this.changeState('active');
-    }
+    this.mainCanvas.activeFrame.changeState('not active');
+    this.changeState('active');
   }
 
   frameInteraction(event) {
@@ -243,6 +238,8 @@ export default class Frame {
     this.state = state;
 
     if (this.state === 'active') {
+      this.mainCanvas.findActiveFrame();
+
       this.makeChangesSectors();
 
       this.frameContent.classList.add('frame_active');
