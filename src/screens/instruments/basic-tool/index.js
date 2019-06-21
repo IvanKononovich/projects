@@ -106,7 +106,7 @@ export default class BasicTool {
 
       sectors.forEach((sector) => {
         this.use(sector);
-        this.mainCanvas.drawingElements(sector);
+        this.mainCanvas.drawingElements(sector, true);
       });
     }
   }
@@ -144,6 +144,8 @@ export default class BasicTool {
     document.removeEventListener('mouseup', this.unsubscribeEvents);
 
     this.lastClickCoordinates = null;
+
+    this.mainCanvas.activeFrame.drawingElements();
   }
 
   subscribeEvents(event) {

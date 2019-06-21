@@ -30,7 +30,7 @@ class PaintBucket extends BasicTool {
 
     if (neighbor.color === this.sectorColor) {
       neighbor.color = this.color;
-      this.mainCanvas.drawingElements(neighbor);
+      this.mainCanvas.drawingElements(neighbor, true);
       this.listNeighbors.push(neighbor);
     }
   }
@@ -53,7 +53,7 @@ class PaintBucket extends BasicTool {
     }
 
     this.startingSector.color = this.color;
-    this.mainCanvas.drawingElements(startingSector);
+    this.mainCanvas.drawingElements(startingSector, true);
   }
 }
 

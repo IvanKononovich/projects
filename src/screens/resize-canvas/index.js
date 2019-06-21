@@ -56,9 +56,8 @@ class ResizeCanvas {
 
       frame.listSectors = this.mainCanvas.listSectors;
 
-      frame.frameCanvas
-        .getContext('2d')
-        .clearRect(0, 0, frame.frameCanvas.width, frame.frameCanvas.height);
+      frame.frameCanvas.backgroundImage = 'none';
+      frame.frameCanvas.backgroundColor = this.mainCanvas.defaultColor;
 
       frame.changeActiveState();
     });

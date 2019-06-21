@@ -40,7 +40,7 @@ class ExportFile {
         input.value = input.dataset.sizeMax;
       }
 
-      if (+input.value < +input.dataset.sizeMin 
+      if (+input.value < +input.dataset.sizeMin
         || input.value === '') {
         input.value = input.dataset.sizeMin;
       }
@@ -71,7 +71,8 @@ class ExportFile {
     this.listPicturesFrames = [];
 
     this.mainCanvas.listFrames.forEach((frame) => {
-      const img = frame.frameCanvas.toDataURL('png');
+      let img = getComputedStyle(frame.frameCanvas).backgroundImage.replace(/url\("/gi, '');
+      img = img.replace(/"\)$/gi, '');
 
       this.listPicturesFrames.push(img);
     });

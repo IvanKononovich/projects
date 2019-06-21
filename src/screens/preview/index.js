@@ -3,10 +3,11 @@ export default class Preview {
     this.mainCanvas = mainCanvas;
     this.listFrames = this.mainCanvas.listFrames;
 
-    this.animationPlayer = document.querySelector('.preview__animation-player');
-    this.fullScreenButton = document.querySelector('.preview__full-screen');
+    this.previewContainer = document.querySelector('.preview');
+    this.animationPlayer = this.previewContainer.querySelector('.preview__animation-player');
+    this.fullScreenButton = this.previewContainer.querySelector('.preview__full-screen');
 
-    this.activeFPSButton = document.querySelector('.preview__fps-button_active');
+    this.activeFPSButton = this.previewContainer.querySelector('.preview__fps-button_active');
     this.fps = 1000 / this.activeFPSButton.dataset.fps;
     this.activeFrameIndex = 0;
 
@@ -25,7 +26,7 @@ export default class Preview {
   }
 
   changeScreenMode() {
-    this.animationPlayer.parentNode.classList.toggle('preview_full-screen');
+    this.previewContainer.classList.toggle('preview_full-screen');
   }
 
   changeFps(event) {
@@ -44,8 +45,9 @@ export default class Preview {
     const frame = this.listFrames[this.activeFrameIndex];
 
     if (frame) {
-      const img = frame.frameCanvas.toDataURL('png');
-      this.animationPlayer.style.backgroundImage = `url(${img})`;
+      const img = getComputedStyle(frame.frameCanvas).backgroundImage;
+
+      this.animationPlayer.style.backgroundImage = img;
     }
 
     if (this.activeFrameIndex + 1 < this.listFrames.length) {

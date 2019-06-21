@@ -10,7 +10,7 @@ class MainCanvas {
     this.quantitySectorsY = y;
 
     this.totalQuantitySectors = 0;
-    this.defaultColor = '#c7c7c7';
+    this.defaultColor = 'transparent';
 
     this.listSectors = [];
     this.listFrames = [];
@@ -68,17 +68,25 @@ class MainCanvas {
         const column = item;
 
         column.color = color;
-        this.drawingElements(column);
+        this.drawingElements(column, true);
       });
     });
+
+    if (!this.activeFrame) return;
+
+    this.activeFrame.drawingElements();
   }
 
   drawingAllElements() {
     this.listSectors.forEach((row) => {
       row.forEach((column) => {
-        this.drawingElements(column);
+        this.drawingElements(column, true);
       });
     });
+
+    if (!this.activeFrame) return;
+
+    this.activeFrame.drawingElements();
   }
 
   plots() {
@@ -204,10 +212,12 @@ class MainCanvas {
     });
   }
 
-  drawingElements(sector) {
+  drawingElements(sector, allElements) {
     const ctx = this.canvas.getContext('2d');
 
     ctx.beginPath();
+
+    ctx.clearRect(sector.x, sector.y, sector.w, sector.h);
 
     ctx.fillStyle = sector.color;
     ctx.rect(sector.x, sector.y, sector.w, sector.h);
@@ -215,9 +225,9 @@ class MainCanvas {
 
     this.findActiveFrame();
 
-    if (!this.activeFrame) return;
+    if (!this.activeFrame || allElements) return;
 
-    this.activeFrame.drawingElements(sector);
+    this.activeFrame.drawingElements();
   }
 }
 

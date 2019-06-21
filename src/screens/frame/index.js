@@ -180,7 +180,7 @@ export default class Frame {
     this.changeState('not active');
     frame.changeActiveState();
 
-    frame.drawingAllElements();
+    frame.drawingElements();
 
     this.mainCanvas.frameSequenceRecalculation();
     this.mainCanvas.findActiveFrame();
@@ -214,10 +214,12 @@ export default class Frame {
           const sector = this.listSectors[row][column];
 
           sector.color = item.color;
-          this.mainCanvas.drawingElements(sector);
+          this.mainCanvas.drawingElements(sector, true);
         }
       }
     });
+
+    this.drawingElements();
   }
 
   savingStateSectors() {
@@ -245,27 +247,14 @@ export default class Frame {
       this.frameContent.classList.add('frame_active');
     } else {
       this.savingStateSectors();
-      this.drawingAllElements();
+      this.drawingElements();
 
       this.frameContent.classList.remove('frame_active');
     }
   }
 
-  drawingAllElements() {
-    this.listSectors.forEach((row) => {
-      row.forEach((column) => {
-        this.drawingElements(column);
-      });
-    });
-  }
-
-  drawingElements(sector) {
-    const ctx = this.frameCanvas.getContext('2d');
-
-    ctx.beginPath();
-
-    ctx.fillStyle = sector.color;
-    ctx.rect(sector.x, sector.y, sector.w, sector.h);
-    ctx.fill();
+  drawingElements() {
+    const image = this.mainCanvas.canvas.toDataURL('png');
+    this.frameCanvas.style.backgroundImage = `url(${image})`;
   }
 }

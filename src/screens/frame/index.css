@@ -7,6 +7,7 @@
     margin: 0 auto;
     margin-top: 10px;
     position: relative;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABlBMVEVMTExVVVUnhsEkAAAAHUlEQVR4AWOAAUYoQOePEAUj3v9oYDQ9gMBoegAAJFwCAbLaTIMAAAAASUVORK5CYII=') repeat;
 }
 .frame_move {
     z-index: 5;
@@ -73,6 +74,9 @@
     position: absolute;
     top: 0;
     left: 0;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .button-create-frame {
     cursor: pointer;
