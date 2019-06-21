@@ -1,5 +1,6 @@
 import Frame from '../frame/index';
 import Preview from '../preview/index';
+import Layer from '../layer/index';
 
 class MainCanvas {
   constructor(x, y) {
@@ -17,6 +18,7 @@ class MainCanvas {
     this.activeFrame = null;
     this.buttonCreateFrame = null;
     this.preview = null;
+    this.layer = null;
 
     this.lastClickCoordinates = null;
 
@@ -30,6 +32,7 @@ class MainCanvas {
       this.buttonCreateFrame.addEventListener('click', this.createFrame);
 
       this.preview = new Preview(this);
+      this.layer = new Layer(this);
     });
   }
 

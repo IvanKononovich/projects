@@ -1,9 +1,10 @@
 .resize-canvas {
+    z-index: 1;
     cursor: pointer;
     transition: right 0.3s;
     position: fixed;
     right: 0;
-    top: 50%;
+    top: 620px;
     width: 46px;
     height: 46px;
     background: #000000 url('../images/icons.png') no-repeat -138px -182px;
@@ -12,6 +13,7 @@
     background-color: #444444;
 }
 .resize-canvas_open {
+    z-index: 5;
     right: 200px;
 }
 .resize-canvas_open:hover {
