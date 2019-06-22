@@ -74,3 +74,6 @@
 .layer__instance_sample {
     display: none;
 }
+.layer__instance_active {
+    border-color: #ffd700;
+}

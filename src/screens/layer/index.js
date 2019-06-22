@@ -5,6 +5,7 @@ export default class Layer {
     this.layerContainer = document.querySelector('.layer__container');
     this.layerSample = this.layerContainer.querySelector('.layer__instance_sample');
     this.listLayers = [];
+    this.activeLayer = null;
 
     this.layerInteraction = this.layerInteraction.bind(this);
 
@@ -24,6 +25,37 @@ export default class Layer {
       } else {
         this[`${action}Layer`]();
       }
+    }
+
+    if (el.classList.contains('layer__instance')
+    || el.parentNode.classList.contains('layer__instance')) {
+      const indexActiveLayer = el.dataset.indexLayer
+      || el.parentNode.dataset.indexLayer;
+
+      this.changeActiveLayer(indexActiveLayer);
+    }
+  }
+
+  changeActiveLayer(index) {
+    if (this.activeLayer) {
+      this.activeLayer.classList.remove('layer__instance_active');
+    }
+
+    this.activeLayer = this.listLayers[index];
+
+    this.activeLayer.classList.add('layer__instance_active');
+
+    this.mainCanvas.activeFrame.activeLayer = index;
+  }
+
+  changeActiveFrame() {
+    const { activeFrame } = this.mainCanvas;
+
+    this.listLayers = [];
+    this.layerContainer.innerHTML = '';
+
+    for (let i = 0; i < activeFrame.quantityLayer; i += 1) {
+      this.addLayer(true);
     }
   }
 
@@ -51,9 +83,10 @@ export default class Layer {
     });
   }
 
-  addLayer() {
+  addLayer(repeatBuild = false) {
     const copyLayerContent = this.layerSample.cloneNode(true);
     copyLayerContent.classList.remove('layer__instance_sample');
+    copyLayerContent.dataset.indexLayer = this.listLayers.length;
 
     const titleTitle = copyLayerContent.querySelector('.layer__instance-title');
     titleTitle.innerHTML += ` - ${this.listLayers.length + 1}`;
@@ -63,5 +96,20 @@ export default class Layer {
     this.listLayers.push(copyLayerContent);
 
     this.modificationListSectors('push');
+
+    if (this.activeLayer) {
+      this.activeLayer.classList.remove('layer__instance_active');
+    }
+
+    this.mainCanvas.activeFrame.activeLayer = this.listLayers.length - 1;
+
+    if (!repeatBuild) {
+      this.mainCanvas.activeFrame.quantityLayer = this.listLayers.length;
+    }
+
+    const indexActiveLayer = this.mainCanvas.activeFrame.activeLayer;
+    this.activeLayer = this.listLayers[indexActiveLayer];
+
+    this.activeLayer.classList.add('layer__instance_active');
   }
 }
