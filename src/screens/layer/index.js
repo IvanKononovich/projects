@@ -46,6 +46,21 @@ export default class Layer {
     this.activeLayer.classList.add('layer__instance_active');
 
     this.mainCanvas.activeFrame.activeLayer = index;
+
+    this.makeChangesSectors();
+  }
+
+  makeChangesSectors() {
+    const index = this.mainCanvas.activeFrame.activeLayer;
+
+    this.mainCanvas.listSectors.forEach((row) => {
+      row.forEach((item) => {
+        const section = item;
+
+        section.color = section.layers[index].color;
+        this.mainCanvas.drawingElements(section);
+      });
+    });
   }
 
   changeActiveFrame() {

@@ -208,7 +208,6 @@ export default class Frame {
       const row = item.indexRow;
       const column = item.indexColumn;
 
-
       if (row < this.listSectors.length) {
         if (column < this.listSectors[row].length) {
           const sector = this.listSectors[row][column];

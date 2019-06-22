@@ -55,12 +55,11 @@ class MainCanvas {
     }
 
     const frame = new Frame(this.listFrames.length + 1, this.listSectors, this);
+    this.listFrames.push(frame);
 
     if (activity) {
       frame.changeState('active');
     }
-
-    this.listFrames.push(frame);
 
     this.drawingAllElementsColor(this.defaultColor);
   }
@@ -215,14 +214,23 @@ class MainCanvas {
     });
   }
 
-  drawingElements(sector, allElements) {
+  drawingElements(item, allElements) {
+    const sector = item;
     const ctx = this.canvas.getContext('2d');
 
     ctx.beginPath();
 
     ctx.clearRect(sector.x, sector.y, sector.w, sector.h);
 
-    ctx.fillStyle = sector.color;
+    const { color } = sector;
+
+    if (sector.layers) {
+      const indexActiveLayer = this.activeFrame.activeLayer;
+
+      sector.layers[indexActiveLayer].color = color;
+    }
+
+    ctx.fillStyle = color;
     ctx.rect(sector.x, sector.y, sector.w, sector.h);
     ctx.fill();
 
