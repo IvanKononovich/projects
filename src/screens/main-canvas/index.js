@@ -54,7 +54,9 @@ class MainCanvas {
       }
     }
 
-    const frame = new Frame(this.listFrames.length + 1, this.listSectors, this);
+    this.clearLayers();
+
+    const frame = new Frame(this.listFrames.length + 1, this);
     this.listFrames.push(frame);
 
     if (activity) {
@@ -64,13 +66,23 @@ class MainCanvas {
     this.drawingAllElementsColor(this.defaultColor);
   }
 
+  clearLayers() {
+    this.listSectors.forEach((row) => {
+      row.forEach((item) => {
+        const sector = item;
+
+        sector.layers = null;
+      });
+    });
+  }
+
   drawingAllElementsColor(color) {
     this.listSectors.forEach((row) => {
       row.forEach((item) => {
-        const column = item;
+        const sector = item;
 
-        column.color = color;
-        this.drawingElements(column, true);
+        sector.color = color;
+        this.drawingElements(sector, true);
       });
     });
 
@@ -214,7 +226,7 @@ class MainCanvas {
     });
   }
 
-  drawingElements(item, allElements) {
+  drawingElements(item, allElements, changeLayersColor = true) {
     const sector = item;
     const ctx = this.canvas.getContext('2d');
 
@@ -224,10 +236,12 @@ class MainCanvas {
 
     const { color } = sector;
 
-    if (sector.layers) {
-      const indexActiveLayer = this.activeFrame.activeLayer;
+    if (sector.layers && changeLayersColor) {
+      const index = this.activeFrame.activeLayer;
 
-      sector.layers[indexActiveLayer].color = color;
+      if (index !== undefined) {
+        sector.layers[index].color = color;
+      }
     }
 
     ctx.fillStyle = color;

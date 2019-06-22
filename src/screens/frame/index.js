@@ -1,8 +1,7 @@
 export default class Frame {
-  constructor(frameNumber, listSectors, mainCanvas) {
+  constructor(frameNumber, mainCanvas) {
     this.mainCanvas = mainCanvas;
 
-    this.listSectors = listSectors;
     this.listSectorsState = [];
 
     this.pseudoFrameSample = document.querySelector('.pseudo-frame_sample');
@@ -171,7 +170,7 @@ export default class Frame {
   cloneFrame() {
     this.changeActiveState();
 
-    const frame = new Frame(this.frameNumber + 1, this.listSectors, this.mainCanvas);
+    const frame = new Frame(this.frameNumber + 1, this.mainCanvas.listSectors, this.mainCanvas);
 
     this.moveAroundDOM(this.frameNumber, frame.framesContainer, frame.frameContent);
 
@@ -208,11 +207,22 @@ export default class Frame {
       const row = item.indexRow;
       const column = item.indexColumn;
 
-      if (row < this.listSectors.length) {
-        if (column < this.listSectors[row].length) {
-          const sector = this.listSectors[row][column];
+      if (row < this.mainCanvas.listSectors.length) {
+        if (column < this.mainCanvas.listSectors[row].length) {
+          const sector = this.mainCanvas.listSectors[row][column];
 
           sector.color = item.color;
+          sector.layers = item.layers;
+
+          if (sector.layers) {
+            this.quantityLayer = sector.layers.length;
+            const index = this.activeLayer;
+
+            if (index !== undefined) {
+              sector.color = sector.layers[index].color;
+            }
+          }
+
           this.mainCanvas.drawingElements(sector, true);
         }
       }
@@ -224,12 +234,13 @@ export default class Frame {
   savingStateSectors() {
     this.listSectorsState = [];
 
-    this.listSectors.forEach((row) => {
+    this.mainCanvas.listSectors.forEach((row) => {
       row.forEach((column) => {
         this.listSectorsState.push({
           indexRow: column.indexRow,
           indexColumn: column.indexColumn,
           color: column.color,
+          layers: column.layers,
         });
       });
     });

@@ -55,10 +55,11 @@ export default class Layer {
 
     this.mainCanvas.listSectors.forEach((row) => {
       row.forEach((item) => {
-        const section = item;
+        const sector = item;
 
-        section.color = section.layers[index].color;
-        this.mainCanvas.drawingElements(section);
+        sector.color = sector.layers[index].color;
+
+        this.mainCanvas.drawingElements(sector, false, false);
       });
     });
   }
@@ -110,7 +111,6 @@ export default class Layer {
 
     this.listLayers.push(copyLayerContent);
 
-    this.modificationListSectors('push');
 
     if (this.activeLayer) {
       this.activeLayer.classList.remove('layer__instance_active');
@@ -120,6 +120,7 @@ export default class Layer {
 
     if (!repeatBuild) {
       this.mainCanvas.activeFrame.quantityLayer = this.listLayers.length;
+      this.modificationListSectors('push');
     }
 
     const indexActiveLayer = this.mainCanvas.activeFrame.activeLayer;
