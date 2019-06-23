@@ -109,8 +109,32 @@ export default class Layer {
     });
   }
 
-  deleteLayer() {
-    let { indexLayer } = this.activeLayer.dataset;
+  mergeLayer() {
+    const indexActiveLayer = +this.activeLayer.dataset.indexLayer;
+
+    if (this.listLayers.length === 0) return;
+    if (indexActiveLayer === this.listLayers.length - 1) return;
+
+    const { listSectors } = this.mainCanvas;
+
+    listSectors.forEach((row) => {
+      row.forEach((item) => {
+        const sector = item;
+        const firstColor = sector.layers[indexActiveLayer].color;
+        const secondColor = sector.layers[indexActiveLayer + 1].color;
+
+        if (firstColor === 'transparent') {
+          sector.layers[indexActiveLayer].color = secondColor;
+        }
+      });
+    });
+
+    this.deleteLayer(indexActiveLayer + 1);
+  }
+
+  deleteLayer(deleteLayerIndex = this.activeLayer.dataset.indexLayer) {
+    let indexLayer = deleteLayerIndex;
+    this.activeLayer = this.listLayers[indexLayer];
 
     const { listSectors } = this.mainCanvas;
 
