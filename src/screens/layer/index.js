@@ -21,7 +21,7 @@ export default class Layer {
       if (action === 'move') {
         const typeAction = el.dataset.move;
 
-        this[`${action}${typeAction}Layer`]();
+        this[`${action}Layer`](typeAction);
       } else {
         this[`${action}Layer`]();
       }
@@ -89,7 +89,6 @@ export default class Layer {
 
         if (action === 'push') {
           layer = {
-            index: column.layers.length,
             color: column.color,
           };
         }
@@ -107,6 +106,43 @@ export default class Layer {
       layer.dataset.indexLayer = index;
       layerTitle.innerHTML = `${layerTitle.dataset.textTitle} - ${index + 1}`;
     });
+  }
+
+  swapLayers(firstLayer, secondLayer) {
+    const { listSectors } = this.mainCanvas;
+
+    listSectors.forEach((row) => {
+      row.forEach((item) => {
+        const sector = item;
+        const layer = sector.layers[firstLayer];
+
+        sector.layers.splice(firstLayer, 1);
+        sector.layers.splice(secondLayer, 0, layer);
+      });
+    });
+  }
+
+  moveLayer(direction) {
+    const indexActiveLayer = +this.activeLayer.dataset.indexLayer;
+    let nextLayer = null;
+    let newIndexActiveLayer = indexActiveLayer;
+
+    if (direction === 'up') {
+      newIndexActiveLayer -= 1;
+      nextLayer = this.listLayers[newIndexActiveLayer];
+      nextLayer.before(this.activeLayer);
+    } else {
+      newIndexActiveLayer += 1;
+      nextLayer = this.listLayers[newIndexActiveLayer];
+      nextLayer.after(this.activeLayer);
+    }
+
+    nextLayer.dataset.indexLayer = indexActiveLayer;
+    this.activeLayer.dataset.indexLayer = newIndexActiveLayer;
+
+    this.listLayers = [...this.layerContainer.querySelectorAll('.layer__instance')];
+
+    this.swapLayers(indexActiveLayer, newIndexActiveLayer);
   }
 
   mergeLayer() {
