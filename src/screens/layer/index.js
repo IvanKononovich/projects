@@ -99,13 +99,58 @@ export default class Layer {
     });
   }
 
+  layerSequenceRecalculation() {
+    this.listLayers.forEach((item, index) => {
+      const layer = item;
+      const layerTitle = layer.querySelector('.layer__instance-title');
+
+      layer.dataset.indexLayer = index;
+      layerTitle.innerHTML = `${layerTitle.dataset.textTitle} - ${index + 1}`;
+    });
+  }
+
+  deleteLayer() {
+    let { indexLayer } = this.activeLayer.dataset;
+
+    const { listSectors } = this.mainCanvas;
+
+    listSectors.forEach((row) => {
+      row.forEach((item) => {
+        const sector = item;
+
+        sector.layers.splice(indexLayer, 1);
+
+        if (sector.layers.length === 0) {
+          sector.layers = undefined;
+        }
+      });
+    });
+
+    this.layerContainer.removeChild(this.activeLayer);
+
+    this.listLayers.splice(indexLayer, 1);
+
+    if (!this.listLayers.length) {
+      this.mainCanvas.activeFrame.savingStateSectors();
+      return;
+    }
+
+    this.layerSequenceRecalculation();
+
+    indexLayer = this.listLayers.length - 1;
+
+    this.changeActiveLayer(indexLayer);
+
+    this.mainCanvas.activeFrame.savingStateSectors();
+  }
+
   addLayer(repeatBuild = false) {
     const copyLayerContent = this.layerSample.cloneNode(true);
     copyLayerContent.classList.remove('layer__instance_sample');
     copyLayerContent.dataset.indexLayer = this.listLayers.length;
 
-    const titleTitle = copyLayerContent.querySelector('.layer__instance-title');
-    titleTitle.innerHTML += ` - ${this.listLayers.length + 1}`;
+    const layerTitle = copyLayerContent.querySelector('.layer__instance-title');
+    layerTitle.innerHTML = `${layerTitle.dataset.textTitle} - ${this.listLayers.length + 1}`;
 
     this.layerContainer.appendChild(copyLayerContent);
 

@@ -216,7 +216,7 @@ export default class Frame {
 
           if (sector.layers) {
             this.quantityLayer = sector.layers.length;
-            const index = this.activeLayer;
+            const index = this.activeLayer || this.quantityLayer - 1;
 
             if (index !== undefined) {
               sector.color = sector.layers[index].color;
