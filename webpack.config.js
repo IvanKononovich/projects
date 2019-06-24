@@ -55,6 +55,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({  
+      template: 'src/screens/start-page/index.html',
+      inject: false,
+    }),
+    new HtmlWebpackPlugin({  
       // Load a custom template (lodash by default)
       template: 'src/index.html',
       content: {

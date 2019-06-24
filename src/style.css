@@ -19,6 +19,7 @@ body {
 }
 body {
     overflow: hidden;
+    min-width: 1600px;
 }
 .content-wrapper {
     display: flex;
