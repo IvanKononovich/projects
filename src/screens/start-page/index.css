@@ -27,6 +27,7 @@ body {
     cursor: pointer;
     font-size: 13px;
     font-weight: bold;
+    letter-spacing: 1.7px;
     font-family: sans-serif;
     text-align: center;
     text-decoration: none;
@@ -56,10 +57,12 @@ body {
     width: 40%;
 }
 .project-description__title {
+    letter-spacing: 1.7px;
     font-family: sans-serif;
     color: #ffffff;
 }
 .project-description__text {
+    letter-spacing: 1.7px;
     font-family: sans-serif;
     color: #dfdfdf;
     font-size: 16px;
@@ -108,4 +111,32 @@ body {
 .sprites-example__sprite_bg_6 {
     background-image: url('images/example-sprites-6.gif');
 }
-
+.functional {
+    width: 100vw;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #181818;
+}
+.functional__row {
+    width: 30vw;
+    border-top: 3px solid #000000;
+}
+.functional__text {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 25px;
+    letter-spacing: 1.7px;
+}
+.functional__title {
+    font-family: sans-serif;
+    text-align: center;
+    color: #ffffff;
+    letter-spacing: 1.7px;
+}
+.text-color_gold {
+    color: #ffd700;
+}
