@@ -1,9 +1,9 @@
 import gifshot from 'gifshot';
-import mainCanvas from '../main-canvas/index';
 
-class ExportFile {
-  constructor() {
+export default class ExportFile {
+  constructor(mainCanvas, preview) {
     this.mainCanvas = mainCanvas;
+    this.preview = preview;
     this.listPicturesFrames = null;
 
     this.exportContainer = document.querySelector('.export');
@@ -91,7 +91,7 @@ class ExportFile {
 
     this.createListFrames();
 
-    const fps = this.mainCanvas.preview.fps / 1000;
+    const fps = this.preview.fps / 1000;
 
     gifshot.createGIF({
       gifWidth: this.gifWidth,
@@ -113,7 +113,3 @@ class ExportFile {
     });
   }
 }
-
-const exportFile = new ExportFile();
-
-export default exportFile;

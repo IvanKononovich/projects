@@ -1,14 +1,15 @@
-import mainCanvas from '../../main-canvas/index';
-import colorPallete from '../../color-palette/index';
-import resizeTool from '../../resize-tool/index';
+// import mainCanvas from '../../main-canvas/index';
+// import colorPallete from '../../color-palette/index';
+// import resizeTool from '../../resize-tool/index';
 
 export default class BasicTool {
-  constructor(toolCSSClass) {
+  constructor(toolCSSClass, mainCanvas, colorPallete, resizeTool) {
     this.mainCanvas = mainCanvas;
     this.mainCanvasContent = this.mainCanvas.canvas;
     this.state = false;
     this.mouseButtonNumber = 0;
-    this.sizeTool = resizeTool.size;
+    this.resizeTool = resizeTool;
+    this.sizeTool = this.resizeTool.size;
     this.permissionUseArea = true;
     this.typeEvent = null;
 
@@ -90,7 +91,7 @@ export default class BasicTool {
   }
 
   applicationToolSector(x, y) {
-    this.sizeTool = resizeTool.size;
+    this.sizeTool = this.resizeTool.size;
 
     let sectors = [this.crossingSectorCheck(x, y)];
 
@@ -101,8 +102,8 @@ export default class BasicTool {
     }
 
     if (this.use) {
-      this.colorPrimary = colorPallete.colorPrimary;
-      this.colorSecondary = colorPallete.colorSecondary;
+      this.colorPrimary = this.colorPallete.colorPrimary;
+      this.colorSecondary = this.colorPallete.colorSecondary;
 
       sectors.forEach((sector) => {
         this.use(sector);

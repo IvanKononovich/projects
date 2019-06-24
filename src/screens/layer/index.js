@@ -59,9 +59,11 @@ export default class Layer {
 
         sector.color = sector.layers[index].color;
 
-        this.mainCanvas.drawingElements(sector, false, false);
+        this.mainCanvas.drawingElements(sector, true, false);
       });
     });
+
+    this.mainCanvas.activeFrame.drawingElements();
   }
 
   changeActiveFrame() {

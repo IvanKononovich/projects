@@ -1,4 +1,4 @@
-class ColorPallete {
+export default class ColorPallete {
   constructor() {
     this.colorPrimary = document.querySelector('.color-palette-container__input_primary');
     this.colorPrimaryColor = this.colorPrimary.value;
@@ -21,7 +21,3 @@ class ColorPallete {
     this.colorPrimaryColor = this.colorPrimary.value;
   }
 }
-
-const colorPallete = new ColorPallete();
-
-export default colorPallete;

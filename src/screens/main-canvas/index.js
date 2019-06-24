@@ -1,9 +1,5 @@
-import Frame from '../frame/index';
-import Preview from '../preview/index';
-import Layer from '../layer/index';
-
-class MainCanvas {
-  constructor(x, y) {
+export default class MainCanvas {
+  constructor(x, y, FrameClass) {
     this.canvas = document.querySelector('.main-canvas');
     this.canvas.width = window.innerHeight;
     this.canvas.height = window.innerHeight;
@@ -17,8 +13,7 @@ class MainCanvas {
     this.listFrames = [];
     this.activeFrame = null;
     this.buttonCreateFrame = null;
-    this.preview = null;
-    this.layer = null;
+    this.FrameClass = FrameClass;
 
     this.lastClickCoordinates = null;
 
@@ -30,9 +25,6 @@ class MainCanvas {
 
       this.buttonCreateFrame = this.listFrames[0].buttonCreateFrame;
       this.buttonCreateFrame.addEventListener('click', this.createFrame);
-
-      this.preview = new Preview(this);
-      this.layer = new Layer(this);
     });
   }
 
@@ -56,7 +48,7 @@ class MainCanvas {
 
     this.clearLayers();
 
-    const frame = new Frame(this.listFrames.length + 1, this);
+    const frame = new this.FrameClass(this.listFrames.length + 1, this);
     this.listFrames.push(frame);
 
     if (activity) {
@@ -255,7 +247,3 @@ class MainCanvas {
     this.activeFrame.drawingElements();
   }
 }
-
-const mainCanvas = new MainCanvas(0, 0);
-
-export default mainCanvas;

@@ -1,8 +1,9 @@
 import BasicTool from '../basic-tool/index';
 
-class PaintBucket extends BasicTool {
-  constructor() {
-    super('instrument-item__img_bucket');
+
+export default class PaintBucket extends BasicTool {
+  constructor(toolCSSClass, mainCanvas, colorPallete, resizeTool) {
+    super(toolCSSClass, mainCanvas, colorPallete, resizeTool);
     this.permissionUseArea = false;
   }
 
@@ -56,7 +57,3 @@ class PaintBucket extends BasicTool {
     this.mainCanvas.drawingElements(startingSector, true);
   }
 }
-
-const paintBucket = new PaintBucket('instrument-item__img_bucket');
-
-export default paintBucket;

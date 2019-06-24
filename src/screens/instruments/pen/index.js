@@ -1,6 +1,6 @@
 import BasicTool from '../basic-tool/index';
 
-class Pen extends BasicTool {
+export default class Pen extends BasicTool {
   use(sect) {
     const sector = sect;
     let color = this.colorPrimary.value;
@@ -12,7 +12,3 @@ class Pen extends BasicTool {
     sector.color = color;
   }
 }
-
-const pen = new Pen('instrument-item__img_pen');
-
-export default pen;

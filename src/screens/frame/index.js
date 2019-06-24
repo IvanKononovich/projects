@@ -170,13 +170,14 @@ export default class Frame {
   cloneFrame() {
     this.changeActiveState();
 
-    const frame = new Frame(this.frameNumber + 1, this.mainCanvas.listSectors, this.mainCanvas);
+    const frame = new Frame(this.frameNumber + 1, this.mainCanvas);
 
     this.moveAroundDOM(this.frameNumber, frame.framesContainer, frame.frameContent);
 
     this.mainCanvas.listFrames.splice(this.frameNumber, 0, frame);
 
     this.changeState('not active');
+
     frame.changeActiveState();
 
     frame.drawingElements();

@@ -1,8 +1,8 @@
 import BasicTool from '../basic-tool/index';
 
-class PipetteColor extends BasicTool {
-  constructor() {
-    super('instrument-item__img_pipette');
+export default class PipetteColor extends BasicTool {
+  constructor(toolCSSClass, mainCanvas, colorPallete, resizeTool) {
+    super(toolCSSClass, mainCanvas, colorPallete, resizeTool);
     this.permissionUseArea = false;
   }
 
@@ -15,7 +15,3 @@ class PipetteColor extends BasicTool {
     }
   }
 }
-
-const pipetteColor = new PipetteColor('instrument-item__img_pipette');
-
-export default pipetteColor;

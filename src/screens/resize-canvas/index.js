@@ -1,9 +1,7 @@
-import mainCanvas from '../main-canvas/index';
-import LoadingSavedData from '../../components/loading-saved-data';
-
-class ResizeCanvas {
-  constructor() {
+export default class ResizeCanvas {
+  constructor(mainCanvas, LoadingSavedData, layer) {
     this.mainCanvas = mainCanvas;
+    this.layer = layer;
     this.resizeButton = document.querySelector('.resize-canvas');
     this.resizeContent = this.resizeButton.querySelector('.resize-canvas__content');
 
@@ -59,6 +57,10 @@ class ResizeCanvas {
       frame.frameCanvas.backgroundImage = 'none';
       frame.frameCanvas.backgroundColor = this.mainCanvas.defaultColor;
 
+      this.layer.layerContainer.innerHTML = '';
+      this.layer.listLayers = [];
+      frame.quantityLayer = 0;
+
       frame.changeActiveState();
     });
   }
@@ -78,7 +80,3 @@ class ResizeCanvas {
     this.changeSizeCanvas();
   }
 }
-
-const resizeCanvas = new ResizeCanvas();
-
-export default resizeCanvas;

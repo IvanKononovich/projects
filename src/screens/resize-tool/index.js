@@ -1,4 +1,4 @@
-class ResizeTool {
+export default class ResizeTool {
   constructor() {
     this.activeButton = document.querySelector('.resize-tool__button-size_active');
     this.size = this.activeButton.dataset.size;
@@ -21,7 +21,3 @@ class ResizeTool {
     }
   }
 }
-
-const resizeTool = new ResizeTool();
-
-export default resizeTool;
