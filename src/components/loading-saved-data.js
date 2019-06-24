@@ -22,7 +22,12 @@ export default class LoadingSavedData {
         frame.savingStateSectors();
       }
 
-      result.push(JSON.stringify(frame.listSectorsState));
+      const data = {
+        listSectors: frame.listSectors,
+        quantityLayer: frame.quantityLayer,
+      };
+
+      result.push(JSON.stringify(data));
     });
 
     return JSON.stringify(result);
@@ -51,10 +56,16 @@ export default class LoadingSavedData {
     this.mainCanvas.listFrames.splice(0, 1);
 
     listFrames.forEach((item, index) => {
-      const list = JSON.parse(item);
+      const data = JSON.parse(item);
+      const { listSectors } = data;
+      const { quantityLayer } = data;
 
       this.mainCanvas.createFrame(false);
-      this.mainCanvas.listFrames[index].listSectorsState = list;
+
+      const frame = this.mainCanvas.listFrames[index];
+
+      frame.listSectors = listSectors;
+      frame.quantityLayer = quantityLayer;
     });
 
     if (localStorage.sizeCanvas) {

@@ -49,6 +49,8 @@ export default class MainCanvas {
     this.clearLayers();
 
     const frame = new this.FrameClass(this.listFrames.length + 1, this);
+    frame.listSectors = JSON.parse(JSON.stringify(this.listSectors));
+
     this.listFrames.push(frame);
 
     if (activity) {
@@ -110,7 +112,6 @@ export default class MainCanvas {
 
     for (let i = 0; i < this.quantitySectorsX * this.quantitySectorsY; i += 1) {
       this.listSectors[Math.floor(sizeY / increaseRatioY)].push({
-        neighbors: [],
         x: sizeX,
         y: sizeY,
         w: increaseRatioX,

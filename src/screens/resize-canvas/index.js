@@ -43,7 +43,7 @@ export default class ResizeCanvas {
     this.resizeContent.classList.toggle('resize-canvas__content_open');
   }
 
-  changeSizeCanvas() {
+  changeSizeCanvas(removeLayers = false) {
     this.mainCanvas.quantitySectorsX = this.inputSizeX.value;
     this.mainCanvas.quantitySectorsY = this.inputSizeY.value;
 
@@ -52,17 +52,21 @@ export default class ResizeCanvas {
     this.mainCanvas.listFrames.forEach((item) => {
       const frame = item;
 
-      frame.listSectors = this.mainCanvas.listSectors;
-
       frame.frameCanvas.backgroundImage = 'none';
       frame.frameCanvas.backgroundColor = this.mainCanvas.defaultColor;
 
-      this.layer.layerContainer.innerHTML = '';
-      this.layer.listLayers = [];
-      frame.quantityLayer = 0;
+      if (removeLayers) {
+        this.layer.layerContainer.innerHTML = '';
+        this.layer.listLayers = [];
+        frame.quantityLayer = 0;
+      }
 
       frame.changeActiveState();
+
+      if (!frame.quantityLayer) return;
+
       this.layer.changeActiveFrame();
+      this.layer.changeActiveLayer(frame.activeLayer);
     });
   }
 
@@ -78,6 +82,6 @@ export default class ResizeCanvas {
       input.value = input.dataset.max;
     }
 
-    this.changeSizeCanvas();
+    this.changeSizeCanvas(true);
   }
 }

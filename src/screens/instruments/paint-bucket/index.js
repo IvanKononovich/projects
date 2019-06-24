@@ -29,6 +29,8 @@ export default class PaintBucket extends BasicTool {
       this.identifyingNeighbors();
 
       this.findingNeighborsWithSameColor(this.startingSector);
+
+      this.deleteNeighbors();
     }
   }
 
@@ -60,17 +62,28 @@ export default class PaintBucket extends BasicTool {
 
         const sector = column;
 
-        sector.neighbors.push(
+        sector.neighbors = [
           previousSectorX,
           nextSectorX,
           previousSectorY,
           nextSectorY,
-        );
+        ];
 
         sector.neighbors = sector.neighbors.filter((neighbor) => {
           if (neighbor) return neighbor;
           return false;
         });
+      });
+    });
+  }
+
+  deleteNeighbors() {
+    const { listSectors } = this.mainCanvas;
+
+    listSectors.forEach((row) => {
+      row.forEach((column) => {
+        const sector = column;
+        delete sector.neighbors;
       });
     });
   }

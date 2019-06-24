@@ -33,7 +33,11 @@ export default class Layer {
       || el.parentNode.dataset.indexLayer;
 
       this.changeActiveLayer(indexActiveLayer);
-    } else {
+    }
+
+    if (el.classList.contains('frame__canvas')
+    || el.classList.contains('button-create-frame')
+    || el.classList.contains('frame__button')) {
       this.changeActiveFrame();
     }
   }
@@ -170,6 +174,8 @@ export default class Layer {
     });
 
     this.deleteLayer(indexActiveLayer + 1);
+
+    // this.mainCanvas.activeFrame.quantityLayer = this.listLayers.length;
   }
 
   deleteLayer(deleteLayerIndex = this.activeLayer.dataset.indexLayer) {
@@ -220,7 +226,6 @@ export default class Layer {
 
     this.listLayers.push(copyLayerContent);
 
-
     if (this.activeLayer) {
       this.activeLayer.classList.remove('layer__instance_active');
     }
@@ -233,6 +238,7 @@ export default class Layer {
     }
 
     const indexActiveLayer = this.mainCanvas.activeFrame.activeLayer;
+
     this.activeLayer = this.listLayers[indexActiveLayer];
 
     this.activeLayer.classList.add('layer__instance_active');
