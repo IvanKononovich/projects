@@ -1,15 +1,19 @@
 import BasicTool from '../basic-tool/index';
 
-
 export default class PaintBucket extends BasicTool {
   constructor(toolCSSClass, mainCanvas, colorPallete, resizeTool) {
     super(toolCSSClass, mainCanvas, colorPallete, resizeTool);
     this.permissionUseArea = false;
+
+    this.listNeighbors = [];
+    this.checkedSectors = 0;
+    this.startingSector = null;
+    this.sectorColor = null;
+    this.color = null;
   }
 
   use(item) {
     if (this.typeEvent === 'mouseup') {
-      this.findingNeighborsWithSameColor = this.findingNeighborsWithSameColor.bind(this);
       this.chengSectorColor = this.chengSectorColor.bind(this);
 
       this.listNeighbors = [];
@@ -22,8 +26,53 @@ export default class PaintBucket extends BasicTool {
         this.color = this.colorSecondary.value;
       }
 
+      this.identifyingNeighbors();
+
       this.findingNeighborsWithSameColor(this.startingSector);
     }
+  }
+
+  identifyingNeighbors() {
+    const { listSectors } = this.mainCanvas;
+
+    listSectors.forEach((row, indexRow) => {
+      row.forEach((column, indexColumn) => {
+        let previousSectorX = null;
+        let previousSectorY = null;
+        let nextSectorX = null;
+        let nextSectorY = null;
+
+        if (indexRow > 0) {
+          previousSectorY = listSectors[indexRow - 1][indexColumn];
+        }
+
+        if (indexColumn > 0) {
+          previousSectorX = listSectors[indexRow][indexColumn - 1];
+        }
+
+        if (indexColumn + 1 < row.length) {
+          nextSectorX = listSectors[indexRow][indexColumn + 1];
+        }
+
+        if (indexRow + 1 < listSectors.length) {
+          nextSectorY = listSectors[indexRow + 1][indexColumn];
+        }
+
+        const sector = column;
+
+        sector.neighbors.push(
+          previousSectorX,
+          nextSectorX,
+          previousSectorY,
+          nextSectorY,
+        );
+
+        sector.neighbors = sector.neighbors.filter((neighbor) => {
+          if (neighbor) return neighbor;
+          return false;
+        });
+      });
+    });
   }
 
   chengSectorColor(item) {

@@ -62,6 +62,7 @@ export default class ResizeCanvas {
       frame.quantityLayer = 0;
 
       frame.changeActiveState();
+      this.layer.changeActiveFrame();
     });
   }
 

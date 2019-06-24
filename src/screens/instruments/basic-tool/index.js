@@ -1,7 +1,3 @@
-// import mainCanvas from '../../main-canvas/index';
-// import colorPallete from '../../color-palette/index';
-// import resizeTool from '../../resize-tool/index';
-
 export default class BasicTool {
   constructor(toolCSSClass, mainCanvas, colorPallete, resizeTool) {
     this.mainCanvas = mainCanvas;

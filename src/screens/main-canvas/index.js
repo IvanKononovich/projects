@@ -133,52 +133,9 @@ export default class MainCanvas {
 
     this.drawingAllElements();
 
-    this.identifyingNeighbors();
-
     if (this.activeFrame) {
       this.activeFrame.listSectors = this.listSectors;
     }
-  }
-
-  identifyingNeighbors() {
-    this.listSectors.forEach((row, indexRow) => {
-      row.forEach((column, indexColumn) => {
-        let previousSectorX = null;
-        let previousSectorY = null;
-        let nextSectorX = null;
-        let nextSectorY = null;
-
-        if (indexRow > 0) {
-          previousSectorY = this.listSectors[indexRow - 1][indexColumn];
-        }
-
-        if (indexColumn > 0) {
-          previousSectorX = this.listSectors[indexRow][indexColumn - 1];
-        }
-
-        if (indexColumn + 1 < row.length) {
-          nextSectorX = this.listSectors[indexRow][indexColumn + 1];
-        }
-
-        if (indexRow + 1 < this.listSectors.length) {
-          nextSectorY = this.listSectors[indexRow + 1][indexColumn];
-        }
-
-        const sector = column;
-
-        sector.neighbors.push(
-          previousSectorX,
-          nextSectorX,
-          previousSectorY,
-          nextSectorY,
-        );
-
-        sector.neighbors = sector.neighbors.filter((neighbor) => {
-          if (neighbor) return neighbor;
-          return false;
-        });
-      });
-    });
   }
 
   changeNumberSections() {

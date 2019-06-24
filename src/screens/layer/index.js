@@ -33,6 +33,8 @@ export default class Layer {
       || el.parentNode.dataset.indexLayer;
 
       this.changeActiveLayer(indexActiveLayer);
+    } else {
+      this.changeActiveFrame();
     }
   }
 

@@ -256,10 +256,6 @@ export default class Frame {
       this.makeChangesSectors();
 
       this.frameContent.classList.add('frame_active');
-
-      if (this.mainCanvas.layer) {
-        this.mainCanvas.layer.changeActiveFrame();
-      }
     } else {
       this.savingStateSectors();
       this.drawingElements();
