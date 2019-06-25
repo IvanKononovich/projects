@@ -70,6 +70,7 @@ module.exports = {
             pipetteColor: extractHtml('src/screens/instruments/pipette-color/index.html'),
             paintBucket: extractHtml('src/screens/instruments/paint-bucket/index.html'),
             paintAllPixels: extractHtml('src/screens/instruments/paint-all-pixels/index.html'),
+            rectangle: extractHtml('src/screens/instruments/rectangle/index.html'),
           },
           layer: extractHtml('src/screens/layer/index.html'),
           resizeCanvas: extractHtml('src/screens/resize-canvas/index.html'),

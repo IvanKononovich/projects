@@ -109,6 +109,40 @@ export default class BasicTool {
     }
   }
 
+  applicationByArea(listSector) {
+    const allCrossedAreaSector = new Set();
+
+    listSector.forEach((item) => {
+      const areaSector = this.applicationToolAreaSector(item);
+
+      areaSector.forEach((sector) => {
+        allCrossedAreaSector.add(sector);
+      });
+    });
+
+    allCrossedAreaSector.forEach((item) => {
+      listSector.add(item);
+    });
+  }
+
+  applyColorBeforeChange(listSector) {
+    listSector.forEach((item) => {
+      const sector = item;
+
+      sector.color = sector.previousColor;
+
+      this.mainCanvas.drawingElements(sector, true);
+    });
+  }
+
+  static rememberColorBeforeChanging(listSector) {
+    listSector.forEach((item) => {
+      const sector = item;
+
+      sector.previousColor = sector.color;
+    });
+  }
+
   useActiveTool(event) {
     this.typeEvent = event.type;
 

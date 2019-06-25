@@ -25,7 +25,7 @@ export default class Stroke extends BasicTool {
 
     if (this.typeEvent === 'mousemove') {
       if (this.allCrossedSectors) {
-        this.applyColorBeforeChange();
+        this.applyColorBeforeChange(this.allCrossedSectors);
       }
 
       this.endPoint = {
@@ -47,47 +47,13 @@ export default class Stroke extends BasicTool {
       });
 
       if (this.sizeTool > 1) {
-        this.applicationByArea();
+        this.applicationByArea(this.allCrossedSectors);
       }
 
-      this.rememberColorBeforeChanging();
+      BasicTool.rememberColorBeforeChanging(this.allCrossedSectors);
 
       this.paintLine(this.allCrossedSectors);
     }
-  }
-
-  applyColorBeforeChange() {
-    this.allCrossedSectors.forEach((item) => {
-      const sector = item;
-
-      sector.color = sector.previousColor;
-
-      this.mainCanvas.drawingElements(sector, true);
-    });
-  }
-
-  rememberColorBeforeChanging() {
-    this.allCrossedSectors.forEach((item) => {
-      const sector = item;
-
-      sector.previousColor = sector.color;
-    });
-  }
-
-  applicationByArea() {
-    const allCrossedAreaSector = new Set();
-
-    this.allCrossedSectors.forEach((item) => {
-      const areaSector = this.applicationToolAreaSector(item);
-
-      areaSector.forEach((sector) => {
-        allCrossedAreaSector.add(sector);
-      });
-    });
-
-    allCrossedAreaSector.forEach((item) => {
-      this.allCrossedSectors.add(item);
-    });
   }
 
   paintLine(allCrossedSectors) {
