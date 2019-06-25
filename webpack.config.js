@@ -56,7 +56,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({  
       template: 'src/screens/start-page/index.html',
-      inject: false,
+      filename: 'index.html',
     }),
     new HtmlWebpackPlugin({  
       // Load a custom template (lodash by default)
@@ -80,7 +80,8 @@ module.exports = {
             mainCanvas: extractHtml('src/screens/main-canvas/index.html'),
           },
         },
-      }
+      },
+      filename: 'editor.html',
     })  
   ],
 };

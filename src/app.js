@@ -18,31 +18,35 @@ import PaintBucket from './screens/instruments/paint-bucket/index';
 
 import ExportFile from './screens/download-file/index';
 
-const mainCanvas = new MainCanvas(0, 0, Frame);
-const preview = new Preview(mainCanvas);
-const layer = new Layer(mainCanvas);
-const resizeCanvas = new ResizeCanvas(mainCanvas, LoadingSavedData, layer);
+const canvas = document.querySelector('.main-canvas');
 
-const colorPallete = new ColorPallete();
-const resizeTool = new ResizeTool();
+if (canvas) {
+  const mainCanvas = new MainCanvas(0, 0, Frame);
+  const preview = new Preview(mainCanvas);
+  const layer = new Layer(mainCanvas);
+  const resizeCanvas = new ResizeCanvas(mainCanvas, LoadingSavedData, layer);
 
-const pen = new Pen('instrument-item__img_pen',
-  mainCanvas,
-  colorPallete,
-  resizeTool);
+  const colorPallete = new ColorPallete();
+  const resizeTool = new ResizeTool();
 
-const eraser = new Eraser('instrument-item__img_eraser',
-  mainCanvas,
-  colorPallete,
-  resizeTool);
+  const pen = new Pen('instrument-item__img_pen',
+    mainCanvas,
+    colorPallete,
+    resizeTool);
 
-const pipetteColor = new PipetteColor('instrument-item__img_pipette',
-  mainCanvas,
-  colorPallete,
-  resizeTool);
-const paintBucket = new PaintBucket('instrument-item__img_bucket',
-  mainCanvas,
-  colorPallete,
-  resizeTool);
+  const eraser = new Eraser('instrument-item__img_eraser',
+    mainCanvas,
+    colorPallete,
+    resizeTool);
 
-const exportFile = new ExportFile(mainCanvas, preview);
+  const pipetteColor = new PipetteColor('instrument-item__img_pipette',
+    mainCanvas,
+    colorPallete,
+    resizeTool);
+  const paintBucket = new PaintBucket('instrument-item__img_bucket',
+    mainCanvas,
+    colorPallete,
+    resizeTool);
+
+  const exportFile = new ExportFile(mainCanvas, preview);
+}

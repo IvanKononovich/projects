@@ -174,8 +174,6 @@ export default class Layer {
     });
 
     this.deleteLayer(indexActiveLayer + 1);
-
-    // this.mainCanvas.activeFrame.quantityLayer = this.listLayers.length;
   }
 
   deleteLayer(deleteLayerIndex = this.activeLayer.dataset.indexLayer) {
@@ -207,7 +205,9 @@ export default class Layer {
 
     this.layerSequenceRecalculation();
 
-    indexLayer = this.listLayers.length - 1;
+    indexLayer -= 1;
+
+    this.mainCanvas.activeFrame.quantityLayer = this.listLayers.length;
 
     this.changeActiveLayer(indexLayer);
 
