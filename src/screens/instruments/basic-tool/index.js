@@ -7,7 +7,7 @@ export default class BasicTool {
     this.resizeTool = resizeTool;
     this.sizeTool = this.resizeTool.size;
     this.permissionUseArea = true;
-    this.typeEvent = null;
+    this.event = null;
 
     this.colorPallete = colorPallete;
     this.colorPrimary = colorPallete.colorPrimary;
@@ -37,10 +37,11 @@ export default class BasicTool {
 
   static findAllPointsLine(startX, startY, endX, endY) {
     const result = [];
-    const time = Math.max(Math.abs(startX - endX), Math.abs(startY - endY));
+    const time = Math.max(Math.abs(startX - endX), Math.abs(startY - endY)) / 5.5;
 
     for (let i = 0; i < time; i += 1) {
       const delta = i / time;
+
       result.push({
         x: delta * (endX - startX) + startX,
         y: delta * (endY - startY) + startY,
