@@ -1,5 +1,5 @@
 /* eslint max-len: ["error", { "comments": 200 }] */
-/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "pen || eraser || pipetteColor || paintBucket || exportFile || resizeCanvas" }] */
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "(tool.+) || resizeCanvas || exportFile" }] */
 
 import MainCanvas from './screens/main-canvas/index';
 import Frame from './screens/frame/index';
@@ -15,6 +15,7 @@ import Pen from './screens/instruments/pen/index';
 import Eraser from './screens/instruments/eraser/index';
 import PipetteColor from './screens/instruments/pipette-color/index';
 import PaintBucket from './screens/instruments/paint-bucket/index';
+import PaintAllPixels from './screens/instruments/paint-all-pixels/index';
 
 import ExportFile from './screens/download-file/index';
 
@@ -29,24 +30,40 @@ if (canvas) {
   const colorPallete = new ColorPallete();
   const resizeTool = new ResizeTool();
 
-  const pen = new Pen('instrument-item__img_pen',
+  const toolPen = new Pen(
+    'instrument-item__img_pen',
     mainCanvas,
     colorPallete,
-    resizeTool);
+    resizeTool,
+  );
 
-  const eraser = new Eraser('instrument-item__img_eraser',
+  const toolEraser = new Eraser(
+    'instrument-item__img_eraser',
     mainCanvas,
     colorPallete,
-    resizeTool);
+    resizeTool,
+  );
 
-  const pipetteColor = new PipetteColor('instrument-item__img_pipette',
+  const toolPipetteColor = new PipetteColor(
+    'instrument-item__img_pipette',
     mainCanvas,
     colorPallete,
-    resizeTool);
-  const paintBucket = new PaintBucket('instrument-item__img_bucket',
+    resizeTool,
+  );
+
+  const toolPaintBucket = new PaintBucket(
+    'instrument-item__img_bucket',
     mainCanvas,
     colorPallete,
-    resizeTool);
+    resizeTool,
+  );
+
+  const toolPaintAllPixels = new PaintAllPixels(
+    'instrument-item__img_paint-all-pixels',
+    mainCanvas,
+    colorPallete,
+    resizeTool,
+  );
 
   const exportFile = new ExportFile(mainCanvas, preview);
 }
