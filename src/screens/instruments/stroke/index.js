@@ -33,7 +33,7 @@ export default class Stroke extends BasicTool {
         y: sect.y,
       };
 
-      const allPointsLine = BasicTool.findAllPointsLine(
+      const allPointsLine = this.findAllPointsLine(
         this.startingPoint.x,
         this.startingPoint.y,
         this.endPoint.x,

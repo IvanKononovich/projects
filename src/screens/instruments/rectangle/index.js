@@ -43,7 +43,7 @@ export default class Rectangle extends BasicTool {
   }
 
   findSectorOnLine(x1, y1, x2, y2) {
-    const allPoints = BasicTool.findAllPointsLine(
+    const allPoints = this.findAllPointsLine(
       x1, y1, x2, y2,
     );
 

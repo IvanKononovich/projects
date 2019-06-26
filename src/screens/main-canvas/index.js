@@ -5,7 +5,6 @@ export default class MainCanvas {
     this.canvas.height = window.innerHeight;
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
-    this.gapSize = 0;
 
     this.totalQuantitySectors = 0;
     this.defaultColor = 'transparent';
@@ -105,16 +104,13 @@ export default class MainCanvas {
     let sizeX = 0;
     let sizeY = 0;
 
-    const increaseRatioX = Math.round(this.canvas.width / this.quantitySectorsX);
-    const increaseRatioY = Math.round(this.canvas.height / this.quantitySectorsY);
+    const increaseRatioX = Math.floor(this.canvas.width / this.quantitySectorsX);
+    const increaseRatioY = Math.floor(this.canvas.height / this.quantitySectorsY);
 
-    this.gapSize = Math.abs(Math.max(
-      this.canvas.width / this.quantitySectorsX - increaseRatioX,
-      this.canvas.height / this.quantitySectorsY - increaseRatioY,
-    ));
-
-    this.canvas.width = this.quantitySectorsX * increaseRatioX;
-    this.canvas.height = this.quantitySectorsY * increaseRatioY;
+    this.canvas.width = Math.floor(this.quantitySectorsX * increaseRatioX);
+    this.canvas.style.width = `${this.canvas.width}px`;
+    this.canvas.height = Math.floor(this.quantitySectorsY * increaseRatioY);
+    this.canvas.style.height = `${this.canvas.height}px`;
 
     for (let i = 0; i < this.quantitySectorsX * this.quantitySectorsY; i += 1) {
       this.listSectors[Math.floor(sizeY / increaseRatioY)].push({

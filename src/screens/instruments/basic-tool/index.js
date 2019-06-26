@@ -34,20 +34,34 @@ export default class BasicTool {
     document.addEventListener('click', this.stateChange);
   }
 
-  static findAllPointsLine(startX, startY, endX, endY) {
-    const result = [];
-    const time = Math.max(Math.abs(startX - endX), Math.abs(startY - endY)) / 5.5;
+  findAllPointsLine(startX, startY, endX, endY) {
+    const sector = this.mainCanvas.listSectors[0][0];
+    const widthSector = sector.w;
+    const heightSector = sector.h;
+
+    const result = new Set();
+    const resultInArr = [];
+    const time = Math.max(Math.abs(startX - endX), Math.abs(startY - endY)) / 4.5;
 
     for (let i = 0; i < time; i += 1) {
       const delta = i / time;
 
-      result.push({
-        x: delta * (endX - startX) + startX,
-        y: delta * (endY - startY) + startY,
-      });
+      let x = delta * (endX - startX) + startX;
+      x -= x % widthSector;
+      let y = delta * (endY - startY) + startY;
+      y -= y % heightSector;
+
+      result.add(JSON.stringify({
+        x,
+        y,
+      }));
     }
 
-    return result;
+    result.forEach((item) => {
+      resultInArr.push(JSON.parse(item));
+    });
+
+    return resultInArr;
   }
 
   crossingSectorCheck(x, y) {
@@ -56,8 +70,8 @@ export default class BasicTool {
     const widthSector = sector.w;
     const heightSector = sector.h;
 
-    const coordSectorX = Math.floor(x / widthSector + this.mainCanvas.gapSize);
-    const coordSectorY = Math.floor(y / heightSector + this.mainCanvas.gapSize);
+    const coordSectorX = Math.floor(x / widthSector);
+    const coordSectorY = Math.floor(y / heightSector);
 
     return this.mainCanvas.listSectors[coordSectorY][coordSectorX];
   }
@@ -151,7 +165,7 @@ export default class BasicTool {
     if (this.lastClickCoordinates) {
       const lastCordX = this.lastClickCoordinates.x;
       const lastCordY = this.lastClickCoordinates.y;
-      const allPointsLine = BasicTool.findAllPointsLine(lastCordX, lastCordY, x, y);
+      const allPointsLine = this.findAllPointsLine(lastCordX, lastCordY, x, y);
 
       allPointsLine.forEach((item) => {
         this.applicationToolSector(item.x, item.y);
