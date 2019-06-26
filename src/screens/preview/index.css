@@ -1,7 +1,9 @@
 .preview {
     width: 14%;
+    min-width: 283px;
     box-sizing: border-box;
-    padding: 10px;
+    margin: 0 10px;
+    padding-top: 30px;
     height: 400px;
 }
 .preview_full-screen {
@@ -13,6 +15,7 @@
     top: 0;
     left: 0;
     padding: 0;
+    margin: 0;
 }
 .preview_full-screen .preview__animation-player {
     width: 100vh;
