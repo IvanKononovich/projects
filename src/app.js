@@ -14,7 +14,6 @@ import ColorPallete from './screens/color-palette/index';
 import Pen from './screens/instruments/pen/index';
 import Stroke from './screens/instruments/stroke/index';
 import Rectangle from './screens/instruments/rectangle/index';
-import Circle from './screens/instruments/circle/index';
 import Eraser from './screens/instruments/eraser/index';
 import PipetteColor from './screens/instruments/pipette-color/index';
 import PaintBucket from './screens/instruments/paint-bucket/index';
@@ -50,14 +49,6 @@ if (canvas) {
 
   const toolRectangle = new Rectangle(
     'instrument-item__img_rectangle',
-    mainCanvas,
-    colorPallete,
-    resizeTool,
-    toolPen,
-  );
-
-  const toolCircle = new Circle(
-    'instrument-item__img_circle',
     mainCanvas,
     colorPallete,
     resizeTool,
