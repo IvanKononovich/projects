@@ -207,6 +207,8 @@ export default class Layer {
 
     indexLayer -= 1;
 
+    if (indexLayer < 0) indexLayer = 0;
+
     this.mainCanvas.activeFrame.quantityLayer = this.listLayers.length;
 
     this.changeActiveLayer(indexLayer);

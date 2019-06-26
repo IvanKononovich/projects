@@ -83,6 +83,7 @@ export default class Frame {
   }
 
   subscribeEventsToMove(event) {
+    this.changeActiveState();
     this.calcShiftY(event);
 
     document.addEventListener('mousemove', this.followingMouse);

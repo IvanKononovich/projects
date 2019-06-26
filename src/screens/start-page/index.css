@@ -53,8 +53,12 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+.project-description__screenshot {
     background: url('images//bg-1.png') no-repeat 100% 50%;
     background-size: 55% 84%;
+    width: 300px;
+    height: 200px;
 }
 .project-description__container-text {
     width: 40%;
@@ -86,12 +90,13 @@ body {
 .sprites-example__container {
     display: flex;
     justify-content: space-around;
-    width: 80%;
+    width: 60%;
 }
 .sprites-example__sprite {
-    width: 200px;
-    height: 200px;
-    border: 3px solid #000000;
+    width: 150px;
+    height: 150px;
+    border: 3px solid #888888;
+    border-radius: 3px;
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: contain;

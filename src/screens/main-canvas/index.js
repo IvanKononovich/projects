@@ -5,6 +5,7 @@ export default class MainCanvas {
     this.canvas.height = window.innerHeight;
     this.quantitySectorsX = x;
     this.quantitySectorsY = y;
+    this.gapSize = 0;
 
     this.totalQuantitySectors = 0;
     this.defaultColor = 'transparent';
@@ -107,6 +108,11 @@ export default class MainCanvas {
     const increaseRatioX = Math.round(this.canvas.width / this.quantitySectorsX);
     const increaseRatioY = Math.round(this.canvas.height / this.quantitySectorsY);
 
+    this.gapSize = Math.abs(Math.max(
+      this.canvas.width / this.quantitySectorsX - increaseRatioX,
+      this.canvas.height / this.quantitySectorsY - increaseRatioY,
+    ));
+
     this.canvas.width = this.quantitySectorsX * increaseRatioX;
     this.canvas.height = this.quantitySectorsY * increaseRatioY;
 
@@ -182,7 +188,12 @@ export default class MainCanvas {
 
     ctx.beginPath();
 
-    ctx.clearRect(sector.x, sector.y, sector.w, sector.h);
+    ctx.clearRect(
+      sector.x,
+      sector.y,
+      sector.w,
+      sector.h,
+    );
 
     const { color } = sector;
 

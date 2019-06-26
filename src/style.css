@@ -1,3 +1,4 @@
+@import 'fonts/icomoon.css';
 @import 'screens/start-page/index.css';
 @import 'screens/color-palette/index.css';
 @import 'screens/resize-canvas/index.css';
@@ -10,6 +11,7 @@
 @import 'screens/instruments/paint-all-pixels/index.css';
 @import 'screens/instruments/stroke/index.css';
 @import 'screens/instruments/rectangle/index.css';
+@import 'screens/instruments/circle/index.css';
 @import 'screens/frame/index.css';
 @import 'screens/layer/index.css';
 @import 'screens/preview/index.css';
@@ -18,39 +20,42 @@
 
 .content-wrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    background-color: #1d1d1d;
+    overflow: hidden;
+    height: 100vh;
+    max-height: 100vh;
 }
 .column {
-    min-width: 155px;
+    position: relative;
+    width: 8%;
     box-sizing: border-box;
-    border: 3px solid #000000;
-    background-color: #c7c7c7;
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex-wrap: wrap;
-    position: absolute;
-    left: 0;
-    top: 0;
     height: 100%;
 }
-.column_left {
-    flex-wrap: nowrap;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    left: 175px;
-    min-width: 180px;
+.column_fixed_right {
+    position: fixed;
+    top: 450px;
+    right: 0;
+    height: 200px;
+    width: 50px;
 }
 .column__row {
+    height: 115px;
     width: 100%;
-    height: 100px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 3px solid #000000;
+}
+.instruments-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 113px;
 }
 ::-webkit-scrollbar {
     height: 10px;
-    width: 12px;
+    width: 8px;
     background: transparent;
 }
  

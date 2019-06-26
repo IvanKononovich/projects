@@ -8,35 +8,38 @@
 </head>
 <body>
     <div class="content-wrapper">
-        <%= htmlWebpackPlugin.options.content.screens.resizeCanvas %>
-
-        <%= htmlWebpackPlugin.options.content.screens.export %>
-
         <div class="column">
             <%= htmlWebpackPlugin.options.content.screens.resizeTool %>
-
-            <%= htmlWebpackPlugin.options.content.screens.instruments.pen %>
-            <%= htmlWebpackPlugin.options.content.screens.instruments.stroke %>
-            <%= htmlWebpackPlugin.options.content.screens.instruments.eraser %>
-            <%= htmlWebpackPlugin.options.content.screens.instruments.rectangle %>
-            <%= htmlWebpackPlugin.options.content.screens.instruments.pipetteColor %>
-            <%= htmlWebpackPlugin.options.content.screens.instruments.paintBucket %>
-            <%= htmlWebpackPlugin.options.content.screens.instruments.paintAllPixels %>
-
+            <div class="instruments-container">
+                <%= htmlWebpackPlugin.options.content.screens.instruments.pen %>
+                <%= htmlWebpackPlugin.options.content.screens.instruments.stroke %>
+                <%= htmlWebpackPlugin.options.content.screens.instruments.eraser %>
+                <%= htmlWebpackPlugin.options.content.screens.instruments.rectangle %>
+                <%= htmlWebpackPlugin.options.content.screens.instruments.circle %>
+                <%= htmlWebpackPlugin.options.content.screens.instruments.pipetteColor %>
+                <%= htmlWebpackPlugin.options.content.screens.instruments.paintBucket %>
+                <%= htmlWebpackPlugin.options.content.screens.instruments.paintAllPixels %>
+            </div>
             <div class="column__row">
                 <%= htmlWebpackPlugin.options.content.screens.colorPalette %>
             </div>
         </div>
 
-        <div class="column column_left">
+        <div class="column">
             <%= htmlWebpackPlugin.options.content.screens.frame %>
         </div>
 
+        <%= htmlWebpackPlugin.options.content.screens.canvas.mainCanvas %>
+
         <%= htmlWebpackPlugin.options.content.screens.layer %>
 
-        <%= htmlWebpackPlugin.options.content.screens.preview %>
+        <%= htmlWebpackPlugin.options.content.screens.preview %>  
 
-        <%= htmlWebpackPlugin.options.content.screens.canvas.mainCanvas %>
+        <div class="column column_fixed_right">
+            <%= htmlWebpackPlugin.options.content.screens.resizeCanvas %>
+
+            <%= htmlWebpackPlugin.options.content.screens.export %>
+        </div>
     </div>
 </body>
 </html>

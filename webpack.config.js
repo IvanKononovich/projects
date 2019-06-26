@@ -34,6 +34,10 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        loader: 'url-loader?limit=100000',
+      },
+      {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           {
@@ -71,6 +75,7 @@ module.exports = {
             paintBucket: extractHtml('src/screens/instruments/paint-bucket/index.html'),
             paintAllPixels: extractHtml('src/screens/instruments/paint-all-pixels/index.html'),
             rectangle: extractHtml('src/screens/instruments/rectangle/index.html'),
+            circle: extractHtml('src/screens/instruments/circle/index.html'),
           },
           layer: extractHtml('src/screens/layer/index.html'),
           resizeCanvas: extractHtml('src/screens/resize-canvas/index.html'),

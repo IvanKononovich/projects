@@ -1,7 +1,6 @@
 export default class BasicTool {
   constructor(toolCSSClass, mainCanvas, colorPallete, resizeTool) {
     this.mainCanvas = mainCanvas;
-    this.mainCanvasContent = this.mainCanvas.canvas;
     this.state = false;
     this.mouseButtonNumber = 0;
     this.resizeTool = resizeTool;
@@ -23,12 +22,12 @@ export default class BasicTool {
     this.unsubscribeEvents = this.unsubscribeEvents.bind(this);
     this.useActiveTool = this.useActiveTool.bind(this);
 
-    this.mainCanvasContent.addEventListener('mousedown', this.subscribeEvents);
-    this.mainCanvasContent.addEventListener('mouseout', () => {
+    this.mainCanvas.canvas.addEventListener('mousedown', this.subscribeEvents);
+    this.mainCanvas.canvas.addEventListener('mouseout', () => {
       this.lastClickCoordinates = null;
     });
 
-    this.mainCanvasContent.addEventListener('contextmenu', (event) => {
+    this.mainCanvas.canvas.addEventListener('contextmenu', (event) => {
       event.preventDefault();
     });
 
@@ -52,13 +51,13 @@ export default class BasicTool {
   }
 
   crossingSectorCheck(x, y) {
-    const increaseRatioX = Math.floor(this.mainCanvasContent.width
-      / this.mainCanvas.quantitySectorsX);
-    const increaseRatioY = Math.floor(this.mainCanvasContent.height
-      / this.mainCanvas.quantitySectorsY);
+    const sector = this.mainCanvas.listSectors[0][0];
 
-    const coordSectorX = Math.floor(x / increaseRatioX);
-    const coordSectorY = Math.floor(y / increaseRatioY);
+    const widthSector = sector.w;
+    const heightSector = sector.h;
+
+    const coordSectorX = Math.floor(x / widthSector + this.mainCanvas.gapSize);
+    const coordSectorY = Math.floor(y / heightSector + this.mainCanvas.gapSize);
 
     return this.mainCanvas.listSectors[coordSectorY][coordSectorX];
   }
@@ -146,8 +145,8 @@ export default class BasicTool {
   useActiveTool(event) {
     this.typeEvent = event.type;
 
-    const x = event.pageX - this.mainCanvasContent.getBoundingClientRect().left;
-    const y = event.pageY - this.mainCanvasContent.getBoundingClientRect().top;
+    const x = event.pageX - this.mainCanvas.canvas.getBoundingClientRect().left;
+    const y = event.pageY - this.mainCanvas.canvas.getBoundingClientRect().top;
 
     if (this.lastClickCoordinates) {
       const lastCordX = this.lastClickCoordinates.x;
@@ -172,7 +171,7 @@ export default class BasicTool {
 
     this.useActiveTool(event);
 
-    this.mainCanvasContent.removeEventListener('mousemove', this.useActiveTool);
+    this.mainCanvas.canvas.removeEventListener('mousemove', this.useActiveTool);
     document.removeEventListener('mouseup', this.unsubscribeEvents);
 
     this.lastClickCoordinates = null;
@@ -187,7 +186,7 @@ export default class BasicTool {
 
     this.useActiveTool(event);
 
-    this.mainCanvasContent.addEventListener('mousemove', this.useActiveTool);
+    this.mainCanvas.canvas.addEventListener('mousemove', this.useActiveTool);
     document.addEventListener('mouseup', this.unsubscribeEvents);
   }
 

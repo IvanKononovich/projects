@@ -1,14 +1,8 @@
 .resize-tool {
     min-width: 153px;
-    height: 50px;
     padding-bottom: 8px;
-    border-bottom: 3px solid #000000;
     font-family: sans-serif;
     text-align: center;
-}
-.resize-tool__text {
-    color: #444444;
-    line-height: 25px; 
 }
 .resize-tool__button-container {
     width: 100%;
@@ -20,14 +14,37 @@
     cursor: pointer;
     width: 20px;
     height: 20px;
-    background-color: #000000;
-    color: #ffffff;
-    text-align: center;
-    line-height: 20px;
+    background-color: #1d1d1d;
+    border: 3px solid #444444;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.resize-tool__button-size::after {
+    content: '';
+    display: block;
+    background-color: #ffffff;
+}
+.resize-tool__button-size_size_1::after {
+    width: 30%;
+    height: 30%;
+}
+.resize-tool__button-size_size_2::after {
+    width: 40%;
+    height: 40%;
+}
+.resize-tool__button-size_size_3::after {
+    width: 50%;
+    height: 50%;
+}
+.resize-tool__button-size_size_4::after {
+    width: 60%;
+    height: 60%;
 }
 .resize-tool__button-size:hover {
     background-color: #444444;
 }
 .resize-tool__button-size_active {
-    outline: 3px solid #ffd700;
+    border-color:#ffd700;
 }

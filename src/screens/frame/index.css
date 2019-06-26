@@ -3,7 +3,8 @@
     cursor: pointer;
     width: 130px;
     min-height: 130px;
-    border: 3px solid #000000;
+    border: 3px solid #3a3a3a;
+    border-radius: 3px;
     margin: 0 auto;
     margin-top: 10px;
     position: relative;
@@ -24,11 +25,17 @@
 .frame:hover {
     border-color: #444444;
 }
+.frame:hover .frame__text {
+    background-color: #444444;
+}
 .frame:hover .frame__button {
     display: block;
 }
 .frame_active:hover {
     border-color: #ffd700;
+}
+.frame_active:hover .frame__text {
+    background-color: #ffd700;
 }
 .frame__text {
     user-select: none;
@@ -40,8 +47,12 @@
     height: 30px;
     text-align: center;
     line-height: 30px;
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+.frame_active .frame__text {
     background-color: #ffd700;
-    color: #000000
+    color: #000000;
 }
 .frame__button {
     z-index: 1;
@@ -79,6 +90,7 @@
     background-repeat: no-repeat;
 }
 .button-create-frame {
+    transition: 0.3s;
     cursor: pointer;
     font-family: sans-serif;
     text-align: center;
@@ -86,13 +98,13 @@
     padding: 0 10px;
     margin: 20px auto;
     width: 100px;
-    border: 1px solid #000000;
-    background-color: #000000;
+    border: 3px solid #3a3a3a;
+    border-radius: 3px;
+    background-color: #1d1d1d;
     color: #ffffff;
 }
 .button-create-frame:hover {
-    background-color: #535353;
-    border-color: #ffd700;
+    background-color: #444444;
 }
 .pseudo-frame {
     position: relative;
