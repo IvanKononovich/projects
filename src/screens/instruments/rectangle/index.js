@@ -8,6 +8,7 @@ export default class Rectangle extends BasicTool {
 
     this.startingPoint = null;
     this.endPoint = null;
+    this.startSector = null;
 
     this.rectangleSectors = null;
   }
@@ -18,6 +19,8 @@ export default class Rectangle extends BasicTool {
         x: sect.x,
         y: sect.y,
       };
+
+      this.startSector = sect;
     }
 
     if (this.typeEvent === 'mouseup') {
@@ -43,16 +46,55 @@ export default class Rectangle extends BasicTool {
   }
 
   findSectorOnLine(x1, y1, x2, y2) {
-    const allPoints = this.findAllPointsLine(
-      x1, y1, x2, y2,
+    const startPoint = this.crossingSectorCheck(x1, y1);
+    const endPoint = this.crossingSectorCheck(x2, y2);
+    let crossedSectors = [];
+
+    const indexRow1 = Math.min(
+      startPoint.indexRow,
+      endPoint.indexRow,
     );
 
-    const crossedSectors = new Set();
+    let indexRow2 = Math.max(
+      startPoint.indexRow,
+      endPoint.indexRow,
+    );
 
-    allPoints.forEach((item) => {
-      crossedSectors.add(this.crossingSectorCheck(item.x, item.y));
-    });
+    const indexColumn1 = Math.min(
+      startPoint.indexColumn,
+      endPoint.indexColumn,
+    );
 
+    let indexColumn2 = Math.max(
+      startPoint.indexColumn,
+      endPoint.indexColumn,
+    );
+
+    if (startPoint.indexColumn > endPoint.indexColumn) {
+      indexColumn2 += 1;
+    }
+
+    if (startPoint.indexRow > endPoint.indexRow) {
+      indexRow2 += 1;
+    }
+
+    if (y1 === y2) {
+      crossedSectors = this.mainCanvas
+        .listSectors[indexRow1]
+        .slice(
+          indexColumn1,
+          indexColumn2,
+        );
+    } else {
+      for (let i = indexRow1; i < indexRow2; i += 1) {
+        crossedSectors.push(
+          this.mainCanvas
+            .listSectors[i][indexColumn1],
+        );
+      }
+    }
+
+    crossedSectors.push(this.startSector);
     return crossedSectors;
   }
 
