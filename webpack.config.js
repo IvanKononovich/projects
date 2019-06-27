@@ -76,6 +76,7 @@ module.exports = {
             rectangle: extractHtml('src/screens/instruments/rectangle/index.html'),
             move: extractHtml('src/screens/instruments/move/index.html'),
             lighten: extractHtml('src/screens/instruments/lighten/index.html'),
+            dithering: extractHtml('src/screens/instruments/dithering/index.html'), 
           },
           layer: extractHtml('src/screens/layer/index.html'),
           resizeCanvas: extractHtml('src/screens/resize-canvas/index.html'),
