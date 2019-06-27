@@ -13,14 +13,14 @@ export default class Stroke extends BasicTool {
     this.pen = pen;
   }
 
-  use(sect) {
+  use(item) {
     if (this.typeEvent === 'mousedown') {
       this.startingPoint = {
-        x: sect.x,
-        y: sect.y,
+        x: item.x,
+        y: item.y,
       };
 
-      this.startSector = sect;
+      this.startSector = item;
     }
 
     if (this.typeEvent === 'mouseup') {
@@ -28,15 +28,15 @@ export default class Stroke extends BasicTool {
     }
 
     if (this.typeEvent === 'mousemove') {
-      this.hoverSector = sect;
+      this.hoverSector = item;
 
       if (this.allCrossedSectors) {
         this.applyColorBeforeChange(this.allCrossedSectors);
       }
 
       this.endPoint = {
-        x: sect.x,
-        y: sect.y,
+        x: item.x,
+        y: item.y,
       };
 
       const allPointsLine = this.findAllPointsLine(
@@ -48,8 +48,8 @@ export default class Stroke extends BasicTool {
 
       this.allCrossedSectors = [];
 
-      allPointsLine.forEach((item) => {
-        this.allCrossedSectors.push(this.crossingSectorCheck(item.x, item.y));
+      allPointsLine.forEach((point) => {
+        this.allCrossedSectors.push(this.crossingSectorCheck(point.x, point.y));
       });
 
       if (this.sizeTool > 1) {

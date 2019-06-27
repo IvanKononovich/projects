@@ -14,14 +14,14 @@ export default class Rectangle extends BasicTool {
     this.rectangleSectors = null;
   }
 
-  use(sect) {
+  use(item) {
     if (this.typeEvent === 'mousedown') {
       this.startingPoint = {
-        x: sect.x,
-        y: sect.y,
+        x: item.x,
+        y: item.y,
       };
 
-      this.startSector = sect;
+      this.startSector = item;
     }
 
     if (this.typeEvent === 'mouseup') {
@@ -30,15 +30,15 @@ export default class Rectangle extends BasicTool {
 
 
     if (this.typeEvent === 'mousemove') {
-      this.hoverSector = sect;
+      this.hoverSector = item;
 
       if (this.rectangleSectors) {
         this.applyColorBeforeChange(this.rectangleSectors);
       }
 
       this.endPoint = {
-        x: sect.x,
-        y: sect.y,
+        x: item.x,
+        y: item.y,
       };
 
       this.createBorder();

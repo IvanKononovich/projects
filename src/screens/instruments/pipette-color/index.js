@@ -6,9 +6,9 @@ export default class PipetteColor extends BasicTool {
     this.permissionUseArea = false;
   }
 
-  use(sect) {
+  use(item) {
     if (this.typeEvent === 'mouseup') {
-      const sector = sect;
+      const sector = item;
       const { color } = sector;
 
       this.colorPallete.changeColor(color);

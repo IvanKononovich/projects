@@ -11,6 +11,7 @@
 @import 'screens/instruments/paint-all-pixels/index.css';
 @import 'screens/instruments/stroke/index.css';
 @import 'screens/instruments/rectangle/index.css';
+@import 'screens/instruments/move/index.css';
 @import 'screens/frame/index.css';
 @import 'screens/layer/index.css';
 @import 'screens/preview/index.css';

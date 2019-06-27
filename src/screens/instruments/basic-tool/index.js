@@ -121,7 +121,6 @@ export default class BasicTool {
 
       sectors.forEach((sector) => {
         this.use(sector);
-        this.mainCanvas.drawingElements(sector, true);
       });
     }
   }

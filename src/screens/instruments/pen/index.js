@@ -1,8 +1,8 @@
 import BasicTool from '../basic-tool/index';
 
 export default class Pen extends BasicTool {
-  use(sect) {
-    const sector = sect;
+  use(item) {
+    const sector = item;
     let color = this.colorPrimary.value;
 
     if (this.mouseButtonNumber > 0) {
@@ -10,5 +10,7 @@ export default class Pen extends BasicTool {
     }
 
     sector.color = color;
+
+    this.mainCanvas.drawingElements(sector, true);
   }
 }

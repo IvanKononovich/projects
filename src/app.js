@@ -14,6 +14,7 @@ import ColorPallete from './screens/color-palette/index';
 import Pen from './screens/instruments/pen/index';
 import Stroke from './screens/instruments/stroke/index';
 import Rectangle from './screens/instruments/rectangle/index';
+import Move from './screens/instruments/move/index';
 import Eraser from './screens/instruments/eraser/index';
 import PipetteColor from './screens/instruments/pipette-color/index';
 import PaintBucket from './screens/instruments/paint-bucket/index';
@@ -53,6 +54,13 @@ if (canvas) {
     colorPallete,
     resizeTool,
     toolPen,
+  );
+
+  const toolMove = new Move(
+    'instrument-item__img_move',
+    mainCanvas,
+    colorPallete,
+    resizeTool,
   );
 
   const toolEraser = new Eraser(

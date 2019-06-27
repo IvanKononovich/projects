@@ -103,7 +103,7 @@ export default class PaintBucket extends BasicTool {
     this.listNeighbors = this.listNeighbors.filter(item => item.color === this.sectorColor);
 
     while (this.listNeighbors.length > 0) {
-      if (this.checkedSectors > this.mainCanvas.totalQuantitySectors) {
+      if (this.checkedSectors > this.mainCanvas.totalQuantitySectors + 1) {
         this.listNeighbors = [];
         break;
       }
