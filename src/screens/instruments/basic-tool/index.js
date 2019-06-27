@@ -7,6 +7,7 @@ export default class BasicTool {
     this.sizeTool = this.resizeTool.size;
     this.permissionUseArea = true;
     this.event = null;
+    this.lastMouseSector = null;
 
     this.colorPallete = colorPallete;
     this.colorPrimary = colorPallete.colorPrimary;
@@ -165,6 +166,11 @@ export default class BasicTool {
     const x = event.pageX - this.mainCanvas.canvas.getBoundingClientRect().left;
     const y = event.pageY - this.mainCanvas.canvas.getBoundingClientRect().top;
 
+    const sector = this.crossingSectorCheck(x, y);
+
+    if (this.lastMouseSector === sector) return;
+    this.lastMouseSector = sector;
+
     if (this.lastClickCoordinates) {
       const lastCordX = this.lastClickCoordinates.x;
       const lastCordY = this.lastClickCoordinates.y;
@@ -184,6 +190,8 @@ export default class BasicTool {
   }
 
   unsubscribeEvents(event) {
+    this.lastMouseSector = null;
+
     this.lastClickCoordinates = null;
 
     this.useActiveTool(event);
