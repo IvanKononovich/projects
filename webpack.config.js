@@ -85,6 +85,7 @@ module.exports = {
           frame: extractHtml('src/screens/frame/index.html'),
           preview: extractHtml('src/screens/preview/index.html'),
           export: extractHtml('src/screens/download-file/index.html'),
+          hotkeys: extractHtml('src/screens/hotkeys/index.html'),
           canvas: {
             mainCanvas: extractHtml('src/screens/main-canvas/index.html'),
           },

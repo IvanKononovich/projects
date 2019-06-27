@@ -8,8 +8,11 @@
 </head>
 <body>
     <div class="content-wrapper">
+        <%= htmlWebpackPlugin.options.content.screens.hotkeys %>
+
         <div class="column">
             <%= htmlWebpackPlugin.options.content.screens.resizeTool %>
+
             <div class="instruments-container">
                 <%= htmlWebpackPlugin.options.content.screens.instruments.pen %>
                 <%= htmlWebpackPlugin.options.content.screens.instruments.stroke %>
@@ -22,6 +25,7 @@
                 <%= htmlWebpackPlugin.options.content.screens.instruments.lighten %>
                 <%= htmlWebpackPlugin.options.content.screens.instruments.dithering %>
             </div>
+
             <div class="column__row">
                 <%= htmlWebpackPlugin.options.content.screens.colorPalette %>
             </div>

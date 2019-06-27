@@ -19,6 +19,8 @@
 @import 'screens/preview/index.css';
 @import 'screens/main-canvas/index.css';
 @import 'screens/download-file/index.css';
+@import 'screens/hotkeys/index.css';
+
 
 .content-wrapper {
     display: flex;
@@ -35,7 +37,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
     height: 100%;
     margin-top: 30px;
 }
@@ -49,7 +50,6 @@
 }
 .column_frame {
     margin-top: 0;
-    flex-wrap: nowrap;
     overflow-y: scroll;
     overflow-x: hidden;
 }

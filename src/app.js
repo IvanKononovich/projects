@@ -1,5 +1,5 @@
 /* eslint max-len: ["error", { "comments": 200 }] */
-/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "(tool.+) || resizeCanvas || exportFile" }] */
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "(tool.+) || resizeCanvas || hotKeys || exportFile" }] */
 
 import MainCanvas from './screens/main-canvas/index';
 import Frame from './screens/frame/index';
@@ -21,6 +21,8 @@ import Eraser from './screens/instruments/eraser/index';
 import PipetteColor from './screens/instruments/pipette-color/index';
 import PaintBucket from './screens/instruments/paint-bucket/index';
 import PaintAllPixels from './screens/instruments/paint-all-pixels/index';
+
+import HotKeys from './screens/hotkeys/index';
 
 import ExportFile from './screens/download-file/index';
 
@@ -106,6 +108,8 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+
+  const hotKeys = new HotKeys();
 
   const exportFile = new ExportFile(mainCanvas, preview);
 }

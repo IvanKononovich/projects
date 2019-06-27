@@ -51,6 +51,10 @@ export default class LoadingSavedData {
 
   loadData() {
     const listFrames = JSON.parse(localStorage.listFrames);
+
+    // In previous versions, a different sector storage structure was used.
+    if (JSON.parse(listFrames[0]).listSectors.length > 128) return;
+
     const initFrame = this.mainCanvas.listFrames[0];
     initFrame.framesContainer.removeChild(initFrame.frameContent);
     this.mainCanvas.listFrames.splice(0, 1);

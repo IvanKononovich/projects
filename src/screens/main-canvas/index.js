@@ -7,7 +7,7 @@ export default class MainCanvas {
     this.quantitySectorsY = y;
 
     this.totalQuantitySectors = 0;
-    this.defaultColor = 'transparent';
+    this.defaultColor = '#ffffff00';
 
     this.listSectors = [];
     this.listFrames = [];
