@@ -99,6 +99,16 @@ export default class MainCanvas {
     this.activeFrame.drawingElements();
   }
 
+  setExactSizeCanvas() {
+    const increaseRatioX = Math.floor(this.canvas.width / this.quantitySectorsX);
+    const increaseRatioY = Math.floor(this.canvas.height / this.quantitySectorsY);
+
+    this.canvas.width = Math.floor(this.quantitySectorsX * increaseRatioX);
+    this.canvas.style.width = `${this.canvas.width}px`;
+    this.canvas.height = Math.floor(this.quantitySectorsY * increaseRatioY);
+    this.canvas.style.height = `${this.canvas.height}px`;
+  }
+
   plots() {
     this.listSectors = [[]];
     this.totalQuantitySectors = this.quantitySectorsX * this.quantitySectorsY;
@@ -109,10 +119,7 @@ export default class MainCanvas {
     const increaseRatioX = Math.floor(this.canvas.width / this.quantitySectorsX);
     const increaseRatioY = Math.floor(this.canvas.height / this.quantitySectorsY);
 
-    this.canvas.width = Math.floor(this.quantitySectorsX * increaseRatioX);
-    this.canvas.style.width = `${this.canvas.width}px`;
-    this.canvas.height = Math.floor(this.quantitySectorsY * increaseRatioY);
-    this.canvas.style.height = `${this.canvas.height}px`;
+    this.setExactSizeCanvas();
 
     for (let i = 0; i < this.quantitySectorsX * this.quantitySectorsY; i += 1) {
       this.listSectors[Math.floor(sizeY / increaseRatioY)].push({

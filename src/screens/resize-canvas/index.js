@@ -49,6 +49,8 @@ export default class ResizeCanvas {
 
     this.mainCanvas.changeNumberSections();
 
+    this.mainCanvas.setExactSizeCanvas();
+
     this.mainCanvas.listFrames.forEach((item) => {
       const frame = item;
 
