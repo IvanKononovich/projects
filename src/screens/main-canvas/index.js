@@ -57,6 +57,8 @@ export default class MainCanvas {
       frame.changeState('active');
     }
 
+    frame.framesContainer.scrollTop = frame.framesContainer.scrollHeight;
+
     this.drawingAllElementsColor(this.defaultColor);
   }
 
