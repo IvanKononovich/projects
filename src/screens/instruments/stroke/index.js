@@ -7,6 +7,8 @@ export default class Stroke extends BasicTool {
     this.endPoint = null;
     this.allPointsLine = null;
     this.allCrossedSectors = null;
+    this.startSector = null;
+    this.hoverSector = null;
 
     this.pen = pen;
   }
@@ -17,6 +19,8 @@ export default class Stroke extends BasicTool {
         x: sect.x,
         y: sect.y,
       };
+
+      this.startSector = sect;
     }
 
     if (this.typeEvent === 'mouseup') {
@@ -24,6 +28,8 @@ export default class Stroke extends BasicTool {
     }
 
     if (this.typeEvent === 'mousemove') {
+      this.hoverSector = sect;
+
       if (this.allCrossedSectors) {
         this.applyColorBeforeChange(this.allCrossedSectors);
       }
@@ -40,15 +46,17 @@ export default class Stroke extends BasicTool {
         this.endPoint.y,
       );
 
-      this.allCrossedSectors = new Set();
+      this.allCrossedSectors = [];
 
       allPointsLine.forEach((item) => {
-        this.allCrossedSectors.add(this.crossingSectorCheck(item.x, item.y));
+        this.allCrossedSectors.push(this.crossingSectorCheck(item.x, item.y));
       });
 
       if (this.sizeTool > 1) {
         this.applicationByArea(this.allCrossedSectors);
       }
+
+      this.allCrossedSectors.push(this.startSector, this.hoverSector);
 
       BasicTool.rememberColorBeforeChanging(this.allCrossedSectors);
 

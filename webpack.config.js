@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 function extractHtml(src) {
     return fs.readFileSync(path.resolve(__dirname, src));
 }

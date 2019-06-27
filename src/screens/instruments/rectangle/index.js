@@ -9,6 +9,7 @@ export default class Rectangle extends BasicTool {
     this.startingPoint = null;
     this.endPoint = null;
     this.startSector = null;
+    this.hoverSector = null;
 
     this.rectangleSectors = null;
   }
@@ -27,7 +28,10 @@ export default class Rectangle extends BasicTool {
       this.rectangleSectors = null;
     }
 
+
     if (this.typeEvent === 'mousemove') {
+      this.hoverSector = sect;
+
       if (this.rectangleSectors) {
         this.applyColorBeforeChange(this.rectangleSectors);
       }
@@ -94,7 +98,7 @@ export default class Rectangle extends BasicTool {
       }
     }
 
-    crossedSectors.push(this.startSector);
+    crossedSectors.push(this.startSector, this.hoverSector);
     return crossedSectors;
   }
 

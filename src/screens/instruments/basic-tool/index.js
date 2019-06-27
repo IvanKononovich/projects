@@ -71,7 +71,11 @@ export default class BasicTool {
     const heightSector = sector.h;
 
     const coordSectorX = Math.floor(x / widthSector);
-    const coordSectorY = Math.floor(y / heightSector);
+    let coordSectorY = Math.floor(y / heightSector);
+
+    if (coordSectorY > this.mainCanvas.listSectors.length - 1) {
+      coordSectorY = this.mainCanvas.listSectors.length - 1;
+    }
 
     return this.mainCanvas.listSectors[coordSectorY][coordSectorX];
   }
