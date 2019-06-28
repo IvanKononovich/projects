@@ -35,7 +35,7 @@ if (canvas) {
   const mainCanvas = new MainCanvas(0, 0, Frame);
   listComponents.push({
     component: mainCanvas,
-    name: mainCanvas.constructor.name,
+    name: 'MainCanvas',
   });
 
   const preview = new Preview(mainCanvas);
@@ -46,7 +46,7 @@ if (canvas) {
   const resizeTool = new ResizeTool();
   listComponents.push({
     component: resizeTool,
-    name: resizeTool.constructor.name,
+    name: 'ResizeTool',
   });
 
   const toolPen = new Pen(
@@ -57,7 +57,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolPen,
-    name: toolPen.constructor.name,
+    name: 'Pen',
   });
   window.listTools.push(toolPen);
 
@@ -70,7 +70,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolStroke,
-    name: toolStroke.constructor.name,
+    name: 'Stroke',
   });
   window.listTools.push(toolStroke);
 
@@ -83,7 +83,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolRectangle,
-    name: toolRectangle.constructor.name,
+    name: 'Rectangle',
   });
   window.listTools.push(toolRectangle);
 
@@ -95,7 +95,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolMove,
-    name: toolMove.constructor.name,
+    name: 'Move',
   });
   window.listTools.push(toolMove);
 
@@ -107,7 +107,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolLighten,
-    name: toolLighten.constructor.name,
+    name: 'Lighten',
   });
   window.listTools.push(toolLighten);
 
@@ -119,7 +119,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolDithering,
-    name: toolDithering.constructor.name,
+    name: 'Dithering',
   });
   window.listTools.push(toolDithering);
 
@@ -131,7 +131,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolEraser,
-    name: toolEraser.constructor.name,
+    name: 'Eraser',
   });
   window.listTools.push(toolEraser);
 
@@ -143,7 +143,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolPipetteColor,
-    name: toolPipetteColor.constructor.name,
+    name: 'PipetteColor',
   });
   window.listTools.push(toolPipetteColor);
 
@@ -155,7 +155,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolPaintBucket,
-    name: toolPaintBucket.constructor.name,
+    name: 'PaintBucket',
   });
   window.listTools.push(toolPaintBucket);
 
@@ -167,7 +167,7 @@ if (canvas) {
   );
   listComponents.push({
     component: toolPaintAllPixels,
-    name: toolPaintAllPixels.constructor.name,
+    name: 'PaintAllPixels',
   });
   window.listTools.push(toolPaintAllPixels);
 
