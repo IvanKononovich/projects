@@ -197,11 +197,6 @@ export default class BasicTool {
     const x = event.pageX - this.mainCanvas.canvas.getBoundingClientRect().left;
     const y = event.pageY - this.mainCanvas.canvas.getBoundingClientRect().top;
 
-    const sector = this.crossingSectorCheck(x, y);
-
-    if (this.lastMouseSector === sector) return;
-    this.lastMouseSector = sector;
-
     if (this.lastClickCoordinates) {
       const lastCordX = this.lastClickCoordinates.x;
       const lastCordY = this.lastClickCoordinates.y;

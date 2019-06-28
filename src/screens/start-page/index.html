@@ -8,63 +8,88 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo"></div>
-        <a class="header__link" href="editor.html">Create Sprite</a>
+        <div class="container">
+            <div class="logo"></div>
+        </div>
     </header>
 
     <main class="main">
         <div class="project-description">   
-            <div class="project-description__container-text">
-                <h1 class="project-description__title">Piskel is a free online editor for animated sprites & pixel art</h1>
-                <p class="project-description__text">Create animations in your browser.</p>
+            <div class="project-description__container container">
+                <div class="project-description__container-text">
+                    <h1 class="project-description__title">Piskel is a free online editor for animated sprites & pixel art</h1>
+                    <p class="project-description__text">Create animations in your browser.</p>
+                    <a class="project-description__link" href="editor.html">Create Sprite</a>
+                </div>
+                <div class="project-description__screenshot">
+                    <div class="project-description__gif-creenshot"></div>
+                </div>
             </div>
-            <div class="project-description__screenshot"></div>
         </div>
 
         <div class="sprites-example">
             <h2 class="sprites-example__title">Example sprites</h2>
 
-            <div class="sprites-example__container">
-                <div class="sprites-example__sprite sprites-example__sprite_bg_1"></div>
-                <div class="sprites-example__sprite sprites-example__sprite_bg_2"></div>
-                <div class="sprites-example__sprite sprites-example__sprite_bg_3"></div>
-                <div class="sprites-example__sprite sprites-example__sprite_bg_4"></div>
-                <div class="sprites-example__sprite sprites-example__sprite_bg_5"></div>
-                <div class="sprites-example__sprite sprites-example__sprite_bg_6"></div>
+            <div class="container">
+                <div class="sprites-example__container">
+                    <div class="sprites-example__sprite sprites-example__sprite_bg_1"></div>
+                    <div class="sprites-example__sprite sprites-example__sprite_bg_2"></div>
+                    <div class="sprites-example__sprite sprites-example__sprite_bg_3"></div>
+                    <div class="sprites-example__sprite sprites-example__sprite_bg_4"></div>
+                    <div class="sprites-example__sprite sprites-example__sprite_bg_5"></div>
+                    <div class="sprites-example__sprite sprites-example__sprite_bg_6"></div>
+                </div>
             </div>
         </div>
 
         <div class="functional">
-            <h2 class="functional__title">In the editor implemented:</h2>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Pen</span> - implements per-pixel drawing</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Eraser</span> - allows you to make the pixels transparent</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Paint bucket</span> - allows you to fill the pixels with the selected color</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Pipette color</span> - allows you to choose the color of a particular pixel</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Frames</span> - it is possible to create, delete, copy and change the sequence of frames</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Layers</span> - you can create, delete, move and merge layers</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Preview</span> - it is possible to view the created animation before you download the giff to your PC, you can choose the frame playback speed, as well as you can turn on the full-screen animation view</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Resize canvas</span> - it is possible to manually set the width and height of the canvas</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Uploading a file to the PC</span> - it is possible to upload the created animation to your PC in gif format</p>
-            </div>
-            <div class="functional__row">
-                <p class="functional__text"><span class="text-color_gold">Resize tool</span> - it is possible to choose the size of the tool</p>
+             <div class="functional__container container">
+                <h2 class="functional__title">In the editor implemented:</h2>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Pen</span> - implements per-pixel drawing</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Eraser</span> - allows you to make the pixels transparent</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Paint bucket</span> - allows you to fill the pixels with the selected color</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Dithering</span> - allows you to create a checkered pattern</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Lighten</span> - allows to lighten and darken colors</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Move</span> - allows you to shift the picture on canvas</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Rectangle</span> - allows you draw rectangles</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Stroke</span> - allows you draw stroke</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Pipette color</span> - allows you to choose the color of a particular pixel</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Frames</span> - it is possible to create, delete, copy and change the sequence of frames</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Layers</span> - you can create, delete, move and merge layers</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Resize canvas</span> - it is possible to manually set the width and height of the canvas</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Uploading a file to the PC</span> - it is possible to upload the created animation to your PC in gif format</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Resize tool</span> - it is possible to choose the size of the tool</p>
+                </div>
+                <div class="functional__row">
+                    <p class="functional__text"><span class="text-color_gold">Preview</span> - it is possible to view the created animation before you download the giff to your PC, you can choose the frame playback speed, as well as you can turn on the full-screen animation view</p>
+                </div>
             </div>
         </div>
     </main>
