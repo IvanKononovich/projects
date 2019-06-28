@@ -79,6 +79,7 @@
 .hotkeys__input-wrapper {
     width: 25%;
     height: 100px;
+    box-sizing: border-box;
     display: flex;
     justify-content: flex-start;
     padding-left: 30px;

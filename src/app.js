@@ -44,6 +44,10 @@ if (canvas) {
 
   const colorPallete = new ColorPallete();
   const resizeTool = new ResizeTool();
+  listComponents.push({
+    component: resizeTool,
+    name: resizeTool.constructor.name,
+  });
 
   const toolPen = new Pen(
     'instrument-item__img_pen',
