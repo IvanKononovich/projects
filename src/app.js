@@ -1,5 +1,5 @@
 /* eslint max-len: ["error", { "comments": 200 }] */
-/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "(tool.+) || resizeCanvas || hotKeys || exportFile" }] */
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "resizeCanvas || hotKeys || exportFile" }] */
 
 import MainCanvas from './screens/main-canvas/index';
 import Frame from './screens/frame/index';
@@ -30,8 +30,14 @@ const canvas = document.querySelector('.main-canvas');
 
 if (canvas) {
   const listComponents = [];
+  window.listTools = [];
 
   const mainCanvas = new MainCanvas(0, 0, Frame);
+  listComponents.push({
+    component: mainCanvas,
+    name: mainCanvas.constructor.name,
+  });
+
   const preview = new Preview(mainCanvas);
   const layer = new Layer(mainCanvas);
   const resizeCanvas = new ResizeCanvas(mainCanvas, LoadingSavedData, layer);
@@ -49,6 +55,7 @@ if (canvas) {
     component: toolPen,
     name: toolPen.constructor.name,
   });
+  window.listTools.push(toolPen);
 
   const toolStroke = new Stroke(
     'instrument-item__img_stroke',
@@ -61,6 +68,7 @@ if (canvas) {
     component: toolStroke,
     name: toolStroke.constructor.name,
   });
+  window.listTools.push(toolStroke);
 
   const toolRectangle = new Rectangle(
     'instrument-item__img_rectangle',
@@ -73,6 +81,7 @@ if (canvas) {
     component: toolRectangle,
     name: toolRectangle.constructor.name,
   });
+  window.listTools.push(toolRectangle);
 
   const toolMove = new Move(
     'instrument-item__img_move',
@@ -84,6 +93,7 @@ if (canvas) {
     component: toolMove,
     name: toolMove.constructor.name,
   });
+  window.listTools.push(toolMove);
 
   const toolLighten = new Lighten(
     'instrument-item__img_lighten',
@@ -95,6 +105,7 @@ if (canvas) {
     component: toolLighten,
     name: toolLighten.constructor.name,
   });
+  window.listTools.push(toolLighten);
 
   const toolDithering = new Dithering(
     'instrument-item__img_dithering',
@@ -106,6 +117,7 @@ if (canvas) {
     component: toolDithering,
     name: toolDithering.constructor.name,
   });
+  window.listTools.push(toolDithering);
 
   const toolEraser = new Eraser(
     'instrument-item__img_eraser',
@@ -117,6 +129,7 @@ if (canvas) {
     component: toolEraser,
     name: toolEraser.constructor.name,
   });
+  window.listTools.push(toolEraser);
 
   const toolPipetteColor = new PipetteColor(
     'instrument-item__img_pipette',
@@ -128,6 +141,7 @@ if (canvas) {
     component: toolPipetteColor,
     name: toolPipetteColor.constructor.name,
   });
+  window.listTools.push(toolPipetteColor);
 
   const toolPaintBucket = new PaintBucket(
     'instrument-item__img_bucket',
@@ -139,6 +153,7 @@ if (canvas) {
     component: toolPaintBucket,
     name: toolPaintBucket.constructor.name,
   });
+  window.listTools.push(toolPaintBucket);
 
   const toolPaintAllPixels = new PaintAllPixels(
     'instrument-item__img_paint-all-pixels',
@@ -150,6 +165,7 @@ if (canvas) {
     component: toolPaintAllPixels,
     name: toolPaintAllPixels.constructor.name,
   });
+  window.listTools.push(toolPaintAllPixels);
 
   const hotKeys = new HotKeys(listComponents);
 

@@ -24,7 +24,7 @@ export default class BasicTool {
     this.subscribeEvents = this.subscribeEvents.bind(this);
     this.unsubscribeEvents = this.unsubscribeEvents.bind(this);
     this.useActiveTool = this.useActiveTool.bind(this);
-    this.hotkeyAction = this.hotkeyAction.bind(this);
+    this.pendingForHotkey = this.pendingForHotkey.bind(this);
 
     this.mainCanvas.canvas.addEventListener('mousedown', this.subscribeEvents);
     this.mainCanvas.canvas.addEventListener('mouseout', () => {
@@ -37,19 +37,33 @@ export default class BasicTool {
 
     document.addEventListener('click', this.stateChange);
 
-    document.addEventListener('keypress', this.hotkeyAction);
+    document.addEventListener('keypress', this.pendingForHotkey);
   }
 
-  hotkeyAction(event) {
+  pendingForHotkey(event) {
     const key = String.fromCharCode(event.keyCode).toLowerCase();
 
     if (key === this.hotKey) {
       this.state = true;
       this.toolButton.classList.add('instrument-item__img_active');
-    } else {
+    } else if (BasicTool.checkHotkeyForTools(key)) {
       this.state = false;
       this.toolButton.classList.remove('instrument-item__img_active');
     }
+  }
+
+  static checkHotkeyForTools(key) {
+    let result = false;
+
+    window.listTools.forEach((item) => {
+      const toolHotKey = item.hotKey;
+
+      if (toolHotKey === key) {
+        result = true;
+      }
+    });
+
+    return result;
   }
 
   findAllPointsLine(startX, startY, endX, endY) {

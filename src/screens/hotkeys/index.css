@@ -72,8 +72,9 @@
     align-items: flex-start;
     flex-wrap: wrap;
 }
-.hotkeys__container-keys_tools {
+.hotkeys__container-keys_overflow_v {
     overflow: visible;
+    width: 100%;
 }
 .hotkeys__input-wrapper {
     width: 25%;

@@ -15,9 +15,13 @@ export default class MainCanvas {
     this.buttonCreateFrame = null;
     this.FrameClass = FrameClass;
 
+    this.hotKey = null;
+    this.createHotKey();
+
     this.lastClickCoordinates = null;
 
     this.createFrame = this.createFrame.bind(this);
+    this.pendingForHotkey = this.pendingForHotkey.bind(this);
 
     Promise.resolve().then(() => {
       this.createFrame();
@@ -25,6 +29,70 @@ export default class MainCanvas {
 
       this.buttonCreateFrame = this.listFrames[0].buttonCreateFrame;
       this.buttonCreateFrame.addEventListener('click', this.createFrame);
+    });
+
+    document.addEventListener('keypress', this.pendingForHotkey);
+  }
+
+  createHotKey() {
+    this.hotKey = {
+      createframe: {
+        key: null,
+        arguments: true,
+        action: 'createFrame',
+      },
+      cloneframe: {
+        key: null,
+        arguments: null,
+        action: 'cloneActiveFrame',
+      },
+      selectpreviousframe: {
+        key: null,
+        arguments: -1,
+        action: 'selectNewFrame',
+      },
+      selectnextframe: {
+        key: null,
+        arguments: 1,
+        action: 'selectNewFrame',
+      },
+    };
+  }
+
+  cloneActiveFrame() {
+    this.activeFrame.cloneFrame();
+  }
+
+  selectNewFrame(number) {
+    let indexActiveFrame = this.listFrames.findIndex(frame => this.activeFrame === frame);
+
+    indexActiveFrame += number;
+
+    if (indexActiveFrame < 0) {
+      indexActiveFrame = 0;
+    }
+
+    if (indexActiveFrame > this.listFrames.length - 1) {
+      indexActiveFrame = this.listFrames.length - 1;
+    }
+
+    this.listFrames[indexActiveFrame].changeActiveState();
+  }
+
+  pendingForHotkey(event) {
+    const newKey = String.fromCharCode(event.keyCode).toLowerCase();
+
+    const objKeys = Object.keys(this.hotKey);
+
+    objKeys.forEach((key) => {
+      const hotKey = this.hotKey[key].key.toLowerCase();
+
+      if (hotKey === newKey) {
+        const arg = this.hotKey[key].arguments;
+        const { action } = this.hotKey[key];
+
+        this[action](arg);
+      }
     });
   }
 

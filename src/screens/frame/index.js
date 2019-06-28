@@ -182,6 +182,8 @@ export default class Frame {
 
     this.mainCanvas.frameSequenceRecalculation();
     this.mainCanvas.findActiveFrame();
+
+    this.framesContainer.scrollTop = this.framesContainer.scrollHeight;
   }
 
   changeActiveState() {

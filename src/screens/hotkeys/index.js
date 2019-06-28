@@ -3,8 +3,8 @@ export default class HotKeys {
     this.listComponents = listComponents;
 
     this.hotkeysButton = document.querySelector('.hotkeys');
-    this.hotkeysContainer = this.hotkeysButton.querySelector('.hotkeys__container');
-    this.hotkeysButtonClose = this.hotkeysContainer.querySelector('.hotkeys__close');
+    this.hotKeysContainer = this.hotkeysButton.querySelector('.hotkeys__container');
+    this.hotkeysButtonClose = this.hotKeysContainer.querySelector('.hotkeys__close');
     this.hotkeysInputWrappers = this.hotkeysButton.querySelectorAll('.hotkeys__input-wrapper');
     this.activeInput = null;
     this.listHotKeys = new Set();
@@ -12,9 +12,9 @@ export default class HotKeys {
 
     this.changeHotkey = this.changeHotkey.bind(this);
     this.pendingNewKey = this.pendingNewKey.bind(this);
-    this.openHotkeysContainer = this.openHotkeysContainer.bind(this);
+    this.openHotKeysContainer = this.openHotKeysContainer.bind(this);
 
-    this.hotkeysButton.addEventListener('click', this.openHotkeysContainer);
+    this.hotkeysButton.addEventListener('click', this.openHotKeysContainer);
 
     this.addDefaultKey();
   }
@@ -23,10 +23,6 @@ export default class HotKeys {
     [...this.hotkeysInputWrappers].forEach((item) => {
       const inputHotKey = item.querySelector('.hotkeys__input');
       const key = inputHotKey.dataset.defaultKey;
-      inputHotKey.innerHTML = key;
-
-      this.listHotKeys.add(inputHotKey.innerHTML);
-      this.listHotKeys[inputHotKey.innerHTML] = inputHotKey;
 
       this.activeInput = inputHotKey;
 
@@ -36,15 +32,25 @@ export default class HotKeys {
     });
   }
 
-  openHotkeysContainer(event) {
+  static preventPopUpKeypress(event) {
+    event.stopPropagation();
+  }
+
+  openHotKeysContainer(event) {
     const { target } = event;
 
     if (target === this.hotkeysButton
     || target === this.hotkeysButtonClose) {
-      this.hotkeysContainer.classList.toggle('hotkeys__container_open');
+      this.hotKeysContainer.classList.toggle('hotkeys__container_open');
 
       if (this.pendingPressed) {
         this.removeActiveInput();
+      }
+
+      if (this.hotKeysContainer.classList.contains('hotkeys__container_open')) {
+        document.body.addEventListener('keypress', HotKeys.preventPopUpKeypress);
+      } else {
+        document.body.removeEventListener('keypress', HotKeys.preventPopUpKeypress);
       }
     }
   }
@@ -82,22 +88,32 @@ export default class HotKeys {
     return result;
   }
 
+  changeHotKeyComponent(input, nameComponent, newKey) {
+    const component = this.findComponent(nameComponent);
+    let { actionName } = input.dataset;
+
+    if (actionName) {
+      actionName = actionName.toLowerCase();
+      component.hotKey[actionName].key = newKey;
+    } else {
+      component.hotKey = newKey;
+    }
+  }
+
   makeChangesHotkeys(newKey) {
     const previousHotKey = this.activeInput.innerHTML.toLowerCase();
 
     this.activeInput.innerHTML = newKey;
 
     const { nameComponent } = this.activeInput.dataset;
-    const component = this.findComponent(nameComponent);
-    component.hotKey = newKey;
+    this.changeHotKeyComponent(this.activeInput, nameComponent, newKey);
 
     const previousInput = this.listHotKeys[newKey];
 
     if (previousInput) {
       if (previousInput !== this.activeInput) {
         const previousNameComponent = previousInput.dataset.nameComponent;
-        const previousComponent = this.findComponent(previousNameComponent);
-        previousComponent.hotKey = null;
+        this.changeHotKeyComponent(previousInput, previousNameComponent, null);
 
         previousInput.classList.add('hotkeys__input_err');
         previousInput.innerHTML = '???';
