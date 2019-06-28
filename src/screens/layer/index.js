@@ -167,7 +167,7 @@ export default class Layer {
         const firstColor = sector.layers[indexActiveLayer].color;
         const secondColor = sector.layers[indexActiveLayer + 1].color;
 
-        if (firstColor === 'transparent') {
+        if (firstColor === this.mainCanvas.defaultColor) {
           sector.layers[indexActiveLayer].color = secondColor;
         }
       });

@@ -1,5 +1,7 @@
 export default class HotKeys {
-  constructor() {
+  constructor(listComponents) {
+    this.listComponents = listComponents;
+
     this.hotkeysButton = document.querySelector('.hotkeys');
     this.hotkeysContainer = this.hotkeysButton.querySelector('.hotkeys__container');
     this.hotkeysButtonClose = this.hotkeysContainer.querySelector('.hotkeys__close');
@@ -14,12 +16,21 @@ export default class HotKeys {
 
     this.hotkeysButton.addEventListener('click', this.openHotkeysContainer);
 
+    this.addDefaultKey();
+  }
+
+  addDefaultKey() {
     [...this.hotkeysInputWrappers].forEach((item) => {
       const inputHotKey = item.querySelector('.hotkeys__input');
-      inputHotKey.innerHTML = inputHotKey.dataset.defaultKey;
+      const key = inputHotKey.dataset.defaultKey;
+      inputHotKey.innerHTML = key;
 
       this.listHotKeys.add(inputHotKey.innerHTML);
       this.listHotKeys[inputHotKey.innerHTML] = inputHotKey;
+
+      this.activeInput = inputHotKey;
+
+      this.makeChangesHotkeys(key);
 
       item.addEventListener('click', this.changeHotkey);
     });
@@ -56,14 +67,38 @@ export default class HotKeys {
     document.addEventListener('keyup', this.pendingNewKey);
   }
 
+  findComponent(str) {
+    const name = str.toLowerCase();
+    let result = null;
+
+    this.listComponents.forEach((item) => {
+      const componentName = item.name.toLowerCase();
+
+      if (name === componentName) {
+        result = item.component;
+      }
+    });
+
+    return result;
+  }
+
   makeChangesHotkeys(newKey) {
     const previousHotKey = this.activeInput.innerHTML.toLowerCase();
 
     this.activeInput.innerHTML = newKey;
+
+    const { nameComponent } = this.activeInput.dataset;
+    const component = this.findComponent(nameComponent);
+    component.hotKey = newKey;
+
     const previousInput = this.listHotKeys[newKey];
 
     if (previousInput) {
       if (previousInput !== this.activeInput) {
+        const previousNameComponent = previousInput.dataset.nameComponent;
+        const previousComponent = this.findComponent(previousNameComponent);
+        previousComponent.hotKey = null;
+
         previousInput.classList.add('hotkeys__input_err');
         previousInput.innerHTML = '???';
 

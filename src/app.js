@@ -29,6 +29,8 @@ import ExportFile from './screens/download-file/index';
 const canvas = document.querySelector('.main-canvas');
 
 if (canvas) {
+  const listComponents = [];
+
   const mainCanvas = new MainCanvas(0, 0, Frame);
   const preview = new Preview(mainCanvas);
   const layer = new Layer(mainCanvas);
@@ -43,6 +45,10 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolPen,
+    name: toolPen.constructor.name,
+  });
 
   const toolStroke = new Stroke(
     'instrument-item__img_stroke',
@@ -51,6 +57,10 @@ if (canvas) {
     resizeTool,
     toolPen,
   );
+  listComponents.push({
+    component: toolStroke,
+    name: toolStroke.constructor.name,
+  });
 
   const toolRectangle = new Rectangle(
     'instrument-item__img_rectangle',
@@ -59,6 +69,10 @@ if (canvas) {
     resizeTool,
     toolPen,
   );
+  listComponents.push({
+    component: toolRectangle,
+    name: toolRectangle.constructor.name,
+  });
 
   const toolMove = new Move(
     'instrument-item__img_move',
@@ -66,6 +80,10 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolMove,
+    name: toolMove.constructor.name,
+  });
 
   const toolLighten = new Lighten(
     'instrument-item__img_lighten',
@@ -73,6 +91,10 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolLighten,
+    name: toolLighten.constructor.name,
+  });
 
   const toolDithering = new Dithering(
     'instrument-item__img_dithering',
@@ -80,6 +102,10 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolDithering,
+    name: toolDithering.constructor.name,
+  });
 
   const toolEraser = new Eraser(
     'instrument-item__img_eraser',
@@ -87,6 +113,10 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolEraser,
+    name: toolEraser.constructor.name,
+  });
 
   const toolPipetteColor = new PipetteColor(
     'instrument-item__img_pipette',
@@ -94,6 +124,10 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolPipetteColor,
+    name: toolPipetteColor.constructor.name,
+  });
 
   const toolPaintBucket = new PaintBucket(
     'instrument-item__img_bucket',
@@ -101,6 +135,10 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolPaintBucket,
+    name: toolPaintBucket.constructor.name,
+  });
 
   const toolPaintAllPixels = new PaintAllPixels(
     'instrument-item__img_paint-all-pixels',
@@ -108,8 +146,12 @@ if (canvas) {
     colorPallete,
     resizeTool,
   );
+  listComponents.push({
+    component: toolPaintAllPixels,
+    name: toolPaintAllPixels.constructor.name,
+  });
 
-  const hotKeys = new HotKeys();
+  const hotKeys = new HotKeys(listComponents);
 
   const exportFile = new ExportFile(mainCanvas, preview);
 }
