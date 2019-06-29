@@ -137,11 +137,11 @@ body {
 .sprites-example__sprite_bg_4 {
     background-image: url('images/example-sprites-4.gif');
 }
-.sprites-example__sprite_bg_5 {
-    background-image: url('images/example-sprites-2.gif');
+.sprites-example__sprite_bg_5 {     
+    background-image: url('images/example-sprites-1.gif');
 }
 .sprites-example__sprite_bg_6 {
-    background-image: url('images/example-sprites-1.gif');
+    background-image: url('images/example-sprites-2.gif');
 }
 .functional {
     width: 100%;

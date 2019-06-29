@@ -85,13 +85,9 @@ export default class MainCanvas {
     const objKeys = Object.keys(this.hotKey);
 
     objKeys.forEach((key) => {
-      let hotKey = this.hotKey[key].key;
+      if (!this.hotKey[key].key) return;
 
-      if (hotKey) {
-        hotKey = hotKey.toLowerCase();
-      } else {
-        return;
-      }
+      const hotKey = this.hotKey[key].key.toLowerCase();
 
       if (hotKey === newKey) {
         const arg = this.hotKey[key].arguments;

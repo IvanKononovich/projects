@@ -237,5 +237,7 @@ export default class Frame {
   drawingElements() {
     const image = this.mainCanvas.canvas.toDataURL('png');
     this.frameCanvas.style.backgroundImage = `url(${image})`;
+
+    this.savingStateSectors();
   }
 }

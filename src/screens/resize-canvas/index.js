@@ -90,6 +90,7 @@ export default class ResizeCanvas {
       const frame = item;
 
       this.modifyFrame(frame, removeLayers);
+
       frame.savingStateSectors();
     });
 
