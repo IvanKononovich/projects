@@ -78,6 +78,7 @@ module.exports = {
             lighten: extractHtml('src/screens/instruments/lighten/index.html'),
             dithering: extractHtml('src/screens/instruments/dithering/index.html'), 
             mirrorPen: extractHtml('src/screens/instruments/mirror-pen/index.html'), 
+            shapeSelection: extractHtml('src/screens/instruments/shape-selection/index.html'), 
           },
           layer: extractHtml('src/screens/layer/index.html'),
           resizeCanvas: extractHtml('src/screens/resize-canvas/index.html'),

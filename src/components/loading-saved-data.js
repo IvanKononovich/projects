@@ -7,7 +7,7 @@ export default class LoadingSavedData {
     window.addEventListener('beforeunload', this.saveData);
 
     if (localStorage.listFrames) {
-      // this.loadData();
+      this.loadData();
       localStorage.clear();
     }
   }

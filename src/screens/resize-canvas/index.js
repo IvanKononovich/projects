@@ -48,15 +48,19 @@ export default class ResizeCanvas {
 
     this.mainCanvas.listSectors.forEach((row, indexRow) => {
       row.forEach((item, indexColumn) => {
-        const newSector = frame.listSectors[indexRow][indexColumn];
         const sector = item;
         const { defaultColor } = this.mainCanvas;
 
-        if (newSector) {
-          sector.color = newSector;
-        } else {
-          sector.color = defaultColor;
+        if (indexRow < frame.listSectors.length) {
+          if (indexColumn < frame.listSectors[0].length) {
+            const newSector = frame.listSectors[indexRow][indexColumn];
+
+            sector.color = newSector.color;
+            return;
+          }
         }
+
+        sector.color = defaultColor;
       });
     });
 

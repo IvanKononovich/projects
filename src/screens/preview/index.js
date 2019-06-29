@@ -1,7 +1,6 @@
 export default class Preview {
   constructor(mainCanvas) {
     this.mainCanvas = mainCanvas;
-    this.listFrames = this.mainCanvas.listFrames;
 
     this.previewContainer = document.querySelector('.preview');
     this.animationPlayer = this.previewContainer.querySelector('.preview__animation-player');
@@ -42,7 +41,8 @@ export default class Preview {
   }
 
   drawingPreviews() {
-    const frame = this.listFrames[this.activeFrameIndex];
+    const { listFrames } = this.mainCanvas;
+    const frame = listFrames[this.activeFrameIndex];
 
     if (frame) {
       const img = getComputedStyle(frame.frameCanvas).backgroundImage;
@@ -50,7 +50,7 @@ export default class Preview {
       this.animationPlayer.style.backgroundImage = img;
     }
 
-    if (this.activeFrameIndex + 1 < this.listFrames.length) {
+    if (this.activeFrameIndex + 1 < listFrames.length) {
       this.activeFrameIndex += 1;
     } else {
       this.activeFrameIndex = 0;

@@ -13,6 +13,7 @@ import ColorPallete from './screens/color-palette/index';
 
 import Pen from './screens/instruments/pen/index';
 import MirrorPen from './screens/instruments/mirror-pen/index';
+import ShapeSelection from './screens/instruments/shape-selection/index';
 import Stroke from './screens/instruments/stroke/index';
 import Rectangle from './screens/instruments/rectangle/index';
 import Move from './screens/instruments/move/index';
@@ -185,6 +186,18 @@ if (canvas) {
     name: 'PaintAllPixels',
   });
   window.listTools.push(toolPaintAllPixels);
+
+  const toolShapeSelection = new ShapeSelection(
+    'instrument-item__img_shape-selection',
+    mainCanvas,
+    colorPallete,
+    resizeTool,
+  );
+  listComponents.push({
+    component: toolShapeSelection,
+    name: 'ShapeSelection',
+  });
+  window.listTools.push(toolShapeSelection);
 
   const hotKeys = new HotKeys(listComponents);
 

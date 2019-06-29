@@ -254,4 +254,96 @@ export default class BasicTool {
       }
     }
   }
+
+  deleteNeighbors() {
+    const { listSectors } = this.mainCanvas;
+
+    listSectors.forEach((row) => {
+      row.forEach((column) => {
+        const sector = column;
+        sector.check = false;
+        delete sector.neighbors;
+      });
+    });
+  }
+
+  identifyingNeighbors() {
+    const { listSectors } = this.mainCanvas;
+
+    listSectors.forEach((row, indexRow) => {
+      row.forEach((column, indexColumn) => {
+        let previousSectorX = null;
+        let previousSectorY = null;
+        let nextSectorX = null;
+        let nextSectorY = null;
+
+        if (indexRow > 0) {
+          previousSectorY = listSectors[indexRow - 1][indexColumn];
+        }
+
+        if (indexColumn > 0) {
+          previousSectorX = listSectors[indexRow][indexColumn - 1];
+        }
+
+        if (indexColumn + 1 < row.length) {
+          nextSectorX = listSectors[indexRow][indexColumn + 1];
+        }
+
+        if (indexRow + 1 < listSectors.length) {
+          nextSectorY = listSectors[indexRow + 1][indexColumn];
+        }
+
+        const sector = column;
+
+        sector.neighbors = [
+          previousSectorX,
+          nextSectorX,
+          previousSectorY,
+          nextSectorY,
+        ];
+
+        sector.neighbors = sector.neighbors.filter((neighbor) => {
+          if (neighbor) return neighbor;
+          return false;
+        });
+      });
+    });
+  }
+
+  chengNeighborsSectorColor(item, listNeighbors, result, color1, color2) {
+    const neighbor = item;
+    neighbor.check = true;
+
+    const { defaultColor } = this.mainCanvas;
+
+    if (!color1 && neighbor.color !== defaultColor) {
+      this.mainCanvas.drawingElements(neighbor, true);
+
+      listNeighbors.push(neighbor);
+      result.add(neighbor);
+    } else if (neighbor.color === color1) {
+      neighbor.color = color2;
+      this.mainCanvas.drawingElements(neighbor, true);
+
+      listNeighbors.push(neighbor);
+      result.add(neighbor);
+    }
+  }
+
+  findingNeighborsWithSameColor(startingSector, colorCondition, newColor) {
+    const result = new Set();
+
+    const listNeighbors = [...startingSector.neighbors];
+
+    while (listNeighbors.length > 0) {
+      const tempNode = listNeighbors.shift();
+
+      tempNode.neighbors.forEach((item) => {
+        if (item.check) return;
+        this.chengNeighborsSectorColor(item, listNeighbors, result, colorCondition, newColor);
+      });
+    }
+
+    return result;
+  }
 }

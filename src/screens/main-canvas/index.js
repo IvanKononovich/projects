@@ -85,7 +85,13 @@ export default class MainCanvas {
     const objKeys = Object.keys(this.hotKey);
 
     objKeys.forEach((key) => {
-      const hotKey = this.hotKey[key].key.toLowerCase();
+      let hotKey = this.hotKey[key].key;
+
+      if (hotKey) {
+        hotKey = hotKey.toLowerCase();
+      } else {
+        return;
+      }
 
       if (hotKey === newKey) {
         const arg = this.hotKey[key].arguments;
@@ -158,7 +164,7 @@ export default class MainCanvas {
     this.activeFrame.drawingElements();
   }
 
-  drawingAllElements() {
+  drawingAllElements(drawingFrame = true) {
     this.listSectors.forEach((row) => {
       row.forEach((column) => {
         this.drawingElements(column, true);
@@ -166,6 +172,7 @@ export default class MainCanvas {
     });
 
     if (!this.activeFrame) return;
+    if (!drawingFrame) return;
 
     this.activeFrame.drawingElements();
   }
@@ -249,8 +256,6 @@ export default class MainCanvas {
     ctx.fillStyle = color;
     ctx.rect(sector.x, sector.y, sector.w, sector.h);
     ctx.fill();
-
-    this.findActiveFrame();
 
     if (!this.activeFrame || allElements) return;
 

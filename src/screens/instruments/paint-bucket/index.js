@@ -5,8 +5,6 @@ export default class PaintBucket extends BasicTool {
     super(toolCSSClass, mainCanvas, colorPallete, resizeTool);
     this.permissionUseArea = false;
 
-    this.listNeighbors = [];
-    this.checkedSectors = 0;
     this.startingSector = null;
     this.sectorColor = null;
     this.color = null;
@@ -14,10 +12,6 @@ export default class PaintBucket extends BasicTool {
 
   use(item) {
     if (this.typeEvent === 'mouseup') {
-      this.chengSectorColor = this.chengSectorColor.bind(this);
-
-      this.listNeighbors = [];
-      this.checkedSectors = 0;
       this.startingSector = item;
       this.sectorColor = this.startingSector.color;
       this.color = this.colorPrimary.value;
@@ -28,94 +22,13 @@ export default class PaintBucket extends BasicTool {
 
       this.identifyingNeighbors();
 
-      this.findingNeighborsWithSameColor(this.startingSector);
+      this.findingNeighborsWithSameColor(
+        this.startingSector,
+        this.sectorColor,
+        this.color,
+      );
 
       this.deleteNeighbors();
     }
-  }
-
-  identifyingNeighbors() {
-    const { listSectors } = this.mainCanvas;
-
-    listSectors.forEach((row, indexRow) => {
-      row.forEach((column, indexColumn) => {
-        let previousSectorX = null;
-        let previousSectorY = null;
-        let nextSectorX = null;
-        let nextSectorY = null;
-
-        if (indexRow > 0) {
-          previousSectorY = listSectors[indexRow - 1][indexColumn];
-        }
-
-        if (indexColumn > 0) {
-          previousSectorX = listSectors[indexRow][indexColumn - 1];
-        }
-
-        if (indexColumn + 1 < row.length) {
-          nextSectorX = listSectors[indexRow][indexColumn + 1];
-        }
-
-        if (indexRow + 1 < listSectors.length) {
-          nextSectorY = listSectors[indexRow + 1][indexColumn];
-        }
-
-        const sector = column;
-
-        sector.neighbors = [
-          previousSectorX,
-          nextSectorX,
-          previousSectorY,
-          nextSectorY,
-        ];
-
-        sector.neighbors = sector.neighbors.filter((neighbor) => {
-          if (neighbor) return neighbor;
-          return false;
-        });
-      });
-    });
-  }
-
-  deleteNeighbors() {
-    const { listSectors } = this.mainCanvas;
-
-    listSectors.forEach((row) => {
-      row.forEach((column) => {
-        const sector = column;
-        delete sector.neighbors;
-      });
-    });
-  }
-
-  chengSectorColor(item) {
-    const neighbor = item;
-
-    if (neighbor.color === this.sectorColor) {
-      neighbor.color = this.color;
-      this.mainCanvas.drawingElements(neighbor, true);
-      this.listNeighbors.push(neighbor);
-    }
-  }
-
-  findingNeighborsWithSameColor(startingSector) {
-    this.listNeighbors.push(...startingSector.neighbors);
-    this.listNeighbors = this.listNeighbors.filter(item => item.color === this.sectorColor);
-
-    while (this.listNeighbors.length > 0) {
-      if (this.checkedSectors > this.mainCanvas.totalQuantitySectors + 1) {
-        this.listNeighbors = [];
-        break;
-      }
-
-      this.checkedSectors += 1;
-
-      const tempNode = this.listNeighbors.shift();
-
-      tempNode.neighbors.forEach(this.chengSectorColor);
-    }
-
-    this.startingSector.color = this.color;
-    this.mainCanvas.drawingElements(startingSector, true);
   }
 }
