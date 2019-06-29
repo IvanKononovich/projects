@@ -43,32 +43,59 @@ export default class ResizeCanvas {
     this.resizeContent.classList.toggle('resize-canvas__content_open');
   }
 
+  modifyFrame(itemFrame, removeLayers) {
+    const frame = itemFrame;
+
+    this.mainCanvas.listSectors.forEach((row, indexRow) => {
+      row.forEach((item, indexColumn) => {
+        const newSector = frame.listSectors[indexRow][indexColumn];
+        const sector = item;
+        const { defaultColor } = this.mainCanvas;
+
+        if (newSector) {
+          sector.color = newSector;
+        } else {
+          sector.color = defaultColor;
+        }
+      });
+    });
+
+    const copySectors = JSON.parse(JSON.stringify(this.mainCanvas.listSectors));
+
+    frame.listSectors = copySectors;
+
+    if (removeLayers) {
+      this.layer.layerContainer.innerHTML = '';
+      this.layer.listLayers = [];
+      frame.quantityLayer = 0;
+    }
+
+    if (!frame.quantityLayer) return;
+
+    this.layer.changeActiveFrame();
+    this.layer.changeActiveLayer(frame.activeLayer);
+  }
+
   changeSizeCanvas(removeLayers = false) {
-    this.mainCanvas.quantitySectorsX = this.inputSizeX.value;
-    this.mainCanvas.quantitySectorsY = this.inputSizeY.value;
-
-    this.mainCanvas.changeNumberSections();
-
-    this.mainCanvas.setExactSizeCanvas();
-
     this.mainCanvas.listFrames.forEach((item) => {
+      this.mainCanvas.quantitySectorsX = this.inputSizeX.value;
+      this.mainCanvas.quantitySectorsY = this.inputSizeY.value;
+
+      this.mainCanvas.plots();
+
       const frame = item;
 
-      frame.frameCanvas.backgroundImage = 'none';
-      frame.frameCanvas.backgroundColor = this.mainCanvas.defaultColor;
+      this.modifyFrame(frame, removeLayers);
+      frame.savingStateSectors();
+    });
 
-      if (removeLayers) {
-        this.layer.layerContainer.innerHTML = '';
-        this.layer.listLayers = [];
-        frame.quantityLayer = 0;
-      }
+    this.mainCanvas.listFrames.forEach((item) => {
+      const { activeFrame } = this.mainCanvas;
+      const copySectors = JSON.parse(JSON.stringify(activeFrame.listSectors));
 
-      frame.changeActiveState();
+      this.mainCanvas.listSectors = copySectors;
 
-      if (!frame.quantityLayer) return;
-
-      this.layer.changeActiveFrame();
-      this.layer.changeActiveLayer(frame.activeLayer);
+      item.changeActiveState();
     });
   }
 

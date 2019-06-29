@@ -56,20 +56,25 @@ export default class LoadingSavedData {
     if (JSON.parse(listFrames[0]).listSectors.length > 128) return;
 
     const initFrame = this.mainCanvas.listFrames[0];
+
     initFrame.framesContainer.removeChild(initFrame.frameContent);
-    this.mainCanvas.listFrames.splice(0, 1);
+    this.mainCanvas.listFrames = [];
+
+    this.mainCanvas.activeFrame = null;
 
     listFrames.forEach((item, index) => {
       const data = JSON.parse(item);
       const { listSectors } = data;
       const { quantityLayer } = data;
 
-      this.mainCanvas.createFrame(false);
+      this.mainCanvas.createFrame(false, false);
 
       const frame = this.mainCanvas.listFrames[index];
 
-      frame.listSectors = listSectors;
+      frame.listSectors = JSON.parse(JSON.stringify(listSectors));
       frame.quantityLayer = quantityLayer;
+
+      frame.changeActiveState();
     });
 
     if (localStorage.sizeCanvas) {

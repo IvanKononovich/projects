@@ -105,7 +105,7 @@ export default class MainCanvas {
     });
   }
 
-  createFrame(activity = true) {
+  createFrame(activity = true, createNew = true) {
     if (activity) {
       this.findActiveFrame();
 
@@ -117,6 +117,7 @@ export default class MainCanvas {
     this.clearLayers();
 
     const frame = new this.FrameClass(this.listFrames.length + 1, this);
+
     frame.listSectors = JSON.parse(JSON.stringify(this.listSectors));
 
     this.listFrames.push(frame);
@@ -127,7 +128,9 @@ export default class MainCanvas {
 
     frame.framesContainer.scrollTop = frame.framesContainer.scrollHeight;
 
-    this.drawingAllElementsColor(this.defaultColor);
+    if (createNew) {
+      this.drawingAllElementsColor(this.defaultColor);
+    }
   }
 
   clearLayers() {
@@ -210,41 +213,6 @@ export default class MainCanvas {
     }
 
     this.listSectors.pop();
-
-    this.drawingAllElements();
-
-    if (this.activeFrame) {
-      this.activeFrame.listSectors = this.listSectors;
-    }
-  }
-
-  changeNumberSections() {
-    const listModifiedSections = [];
-
-    this.listSectors.forEach((row, indexRow) => {
-      row.forEach((column, indexColumn) => {
-        if (column.color !== this.defaultColor) {
-          listModifiedSections.push({
-            color: column.color,
-            indexRow,
-            indexColumn,
-          });
-        }
-      });
-    });
-
-    this.plots();
-
-    listModifiedSections.forEach((item) => {
-      if (this.listSectors.length > item.indexRow) {
-        if (this.listSectors[item.indexRow].length > item.indexColumn) {
-          const sector = this.listSectors[item.indexRow][item.indexColumn];
-          sector.color = item.color;
-        }
-      }
-    });
-
-    this.drawingAllElements();
   }
 
   findActiveFrame() {

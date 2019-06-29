@@ -187,7 +187,10 @@ export default class Frame {
   }
 
   changeActiveState() {
-    this.mainCanvas.activeFrame.changeState('not active');
+    if (this.mainCanvas.activeFrame) {
+      this.mainCanvas.activeFrame.changeState('not active');
+    }
+
     this.changeState('active');
   }
 
@@ -204,7 +207,7 @@ export default class Frame {
   }
 
   makeChangesSectors() {
-    this.mainCanvas.listSectors = this.listSectors;
+    this.mainCanvas.listSectors = JSON.parse(JSON.stringify(this.listSectors));
 
     this.mainCanvas.drawingAllElements();
     this.drawingElements();
