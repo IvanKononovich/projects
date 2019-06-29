@@ -11,6 +11,7 @@ export default class ShapeSelection extends BasicTool {
 
     this.listNeighbors = [];
     this.cleaningList = [];
+    this.newListSectors = null;
   }
 
   use(item) {
@@ -46,6 +47,7 @@ export default class ShapeSelection extends BasicTool {
     }
 
     if (this.typeEvent === 'mousemove') {
+      if (sector.color === this.mainCanvas.defaultColor) return;
       if (!this.startingPoint) return;
 
       this.endPoint = item;
@@ -54,8 +56,11 @@ export default class ShapeSelection extends BasicTool {
     }
 
     if (this.typeEvent === 'mouseup') {
+      if (!this.newListSectors) return;
+
       this.endPoint = null;
       this.mainCanvas.listSectors = JSON.parse(JSON.stringify(this.newListSectors));
+      this.newListSectors = null;
       this.mainCanvas.drawingAllElements();
     }
   }

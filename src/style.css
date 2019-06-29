@@ -31,6 +31,7 @@
     overflow: hidden;
     height: 100vh;
     max-height: 100vh;
+    min-width: 1870px;
 }
 .column {
     position: relative;

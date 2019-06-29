@@ -72,6 +72,7 @@ export default class LoadingSavedData {
       const frame = this.mainCanvas.listFrames[index];
 
       frame.listSectors = JSON.parse(JSON.stringify(listSectors));
+
       frame.quantityLayer = quantityLayer;
 
       frame.changeActiveState();
@@ -82,7 +83,7 @@ export default class LoadingSavedData {
 
       this.resizeCanvas.inputSizeX.value = +sizeCanvas.width;
       this.resizeCanvas.inputSizeY.value = +sizeCanvas.heihgt;
-      this.resizeCanvas.changeSizeCanvas();
+      this.resizeCanvas.changeSizeCanvas(true);
     }
   }
 }

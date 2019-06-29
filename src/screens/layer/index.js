@@ -81,6 +81,10 @@ export default class Layer {
     for (let i = 0; i < activeFrame.quantityLayer; i += 1) {
       this.addLayer(true);
     }
+
+    if (!activeFrame.quantityLayer) return;
+
+    this.changeActiveLayer(activeFrame.quantityLayer - 1);
   }
 
   modificationListSectors(action) {
@@ -137,10 +141,12 @@ export default class Layer {
 
     if (direction === 'up') {
       newIndexActiveLayer -= 1;
+      if (newIndexActiveLayer < 0) return;
       nextLayer = this.listLayers[newIndexActiveLayer];
       nextLayer.before(this.activeLayer);
     } else {
       newIndexActiveLayer += 1;
+      if (newIndexActiveLayer > this.listLayers.length - 1) return;
       nextLayer = this.listLayers[newIndexActiveLayer];
       nextLayer.after(this.activeLayer);
     }
@@ -148,7 +154,7 @@ export default class Layer {
     nextLayer.dataset.indexLayer = indexActiveLayer;
     this.activeLayer.dataset.indexLayer = newIndexActiveLayer;
 
-    this.listLayers = [...this.layerContainer.querySelectorAll('.layer__instance')];
+    this.listLayers = [...this.layerContainer.querySelectorAll('.layer__instance:not(.layer__instance_sample)')];
 
     this.swapLayers(indexActiveLayer, newIndexActiveLayer);
   }
@@ -176,7 +182,14 @@ export default class Layer {
     this.deleteLayer(indexActiveLayer + 1);
   }
 
-  deleteLayer(deleteLayerIndex = this.activeLayer.dataset.indexLayer) {
+  deleteLayer(index) {
+    if (this.listLayers.length === 0) return;
+
+    let deleteLayerIndex = index;
+    if (!deleteLayerIndex) {
+      deleteLayerIndex = this.activeLayer.dataset.indexLayer;
+    }
+
     let indexLayer = deleteLayerIndex;
     this.activeLayer = this.listLayers[indexLayer];
 
