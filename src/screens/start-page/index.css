@@ -79,7 +79,7 @@ body {
     position: absolute;
     top: 3px;
     right: 4px;
-    background: transparent url('images/example-sprites-4.gif') no-repeat 50% 50%;
+    background: transparent url('images/example-sprites-3.gif') no-repeat 50% 50%;
     background-size: cover;
 }
 .project-description__container-text {
