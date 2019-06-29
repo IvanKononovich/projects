@@ -14,6 +14,7 @@
 @import 'screens/instruments/move/index.css';
 @import 'screens/instruments/lighten/index.css';
 @import 'screens/instruments/dithering/index.css';
+@import 'screens/instruments/mirror-pen/index.css';
 @import 'screens/frame/index.css';
 @import 'screens/layer/index.css';
 @import 'screens/preview/index.css';

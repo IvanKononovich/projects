@@ -12,6 +12,7 @@ import ResizeTool from './screens/resize-tool/index';
 import ColorPallete from './screens/color-palette/index';
 
 import Pen from './screens/instruments/pen/index';
+import MirrorPen from './screens/instruments/mirror-pen/index';
 import Stroke from './screens/instruments/stroke/index';
 import Rectangle from './screens/instruments/rectangle/index';
 import Move from './screens/instruments/move/index';
@@ -60,6 +61,20 @@ if (canvas) {
     name: 'Pen',
   });
   window.listTools.push(toolPen);
+
+  const toolMirrorPen = new MirrorPen(
+    'instrument-item__img_mirror-pen',
+    mainCanvas,
+    colorPallete,
+    resizeTool,
+    toolPen,
+  );
+  listComponents.push({
+    component: toolMirrorPen,
+    name: 'MirrorPen',
+  });
+  window.listTools.push(toolPen);
+
 
   const toolStroke = new Stroke(
     'instrument-item__img_stroke',
