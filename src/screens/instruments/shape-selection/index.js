@@ -47,7 +47,6 @@ export default class ShapeSelection extends BasicTool {
     }
 
     if (this.typeEvent === 'mousemove') {
-      if (sector.color === this.mainCanvas.defaultColor) return;
       if (!this.startingPoint) return;
 
       this.endPoint = item;
