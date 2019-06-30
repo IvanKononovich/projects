@@ -14,6 +14,9 @@ export default class ExportFile {
     this.gifHeight = null;
     this.gifName = null;
 
+    this.replacementColor = '#000000';
+    this.replaceableColor = 'transparent';
+
     this.exportInteraction = this.exportInteraction.bind(this);
     this.changeValueInputs = this.changeValueInputs.bind(this);
 
@@ -71,10 +74,36 @@ export default class ExportFile {
     this.listPicturesFrames = [];
 
     this.mainCanvas.listFrames.forEach((frame) => {
+      frame.changeActiveState();
+
+      const copyListSectors = JSON.parse(JSON.stringify(
+        frame.listSectors,
+      ));
+
+      this.removeTransparentPixels(frame.listSectors);
+      this.mainCanvas.listSectors = frame.listSectors;
+      frame.changeActiveState();
+
       let img = getComputedStyle(frame.frameCanvas).backgroundImage.replace(/url\("/gi, '');
       img = img.replace(/"\)$/gi, '');
 
+      this.mainCanvas.listSectors = copyListSectors;
+      this.mainCanvas.drawingAllElements();
+
       this.listPicturesFrames.push(img);
+    });
+  }
+
+  removeTransparentPixels(list) {
+    list.forEach((row) => {
+      row.forEach((item) => {
+        const sector = item;
+
+        if (sector.color === this.replaceableColor) {
+          sector.color = this.replacementColor;
+          sector.temporary = true;
+        }
+      });
     });
   }
 

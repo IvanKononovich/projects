@@ -183,7 +183,15 @@ export default class Frame {
     this.mainCanvas.frameSequenceRecalculation();
     this.mainCanvas.findActiveFrame();
 
-    this.framesContainer.scrollTop = this.framesContainer.scrollHeight;
+    this.scrollToFrame();
+  }
+
+  scrollToFrame() {
+    const frameContainer = this.frameCanvas.parentNode;
+    const margin = parseInt(getComputedStyle(frameContainer).marginTop, 10);
+    const heightCanvas = frameContainer.offsetHeight + margin;
+
+    this.framesContainer.scrollTop += heightCanvas;
   }
 
   changeActiveState() {
