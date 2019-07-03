@@ -1,7 +1,6 @@
 export default class ResizeCanvas {
-  constructor(mainCanvas, LoadingSavedData, layer) {
+  constructor(mainCanvas, LoadingSavedData) {
     this.mainCanvas = mainCanvas;
-    this.layer = layer;
     this.resizeButton = document.querySelector('.resize-canvas');
     this.resizeContent = this.resizeButton.querySelector('.resize-canvas__content');
 
@@ -43,7 +42,7 @@ export default class ResizeCanvas {
     this.resizeContent.classList.toggle('resize-canvas__content_open');
   }
 
-  modifyFrame(itemFrame, removeLayers) {
+  modifyFrame(itemFrame) {
     const frame = itemFrame;
 
     this.mainCanvas.listSectors.forEach((row, indexRow) => {
@@ -67,21 +66,9 @@ export default class ResizeCanvas {
     const copySectors = JSON.parse(JSON.stringify(this.mainCanvas.listSectors));
 
     frame.listSectors = copySectors;
-
-    if (removeLayers) {
-      this.layer.layerContainer.innerHTML = '';
-      this.layer.listLayers = [];
-      frame.quantityLayer = 0;
-    }
-
-    if (!frame.quantityLayer) return;
-
-    this.layer.changeActiveFrame();
-    frame.activeLayer = frame.quantityLayer - 1;
-    this.layer.changeActiveLayer(frame.activeLayer);
   }
 
-  changeSizeCanvas(removeLayers = false) {
+  changeSizeCanvas() {
     this.mainCanvas.listFrames.forEach((item) => {
       this.mainCanvas.quantitySectorsX = this.inputSizeX.value;
       this.mainCanvas.quantitySectorsY = this.inputSizeY.value;
@@ -90,7 +77,7 @@ export default class ResizeCanvas {
 
       const frame = item;
 
-      this.modifyFrame(frame, removeLayers);
+      this.modifyFrame(frame);
 
       frame.savingStateSectors();
     });

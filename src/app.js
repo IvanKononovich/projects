@@ -6,7 +6,6 @@ import Frame from './screens/frame/index';
 import LoadingSavedData from './components/loading-saved-data';
 import ResizeCanvas from './screens/resize-canvas/index';
 import Preview from './screens/preview/index';
-import Layer from './screens/layer/index';
 
 import ResizeTool from './screens/resize-tool/index';
 import ColorPallete from './screens/color-palette/index';
@@ -41,8 +40,7 @@ if (canvas) {
   });
 
   const preview = new Preview(mainCanvas);
-  const layer = new Layer(mainCanvas);
-  const resizeCanvas = new ResizeCanvas(mainCanvas, LoadingSavedData, layer);
+  const resizeCanvas = new ResizeCanvas(mainCanvas, LoadingSavedData);
 
   const colorPallete = new ColorPallete();
   const resizeTool = new ResizeTool();

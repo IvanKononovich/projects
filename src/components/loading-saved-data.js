@@ -24,7 +24,6 @@ export default class LoadingSavedData {
 
       const data = {
         listSectors: frame.listSectors,
-        quantityLayer: frame.quantityLayer,
       };
 
       result.push(JSON.stringify(data));
@@ -65,16 +64,11 @@ export default class LoadingSavedData {
     listFrames.forEach((item, index) => {
       const data = JSON.parse(item);
       const { listSectors } = data;
-      const { quantityLayer } = data;
 
       this.mainCanvas.createFrame(false, false);
 
       const frame = this.mainCanvas.listFrames[index];
-
       frame.listSectors = JSON.parse(JSON.stringify(listSectors));
-
-      frame.quantityLayer = quantityLayer;
-
       frame.changeActiveState();
     });
 

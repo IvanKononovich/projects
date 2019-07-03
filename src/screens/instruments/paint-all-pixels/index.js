@@ -15,8 +15,6 @@ export default class PaintAllPixels extends BasicTool {
       });
     });
 
-    this.mainCanvas.defaultColor = color;
-
     this.mainCanvas.drawingAllElements();
   }
 }

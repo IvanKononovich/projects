@@ -18,11 +18,11 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-      { 
-        enforce: 'pre',
-        test: /\.js$/, 
-        loader: 'eslint-loader',
-      },
+      // { 
+      //   enforce: 'pre',
+      //   test: /\.js$/, 
+      //   loader: 'eslint-loader',
+      // },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
@@ -80,7 +80,6 @@ module.exports = {
             mirrorPen: extractHtml('src/screens/instruments/mirror-pen/index.html'), 
             shapeSelection: extractHtml('src/screens/instruments/shape-selection/index.html'), 
           },
-          layer: extractHtml('src/screens/layer/index.html'),
           resizeCanvas: extractHtml('src/screens/resize-canvas/index.html'),
           resizeTool: extractHtml('src/screens/resize-tool/index.html'),
           colorPalette: extractHtml('src/screens/color-palette/index.html'),
